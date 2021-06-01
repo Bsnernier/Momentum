@@ -1,0 +1,5 @@
+PORT=8080
+DB_USERNAME=momentum_app_user
+DB_PASSWORD=
+DB_DATABASE=momentum_app_database
+DB_HOST=localhost
