@@ -1,9 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-const csrf = require('csurf');
-const _csrf = csrf({ cookie: true });
-const cookieParser = require('cookie-parser');
+const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('./utils');
 const logger = require('morgan');
 const { sequelize } = require('./db/models');
 const session = require('express-session');
@@ -38,13 +36,16 @@ app.use(
 // create Session table if it doesn't already exist
 store.sync();
 
-app.get('/login', );
-app.get('/signup', );
+// app.get('/signup', );
 
-app.use('/api', apiRouter)
-app.use('/', indexRouter);
+
+
+// app.get('/login', );
+
+// app.use('/api', apiRouter)
+// app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/stories', storiesRouter);
+// app.use('/stories', storiesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
