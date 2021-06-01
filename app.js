@@ -41,6 +41,7 @@ store.sync();
 app.get('/login', );
 app.get('/signup', );
 
+app.use('/api', apiRouter)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/stories', storiesRouter);
