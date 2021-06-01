@@ -1,7 +1,8 @@
+const express = require('express')
+const router = express.Router()
 
+const commentsRouter = require('../routes/comments');
+const likesRouter = require('../routes/likes');
 
-const commentsRouter = require('./routes/comments');
-const likesRouter = require('./routes/likes');
-
-app.use('/comments', commentsRouter);
-app.use('/likes', likesRouter);
+// router.use('/comments', commentsRouter);
+// router.use('/likes', likesRouter);

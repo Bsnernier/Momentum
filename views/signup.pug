@@ -1,0 +1,17 @@
+extends layout.pug
+
+include utils.pug
+
+block content
+    h2 Sign Up
+    form
+        +formField('Username', 'username', 'text', 'Enter Username')
+        +formField('First Name', 'firstName', 'text', 'Enter Your First Name')
+        +formField('Last Name', 'lastName', 'text', 'Enter Your Last Name')
+        +formField('Email', 'emailAddress', 'email', 'Enter Your Email')
+        +formField('Password', 'password', 'password', 'Enter Your Password')
+        +formField('Confirm Password', 'confirmPassword', 'password', 'Confirm Your Password')
+        button(type='submit') Sign Up
+    a(href='/login') If you already have an account click here.
+    a(href='/login') Guest Demo
+    //- script(src='routes/apiRoutes/users.js')
