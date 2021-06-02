@@ -4,14 +4,23 @@ include utils.pug
 
 block content
     h2 Sign Up
-    form
+    form(action='/users/signup' method='post')
+        input(type='hidden' name='_csrf' value=csrfToken)
+        div
         +formField('Username', 'username', 'text', 'Enter Username')
+        div
         +formField('First Name', 'firstName', 'text', 'Enter Your First Name')
+        div
         +formField('Last Name', 'lastName', 'text', 'Enter Your Last Name')
-        +formField('Email', 'emailAddress', 'email', 'Enter Your Email')
+        div
+        +formField('Email', 'email', 'email', 'Enter Your Email')
+        div
         +formField('Password', 'password', 'password', 'Enter Your Password')
+        div
         +formField('Confirm Password', 'confirmPassword', 'password', 'Confirm Your Password')
+        div
         button(type='submit') Sign Up
     a(href='/login') If you already have an account click here.
+    div
     a(href='/login') Guest Demo
-    //- script(src='routes/apiRoutes/users.js')
+    //- script(src='../routes/users.js')
