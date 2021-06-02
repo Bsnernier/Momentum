@@ -10,14 +10,14 @@ module.exports = {
       },
       content: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(280)
       },
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {model: 'Users'}
       },
-      storiesId: {
+      storyId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {model: 'Stories'}

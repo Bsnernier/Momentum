@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {model: 'Users'}
       },
-      followersId: {
+      followerId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {model: 'Followers'}
