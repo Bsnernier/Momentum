@@ -26,11 +26,10 @@ router.get(
     "/",
     asyncHandler(async (req, res) => {
       const stories = await Story.findAll({
-        include: [{ model: User, attributes: ["username"] }],
-        order: [["createdAt", "DESC"]],
-        attributes: ["content", "image", "location", "userId"],
+        include: User,
+        order: [["createdAt", "DESC"]]
       });
-    //   console.log(stories);
+      console.log(stories);
       res.render("stories", { stories });
     })
   );
@@ -77,8 +76,9 @@ router.post(
     jsonParser,
     asyncHandler(async (req, res) => {
       const { content, image, location } = req.body;
-    //   console.log(req.prams.id);
-      const story = await Story.create({ category: "a", content, image, location, userId: 1 });
+      console.log(req.body);
+      const story = await Story.build({ content, image, location });
+      await story.save();
       console.log(story);
     })
 );
