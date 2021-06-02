@@ -1,0 +1,45 @@
+body {
+    padding: 120px;
+    background-color: #E8ECED;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight:bold;
+    color:#030303;
+}
+
+
+h1 {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+nav {
+margin-bottom: 20px;
+position: relative;
+}
+
+/* .tweets-container {
+margin-top: 20px;
+}
+
+.card {
+margin-bottom: 20px;
+} */
+
+input{
+    height: 20px;
+}
+
+.navbar-brand {
+    margin-right: 0;
+    font-size: 16px;
+}
+
+.fas.fa-search{
+    margin-left: 10px;
+}
