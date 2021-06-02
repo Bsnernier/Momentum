@@ -26,6 +26,7 @@ router.get('/signup', csrfProtection, asyncHandler( async (req, res) => {
   })
 }));
 
+
 const registerValidators = [
   check('username')
       .exists({ checkFalsy: true })
@@ -112,5 +113,54 @@ router.post('/signup', csrfProtection, registerValidators, asyncHandler( async (
     })
   }
 }));
+
+const loginValidators = [
+  check('emailAddress')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Email Address'),
+  check('password')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Password'),
+];
+
+router.get('/login', csrfProtection, asyncHandler(async (req, res) => {
+  res.render('login', {
+    title: 'Login',
+    csrfToken: req.csrfToken(),
+  });
+})
+);
+
+router.post('/login', csrfProtection, loginValidators,
+  asyncHandler(async (req, res) => {
+    const {
+      emailAddress,
+      password,
+    } = req.body;
+
+    let errors = [];
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+
+      const user = await db.User.findOne({ where: { emailAddress } });
+
+      if (user !== null) {
+        const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
+        if (passwordMatch) {
+          return res.redirect('/');
+        }
+    } else {
+      errors = validatorErrors.array().map((error) => error.msg);
+    }
+
+    res.render('user-login', {
+      title: 'Login',
+      emailAddress,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
+    }
+  }));
 
 module.exports = router;

@@ -1,0 +1,11 @@
+extends layout.pug
+
+include utils.pug
+
+block content
+    form(action='/users/login' method='post')
+        input(type='hidden' name='_csrf' value=csrfToken)
+        +formField('Email', 'emailAddress', 'email', 'Enter Your Email')
+        +formField('Password', 'password', 'password', 'Enter Your Password')
+        button(type='submit') Login
+        a(href='/') Cancel
