@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Story, {foreignKey: 'userId'}),
     User.hasMany(models.Like, {foreignKey: 'userId'}),
     User.hasMany(models.Comment, {foreignKey: 'userId'}),
-    User.hasMany(models.Follower, {foreignKey: 'userId'})
-    // User.belongsTo(models.Follower, {foreignKey: 'followerId'})
-    // User.hasOne(models.Follower, {foreignKey: 'followerId'})
+    User.belongsToMany(models.User, {through: models.Follower, as: 'followedUser', foreignKey: 'userId'}),
+    User.belongsToMany(models.User, {through: models.Follower, as: 'follower', foreignKey: 'followerId'})
+
   };
   return User;
 };

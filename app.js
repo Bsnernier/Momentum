@@ -12,6 +12,7 @@ const usersRouter = require('./routes/users');
 const storiesRouter = require('./routes/stories');
 const apiStoriesRouter = require('./routes/apiRoutes/stories')
 
+const apiRouter = require('./routes/apiRoutes');
 
 const app = express();
 
@@ -48,6 +49,7 @@ store.sync();
 // app.get('/login', );
 
 app.use('/api/stories', apiStoriesRouter)
+app.use('/api', apiRouter)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/stories', storiesRouter);
