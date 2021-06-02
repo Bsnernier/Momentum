@@ -9,6 +9,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const storiesRouter = require('./routes/stories');
+const apiRouter = require('./routes/apiRoutes');
 
 const app = express();
 
@@ -42,8 +43,8 @@ store.sync();
 
 // app.get('/login', );
 
-// app.use('/api', apiRouter)
-// app.use('/', indexRouter);
+app.use('/api', apiRouter)
+app.use('/', indexRouter);
 app.use('/users', usersRouter);
 // app.use('/stories', storiesRouter);
 
