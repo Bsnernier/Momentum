@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs')
 
 const storiesRouter = require('../routes/stories');
 const followersRouter = require('../routes/followers');
+const { loginUser, logoutUser } = require('../auth.js');
 
 // router.use('/stories', storiesRouter);
 // router.use('/followers', followersRouter);
@@ -19,15 +20,14 @@ router.get('/', asyncHandler( async(req, res, next) => {
   res.send(users[0].username)
 }));
 
-router.get('/signup', csrfProtection, asyncHandler( async (req, res) => {
-  const newUser = await User.build()
+router.get('/signup', csrfProtection, (req, res) => {
+  const newUser = User.build()
   res.render('signup', {
     title: 'New User',
     newUser,
     csrfToken: req.csrfToken()
   })
-}));
-
+});
 
 const registerValidators = [
   check('username')
@@ -103,6 +103,7 @@ router.post('/signup', csrfProtection, registerValidators, asyncHandler( async (
     const hashedPassword = await bcrypt.hash(password, 10);
     user.password = hashedPassword;
     await user.save();
+    loginUser(req,res,user)
     res.redirect('/')
   } else {
     const errors = validatorErrors.array().map((error) => error.msg)
@@ -146,18 +147,17 @@ router.post('/login', csrfProtection, loginValidators,
     if (validatorErrors.isEmpty()) {
 
       const user = await db.User.findOne({ where: { email } });
-      console.log(user)
-
       if (user !== null) {
-        const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
+        const passwordMatch = await bcrypt.compare(password, user.password.toString());
         if (passwordMatch) {
+          loginUser(req,res,user)
           return res.redirect('/');
         }
     } else {
       errors = validatorErrors.array().map((error) => error.msg);
     }
 
-    res.render('user-login', {
+    res.render('login', {
       title: 'Login',
       email,
       errors,
@@ -166,4 +166,9 @@ router.post('/login', csrfProtection, loginValidators,
     }
   }));
 
+
+router.post('/logout', (req, res) => {
+  logoutUser(req, res);
+  res.redirect('/users/login');
+});
 module.exports = router;

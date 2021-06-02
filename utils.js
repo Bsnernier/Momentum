@@ -1,9 +1,10 @@
 const {validationResult} = require ('express-validator');
 const csrf = require('csurf');
-const cookieParser = require('cookie-parser');
+
 const csrfProtection = csrf({ cookie: true });
 
 const asyncHandler = (handler) => (req,res,next) => handler(req, res, next).catch(next);
+
 const handleValidationErrors = (req, res, next) => {
     const validationErrors = validationResult(req);
 
@@ -19,6 +20,12 @@ const handleValidationErrors = (req, res, next) => {
     next();
 };
 
+const validationErrorsSummary = (errors) => {
+  errors.forEach(error => {
+    console.log(error)
+    //still have to create divs and show the errors here
+  })
+}
 
 
-module.exports = {asyncHandler, handleValidationErrors, cookieParser, csrfProtection};
+module.exports = {asyncHandler, handleValidationErrors, csrfProtection};
