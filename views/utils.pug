@@ -1,3 +1,4 @@
 mixin formField(title, forName, type, placeholder)
-    label(for=`${forName}`) #{title}
-    input(type=`${type}` name=`${forName}` placeholder=`${placeholder}`)
+    span.form-row
+        label.label-control(for=`${forName}`) #{title}
+        input.form-control(type=`${type}` name=`${forName}` placeholder=`${placeholder}`)

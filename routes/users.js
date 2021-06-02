@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('../utils');
 const db = require('../db/models');
 const { User } = db;
@@ -14,9 +14,11 @@ const { loginUser, logoutUser } = require('../auth.js');
 // router.use('/followers', followersRouter);
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/', asyncHandler( async(req, res, next) => {
+  const users = await User.findAll();
+
+  res.send(users[0].username)
+}));
 
 router.get('/signup', csrfProtection, (req, res) => {
   const newUser = User.build()
@@ -145,7 +147,6 @@ router.post('/login', csrfProtection, loginValidators,
     if (validatorErrors.isEmpty()) {
 
       const user = await db.User.findOne({ where: { email } });
-
       if (user !== null) {
         const passwordMatch = await bcrypt.compare(password, user.password.toString());
         if (passwordMatch) {
