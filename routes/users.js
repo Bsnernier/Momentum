@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('../utils');
 const db = require('../db/models');
 const { User } = db;
@@ -13,9 +13,11 @@ const followersRouter = require('../routes/followers');
 // router.use('/followers', followersRouter);
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/', asyncHandler( async(req, res, next) => {
+  const users = await User.findAll();
+
+  res.send(users[0].username)
+}));
 
 router.get('/signup', csrfProtection, asyncHandler( async (req, res) => {
   const newUser = await User.build()
@@ -115,7 +117,7 @@ router.post('/signup', csrfProtection, registerValidators, asyncHandler( async (
 }));
 
 const loginValidators = [
-  check('emailAddress')
+  check('email')
     .exists({ checkFalsy: true })
     .withMessage('Please provide a value for Email Address'),
   check('password')
@@ -134,7 +136,7 @@ router.get('/login', csrfProtection, asyncHandler(async (req, res) => {
 router.post('/login', csrfProtection, loginValidators,
   asyncHandler(async (req, res) => {
     const {
-      emailAddress,
+      email,
       password,
     } = req.body;
 
@@ -143,7 +145,8 @@ router.post('/login', csrfProtection, loginValidators,
 
     if (validatorErrors.isEmpty()) {
 
-      const user = await db.User.findOne({ where: { emailAddress } });
+      const user = await db.User.findOne({ where: { email } });
+      console.log(user)
 
       if (user !== null) {
         const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
@@ -156,7 +159,7 @@ router.post('/login', csrfProtection, loginValidators,
 
     res.render('user-login', {
       title: 'Login',
-      emailAddress,
+      email,
       errors,
       csrfToken: req.csrfToken(),
     });

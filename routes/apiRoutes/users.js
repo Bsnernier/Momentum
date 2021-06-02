@@ -1,15 +1,15 @@
-var express = require('express');
-var router = express.Router();
-const db = require('../../db/models');
-const { User } = db;
-const storiesRouter = require('./routes/stories');
-const followersRouter = require('./routes/followers');
-const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('../../utils');
+// var express = require('express');
+// var router = express.Router();
+// const db = require('../../db/models');
+// const { User } = db;
+// const storiesRouter = require('./routes/stories');
+// const followersRouter = require('./routes/followers');
+// const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('../../utils');
 // const { validationResult, check } = require('express-validator')
 // const bcrypt = require('bcryptjs')
 
-router.use('/stories', storiesRouter);
-router.use('/followers', followersRouter);
+// router.use('/stories', storiesRouter);
+// router.use('/followers', followersRouter);
 
 // const registerValidators = [
 //   check('username')
