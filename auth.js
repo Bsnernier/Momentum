@@ -1,56 +1,43 @@
-const jwt = require("jsonwebtoken");
-const { jwtConfig } = require("./config");
 const db = require('./db/models');
-const { User } = db;
-const bearerToken = require('express-bearer-token')
-const { secret, expiresIn } = jwtConfig;
 
-const getUserToken = (user) => {
-  // Don't store the user's hashed password
-  // in the token data.
-  const userDataForToken = {
-    id: user.id,
-    email: user.email,
+const loginUser = async (req, res, user) => {
+  req.session.auth = {
+    userId: user.id,
   };
-
-  // Create the token.
-  const token = jwt.sign(
-    { data: userDataForToken },
-    secret,
-    { expiresIn: parseInt(expiresIn, 10) } // 604,800 seconds = 1 week
-  );
-
-  return token;
 };
 
-const restoreUser = (req, res, next) => {
-  const { token } = req;
-
-  if (!token) {
-    return res.set("WWW-Authenticate", "Bearer").status(401).end();
-  }
-
-  return jwt.verify(token, secret, null, async (err, jwtPayload) => {
-    if (err) {
-      err.status = 401;
-      return next(err);
-    }
-
-    const { id } = jwtPayload.data;
+const restoreUser = async (req, res, next) => {
+  console.log(req.session)
+  if (req.session.auth) {
+    const { userId } = req.session.auth;
 
     try {
-      req.user = await User.findByPk(id);
-    } catch (e) {
-      return next(e);
-    }
+      const user = await db.User.findByPk(userId);
 
-    if (!req.user) {
-      return res.set("WWW-Authenticate", "Bearer").status(401).end();
+      if (user) {
+        res.locals.authenticated = true;
+        res.locals.user = user;
+        next();
+      }
+    } catch (err) {
+      res.locals.authenticated = false;
+      next(err);
     }
-
-    return next();
-  });
+  } else {
+    res.locals.authenticated = false;
+    next();
+  }
 };
 
-const requireAuth = [bearerToken(), restoreUser];
-module.exports = { getUserToken, requireAuth };
+const logoutUser = async (req, res) => {
+  delete req.session.auth;
+};
+
+const requireAuth = (req, res, next) => {
+  if (!res.locals.authenticated) {
+    return res.redirect('/users/login')
+  }
+  return next()
+}
+
+module.exports = { requireAuth, loginUser, restoreUser, logoutUser };

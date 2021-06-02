@@ -2,7 +2,13 @@ doctype html
 html
   head
       block head
-        title="Express Starter App"
-        link(rel='stylesheet' href='/stylesheets/reset.css')
+        if locals.authenticated
+          span Welcome #{user.firstName}!
+          form(action='/users/logout' method='post')
+            button(type='submit') Logout
+        else
+          span
+            a(href='/users/login') Login
+            a(href='/users/signup') Sign Up
   body
     block content
