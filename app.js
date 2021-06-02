@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const bodyParser = require('body-parser')
 const path = require('path');
 const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('./utils');
 const logger = require('morgan');
@@ -9,8 +10,12 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const storiesRouter = require('./routes/stories');
+const apiStoriesRouter = require('./routes/apiRoutes/stories')
+
 
 const app = express();
+
+
 
 // view engine setup
 app.set('view engine', 'pug');
@@ -42,10 +47,11 @@ store.sync();
 
 // app.get('/login', );
 
-// app.use('/api', apiRouter)
+app.use('/api/stories', apiStoriesRouter)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/stories', storiesRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

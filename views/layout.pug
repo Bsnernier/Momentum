@@ -13,7 +13,7 @@ html
       a.navbar-brand(href='/') LOG IN
       h1 MOMENTUM
       div
-        input(type="text")
+        input#search-input(type='text' name='search-input')
         i(class= 'fas fa-search')
     nav.navbar.navbar-light
       a.navbar-brand(href='/') HOME
@@ -21,4 +21,5 @@ html
       a.navbar-brand(href='/post/new') POST
       a.navbar-brand(href='/') FOLLOWING
       a.navbar-brand(href='/') RANDOMIZER
+    .errors-container
     block content

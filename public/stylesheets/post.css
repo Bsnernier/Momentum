@@ -13,12 +13,13 @@ label{
     padding-bottom: 50px;
 }
 
-#pictureUrl.form-control{
+#pictureUrl.form-control, #placeName.form-control, #stories.form-control{
     margin-left: 60px;
     border-radius: 10px;
 }
 
-.stories-textarea#pictureUrl.form-control{
+
+.stories-textarea#stories.form-control{
     margin-left: 120px;
 }
 

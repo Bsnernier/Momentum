@@ -4,20 +4,20 @@ append head
     //- add page specific styles by appending to the head
     link(rel="stylesheet" href="/stylesheets/post.css")
     //- add page specific js
-    script(src="/javascripts/index.js" type="module" defer)
+    script(src="/javascripts/post.js" type="module" defer)
 
 block content
     .errors-container
-        form(class="create-form")
+        form(method="post" action=`/api/stories` class="create-form")
             .form-group
                 .input-group
-                    label(for='pictureUrl') PICTURE URL
-                    input#pictureUrl.form-control(type='text', name="pictureUrl", placeholder='')
+                    label(for='image') PICTURE URL
+                    input#pictureUrl.form-control(type='text', name="image", placeholder='')
                 .input-group
-                    label(for='pictureUrl') PLACE NAME
-                    input#pictureUrl.form-control(type='text', name="pictureUrl", placeholder='')
+                    label(for='location') PLACE NAME
+                    input#placeName.form-control(type='text', name="location", placeholder='')
                 .input-group
-                    label(for='pictureUrl') STORIES
-                    textarea.stories-textarea#pictureUrl.form-control(name="pictureUrl", cols="30", rows="10", placeholder='')
+                    label(for='content') STORIES
+                    textarea.stories-textarea#stories.form-control(name="content", cols="30", rows="10", placeholder='')
                 .submit-button
                     button.btn.btn-primary(type='submit') SUBMIT
