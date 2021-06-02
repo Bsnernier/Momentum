@@ -1,6 +1,6 @@
 .form-group{
     margin: 80px auto;
-    max-width: 911px;
+    max-width: 800px;
     max-height: 373px;
 }
 label{
@@ -20,6 +20,7 @@ label{
     background-color:#f08080;
     border: none;
     margin: 10px;
+    margin-top: 20px;
 }
 .form-control{
     width: 500px;
@@ -33,11 +34,11 @@ label{
 }
 .label-control{
     margin-left: 70px;
+    padding-right: 10px;
 }
 .button-group{
     display: flex;
-    align-items: center;
-    margin-left: 30px
+    justify-content: center;
 }
 .header-2{
     position: absolute;
@@ -48,9 +49,4 @@ label{
     text-align: center;
     font-weight: bold;
     z-index:-1000;
-}
-.login-group{
-    display: flex;
-    flex-direction: column;
-    margin-right: 200px;
 }
