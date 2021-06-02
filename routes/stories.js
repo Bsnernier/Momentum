@@ -3,6 +3,7 @@ const router = express.Router();
 const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('../utils');
 const db = require('../db/models');
 const { User, Comment } = db;
+const { requireAuth } = require('auth.js')
 
 const commentsRouter = require('../routes/comments');
 const likesRouter = require('../routes/likes');
@@ -16,7 +17,7 @@ const likesRouter = require('../routes/likes');
 
 
 //--------------------GET User's Stories Profile-------------------------------
-router.get('/:id/users/:id', asyncHandler( async (req, res) => {
+router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId);
 
