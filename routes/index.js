@@ -6,4 +6,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'a/A Express Skeleton Home' });
 });
 
+router.get('/post/new',function(req, res, next) {
+  res.render('post');
+});
+
+
 module.exports = router;

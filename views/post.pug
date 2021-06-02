@@ -1,4 +1,23 @@
 extends layout.pug
 
+append head
+    //- add page specific styles by appending to the head
+    link(rel="stylesheet" href="/stylesheets/post.css")
+    //- add page specific js
+    script(src="/javascripts/index.js" type="module" defer)
+
 block content
-    
+    .errors-container
+        form(class="create-form")
+            .form-group
+                .input-group
+                    label(for='pictureUrl') PICTURE URL
+                    input#pictureUrl.form-control(type='text', name="pictureUrl", placeholder='')
+                .input-group
+                    label(for='pictureUrl') PLACE NAME
+                    input#pictureUrl.form-control(type='text', name="pictureUrl", placeholder='')
+                .input-group
+                    label(for='pictureUrl') STORIES
+                    textarea.stories-textarea#pictureUrl.form-control(name="pictureUrl", cols="30", rows="10", placeholder='')
+                .submit-button
+                    button.btn.btn-primary(type='submit') SUBMIT

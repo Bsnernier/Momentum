@@ -43,7 +43,7 @@ store.sync();
 // app.get('/login', );
 
 // app.use('/api', apiRouter)
-// app.use('/', indexRouter);
+app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/stories', storiesRouter);
 
