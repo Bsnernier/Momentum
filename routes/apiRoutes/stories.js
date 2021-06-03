@@ -29,8 +29,10 @@ router.get(
         include: User,
         order: [["createdAt", "DESC"]]
       });
-      console.log(stories);
-      res.render("stories", { stories });
+    //   console.log(stories);
+    //   res.render("stories", { stories });
+      res.json({stories})
+    //   res.redirect("/")
     })
   );
 
@@ -77,9 +79,16 @@ router.post(
     asyncHandler(async (req, res) => {
       const { content, image, location } = req.body;
       console.log(req.body);
-      const story = await Story.build({ content, image, location });
-      await story.save();
-      console.log(story);
+      try{
+        // const user = await User.create({ username: "XXX", firstName: "Jia", lastName:"X", email:"xyz@gmail.com", password:"dxaid#!"})
+        const story = await Story.create({ category: "a", content, image, location, userId: 1 });
+        res.json({user, story})
+      }catch(e){
+        console.log(e);
+      }
+
+
+    //   console.log(story);
     })
 );
 

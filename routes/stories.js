@@ -14,6 +14,13 @@ router.get("/", asyncHandler(async(req, res)=>{
     res.render("stories")
 }))
 
+// router.get('/', csrfProtection, validators, asyncHandler(async(req, res)=>{
+//     const allPost = await Story.findByPk(30, {include: User});
 
+//     const {username, image, content} = allPost
+
+//     console.log(username);
+//     res.render("stories", {username, image, content})
+// }))
 
 module.exports = router;

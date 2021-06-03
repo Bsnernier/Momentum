@@ -10,5 +10,4 @@ router.get('/post/new',function(req, res, next) {
   res.render('post');
 });
 
-
 module.exports = router;
