@@ -9,11 +9,25 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   User.associate = function(models) {
     // associations can be defined here
+    const columnMappingOne = { // User -> User, through Follow as follower
+      through: 'Follow',
+      otherKey: 'userId',
+      foreignKey: 'followerId',
+      as: 'users'
+    }
+    const columnMappingTwo = { // User -> User, through Follow as following
+      through: 'Follow',
+      otherKey: 'followerId',
+      foreignKey: 'userId',
+      as: 'followers'
+    }
+
     User.hasMany(models.Story, {foreignKey: 'userId'}),
     User.hasMany(models.Like, {foreignKey: 'userId'}),
     User.hasMany(models.Comment, {foreignKey: 'userId'}),
-    User.belongsToMany(models.User, {through: models.Follower, as: 'followedUser', foreignKey: 'userId'}),
-    User.belongsToMany(models.User, {through: models.Follower, as: 'follower', foreignKey: 'followerId'})
+    User.belongsToMany(models.User, columnMappingOne);
+    User.belongsToMany(models.User, columnMappingTwo);
+
   };
   return User;
 };

@@ -1,22 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('../utils');
+const {asyncHandler, handleValidationErrors, csrfProtection} = require('../utils');
 const db = require('../db/models');
 const { User } = db;
 const { validationResult, check } = require('express-validator')
 const bcrypt = require('bcryptjs')
 
 const storiesRouter = require('../routes/stories');
-const followersRouter = require('../routes/followers');
-const { loginUser, logoutUser } = require('../auth');
+const followersRouter = require('./routes/followers.js');
+const { loginUser, logoutUser, requireAuth } = require('../auth');
 
-// router.use('/stories', storiesRouter);
-// router.use('/followers', followersRouter);
+
+router.use('/followers/', followersRouter)
 
 /* GET users listing. */
+
+// what is this???
 router.get('/', asyncHandler( async(req, res, next) => {
   const users = await User.findAll();
-
   res.send(users[0].username)
 }));
 
@@ -169,5 +170,9 @@ router.post('/logout', (req, res) => {
   logoutUser(req, res);
   res.redirect('/users/login');
 });
+
+router.get('/:id', requireAuth, asyncHandler( async (req, res) => {
+  //pathway to show us the personal page of the user? 
+}))
 
 module.exports = router;
