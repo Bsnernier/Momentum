@@ -14,6 +14,7 @@ const usersRouter = require('./routes/users');
 const storiesRouter = require('./routes/stories');
 const apiStoriesRouter = require('./routes/apiRoutes/stories')
 const postsRouter = require('./routes/posts');
+// const personalRouter = require('../routes/personal');
 
 const apiRouter = require('./routes/apiRoutes');
 
@@ -41,18 +42,19 @@ app.use(
     saveUninitialized: false,
     resave: false,
   })
-);
+  );
 
-app.use(restoreUser)
-// create Session table if it doesn't already exist
-store.sync();
+  app.use(restoreUser)
+  // create Session table if it doesn't already exist
+  store.sync();
 
-app.use('/api/stories', apiStoriesRouter)
+  app.use('/api/stories', apiStoriesRouter)
 
-app.use('/api', apiRouter)
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/stories', storiesRouter);
+  app.use('/api', apiRouter)
+  app.use('/', indexRouter);
+  // app.use('/users/:id/', personalRouter);
+  app.use('/users', usersRouter);
+  app.use('/stories', storiesRouter);
 // app.use('/post', postsRouter)
 
 // catch 404 and forward to error handler

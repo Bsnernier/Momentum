@@ -10,9 +10,7 @@ const {asyncHandler, handleValidationErrors, csrfProtection} = require('../utils
 
 router.get('/followers/', requireAuth, asyncHandler( async (req, res) => {
     // query to get all the user's followers
-    const { userId } = req.body.user.id;
-
-
+    const userId = res.locals.user.id;
 
     const allFollowers = await User.findByPk(userId, {
         include: [{
@@ -27,36 +25,39 @@ router.get('/followers/', requireAuth, asyncHandler( async (req, res) => {
             as: 'users'
         }]
     })
+    console.log(allFollowers)
+    console.log(allPeopleFollowed)
+    // const mutualFollower = (user, follower) => {
 
-    const mutualFollower = (user, follower) => {
-
-        const userId = user.id
-        const followerId = follower.userId
-        //grab the followerId here in a query, and check if they are, return true
+    //     const userId = user.id
+    //     const followerId = follower.userId
+    //     //grab the followerId here in a query, and check if they are mutual, return true
 
 
 
 
-        return false
-    }
+    //     return false
+    // }
 
-    allFollowers.forEach(follower => {
-        if (mutualFollower(user, follower)) {
-            //1st button is go to user page
-            //query or fetch to go to user/:id based on follower
-            //2nd button is unfollow
-        } else {
-            //buttons are go to user page
-            //query or fetch to go to user/:id based on follower
+    // allFollowers.forEach(follower => {
+    //     if (mutualFollower(user, follower)) {
+    //         //1st button is go to user page
+    //         //query or fetch to go to user/:id based on follower
+    //         //2nd button is unfollow
 
-        }
-    })
-    /*  checker to see if following state,
-        if following,
-            buttons are unfollow, and go to user page
-        if not follow
-            buttons are follow back, and go to user page
-    */
+                //update each follower to have a key of mutual or not!!!!
+    //     } else {
+    //         //buttons are go to user page
+    //         //query or fetch to go to user/:id based on follower
 
-    res.render('followers', { allFollowers })
+    //     }
+    // })
+    // /*  checker to see if following state,
+    //     if following,
+    //         buttons are unfollow, and go to user page
+    //     if not follow
+    //         buttons are follow back, and go to user page
+    // */
+
+    res.render('followers', { allFollowers, allPeopleFollowed })
 }))

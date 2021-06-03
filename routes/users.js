@@ -7,11 +7,10 @@ const { validationResult, check } = require('express-validator')
 const bcrypt = require('bcryptjs')
 
 const storiesRouter = require('../routes/stories');
-const personalRouter = require('../routes/personal');
-const { loginUser, logoutUser } = require('../auth');
+const { loginUser, logoutUser, requireAuth } = require('../auth');
 
 // router.use('/stories', storiesRouter);
-// router.use('/users/:id/', personalRouter);
+
 
 
 /* GET users listing. */
