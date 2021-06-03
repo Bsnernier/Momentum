@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const db = require("../db/models")
+const {Story, User} = db
 
 const commentsRouter = require('../routes/comments');
 const likesRouter = require('../routes/likes');
@@ -11,7 +13,8 @@ const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = req
 // router.use('/api/stories', apiStoriesRouter);
 
 router.get("/", asyncHandler(async(req, res)=>{
-    res.render("stories")
+    const allStories = await Story.findAll({include: User});
+    res.render("stories", {allStories})
 }))
 
 // router.get('/', csrfProtection, validators, asyncHandler(async(req, res)=>{

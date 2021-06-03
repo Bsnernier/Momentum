@@ -5,10 +5,7 @@
     grid-template-areas:
             "userColumn . storyBoard";
 }
-.container{
-    display:flex;
-    flex-direction: column;
-}
+
 .user-column{
     display:flex;
     flex-direction: column;
