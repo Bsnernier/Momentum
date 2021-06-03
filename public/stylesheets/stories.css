@@ -1,0 +1,154 @@
+.story{
+    margin: 80px 0;
+    display:grid;
+    grid-template-columns:85px 0.5fr 5fr;
+    grid-template-areas:
+            "userColumn . storyBoard";
+}
+
+.user-column{
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    grid-area: userColumn;
+    align-items: center;
+}
+
+.story-board{
+    border: 1px solid #707070;
+    grid-area: storyBoard;
+    display:grid;
+    grid-template-rows:394px 350px;
+    grid-template-areas:
+            "picture"
+            "content";
+}
+
+.story-picture{
+    border: 1px solid #707070;
+    grid-area: picture;
+}
+
+.content{
+    padding:50px;
+    border: 1px solid #707070;
+    grid-area: content;
+    overflow-y:scroll;
+}
+
+.user-picture{
+    height: 85px;
+    width: 85px;
+    border: 1px solid #707070;
+    border-radius: 50%;
+    position: relative;
+}
+
+#user-picture{
+    height: 85px;
+    width: 85px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name{
+    padding-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Helvetica, Arial,  sans-serif;
+    color: #706f70;
+
+}
+
+.fas.fa-heart{
+    padding-top: 25px;
+    font-size: 54px;
+    color: #f08080;
+}
+
+.follow-state{
+    padding-top: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Helvetica, Arial,  sans-serif;
+    color: #f08080;
+
+}
+
+.likes-counter{
+    padding-top: 50px;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: Helvetica, Arial,  sans-serif;
+    color:#030303;
+}
+
+#story-picture{
+    object-fit:fill;
+    width:100%;
+    height:100%;
+    opacity:84%;
+
+}
+
+.far.fa-comment{
+    padding-top: 50px;
+    font-size: 50px;
+    color: #030303;
+}
+
+.comment-user{
+    padding-top: 10px;
+    display: flex;
+    justify-items: center;
+}
+
+#comment-user-picture{
+    height: 47px;
+    width: 47px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #707070;
+}
+
+#comment-user-name{
+    margin-left: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #706f70;
+}
+
+.story-title{
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Helvetica, Arial,sans-serif;
+    color: #32a3d2;
+}
+
+.story-content{
+    padding-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Helvetica, Arial,sans-serif;
+    color: #706f70;
+}
+
+.comment-title{
+    padding-top: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Helvetica, Arial,sans-serif;
+    color: #32a3d2;
+}
+
+.comment-content{
+    padding-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Helvetica, Arial,sans-serif;
+    color: #706f70;
+}

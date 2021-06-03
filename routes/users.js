@@ -117,6 +117,7 @@ router.post('/signup', csrfProtection, registerValidators, asyncHandler( async (
   }
 }));
 
+
 const loginValidators = [
   check('email')
     .exists({ checkFalsy: true })
@@ -145,7 +146,6 @@ router.post('/login', csrfProtection, loginValidators,
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
-
       const user = await db.User.findOne({ where: { email } });
       if (user !== null) {
         const passwordMatch = await bcrypt.compare(password, user.password.toString());
@@ -156,7 +156,6 @@ router.post('/login', csrfProtection, loginValidators,
     } else {
       errors = validatorErrors.array().map((error) => error.msg);
     }
-
     res.render('login', {
       title: 'Login',
       email,
@@ -166,9 +165,9 @@ router.post('/login', csrfProtection, loginValidators,
     }
   }));
 
-
 router.post('/logout', (req, res) => {
   logoutUser(req, res);
   res.redirect('/users/login');
 });
+
 module.exports = router;

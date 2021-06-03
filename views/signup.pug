@@ -12,7 +12,6 @@ block content
     h2.header-2 Sign Up
     form.form-group(action='/users/signup' method='post')
         input(type='hidden' name='_csrf' value=csrfToken)
-
         +formField('Username', 'username', 'text', 'Enter Username')
         +formField('First Name', 'firstName', 'text', 'Enter Your First Name')
         +formField('Last Name', 'lastName', 'text', 'Enter Your Last Name')

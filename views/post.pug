@@ -1,0 +1,25 @@
+extends layout.pug
+
+append head
+    //- add page specific styles by appending to the head
+    link(rel="stylesheet" href="/stylesheets/post.css")
+    //- add page specific js
+
+
+block content
+    .errors-container
+        form(method="post" action=`/post/new` class="create-form")
+            .form-group
+                .input-group
+                    label(for='image') PICTURE URL
+                    input#pictureUrl.form-control(type='text', name="image", placeholder='')
+                .input-group
+                    label(for='location') PLACE NAME
+                    input#placeName.form-control(type='text', name="location", placeholder='')
+                .input-group
+                    label(for='content') STORIES
+                    textarea.stories-textarea#stories.form-control(name="content", cols="30", rows="10", placeholder='')
+                .submit-button
+                    button.btn.btn-primary(type='submit') SUBMIT
+
+    script(src="/javascripts/post.js" type="module" defer)
