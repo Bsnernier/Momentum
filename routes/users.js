@@ -7,11 +7,11 @@ const { validationResult, check } = require('express-validator')
 const bcrypt = require('bcryptjs')
 
 const storiesRouter = require('../routes/stories');
-const followersRouter = require('./routes/followers.js');
+const personalRouter = require('../routes/personal.js');
 const { loginUser, logoutUser, requireAuth } = require('../auth');
 
 
-router.use('/followers/', followersRouter)
+router.use('/followers/', storiesRouter) //followers and their profile page
 
 /* GET users listing. */
 
@@ -172,7 +172,7 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/:id', requireAuth, asyncHandler( async (req, res) => {
-  //pathway to show us the personal page of the user? 
+  //pathway to show us the personal page of the user?
 }))
 
 module.exports = router;

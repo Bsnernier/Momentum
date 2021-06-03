@@ -6,7 +6,7 @@ append head
     link(rel="stylesheet" href="/stylesheets/login.css")
 
 block content
-    +errorDisplay(errors)
+    //- +errorDisplay(errors)
     h2.header-2 Log In
     form.form-group(action='/users/login' method='post')
         input(type='hidden' name='_csrf' value=csrfToken)

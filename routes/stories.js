@@ -40,7 +40,7 @@ router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
 }))
 
 //-------------------PUT Update User's Story-----------------------------------
-router.put('/:id/users/:id', asyncHandler( async (req, res) => {
+router.put('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId);
 
@@ -51,7 +51,7 @@ router.put('/:id/users/:id', asyncHandler( async (req, res) => {
 }))
 
 //-------------------PUT Update User's Comments------------------------------
-router.put('/:id/users/:id/comments/:id', asyncHandler( async (req, res) => {
+router.put('/:id/users/:id/comments/:id', requireAuth, asyncHandler( async (req, res) => {
     const commentId = parseInt(req.params.id, 10); //IDK if this will work or how to fix
                                                    //if it doesn't
     const currentComment = await Comment.findByPk(commentId);
@@ -64,7 +64,7 @@ router.put('/:id/users/:id/comments/:id', asyncHandler( async (req, res) => {
 }))
 
 //-------------------DELETE User's Profile----------------------------------
-router.delete('/:id/users/:id', asyncHandler( async (req, res) => {
+router.delete('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId);
 

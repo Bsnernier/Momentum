@@ -10,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     // associations can be defined here
     const columnMappingOne = { // User -> User, through Follow as follower
-      through: 'Follow',
+      through: 'Follower',
       otherKey: 'userId',
       foreignKey: 'followerId',
       as: 'users'
     }
     const columnMappingTwo = { // User -> User, through Follow as following
-      through: 'Follow',
+      through: 'Follower',
       otherKey: 'followerId',
       foreignKey: 'userId',
       as: 'followers'
