@@ -2,11 +2,13 @@ const createError = require('http-errors');
 const express = require('express');
 const bodyParser = require('body-parser')
 const path = require('path');
-const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('./utils');
+const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { sequelize } = require('./db/models');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+const {asyncHandler, handleValidationErrors, csrfProtection} = require('./utils');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const storiesRouter = require('./routes/stories');
@@ -15,6 +17,8 @@ const postsRouter = require('./routes/posts');
 
 const apiRouter = require('./routes/apiRoutes');
 
+const { restoreUser } = require('./auth')
+const { environment, sessionSecret } = require('./config');
 const app = express();
 
 
@@ -25,37 +29,31 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser(sessionSecret));
 app.use(express.static(path.join(__dirname, 'public')));
-
 // set up session middleware
 const store = new SequelizeStore({ db: sequelize });
 
 app.use(
   session({
-    secret: 'superSecret',
+    secret: sessionSecret,
     store,
     saveUninitialized: false,
     resave: false,
   })
 );
 
+app.use(restoreUser)
 // create Session table if it doesn't already exist
 store.sync();
 
-// app.get('/signup', );
-
-
-
-// app.get('/login', );
-
 app.use('/api/stories', apiStoriesRouter)
+
 app.use('/api', apiRouter)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/stories', storiesRouter);
 // app.use('/post', postsRouter)
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

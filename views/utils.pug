@@ -1,6 +1,7 @@
 mixin formField(title, forName, type, placeholder)
-    label(for=`${forName}`) #{title}
-    input(type=`${type}` name=`${forName}` placeholder=`${placeholder}`)
+    span.form-row
+        label.label-control(for=`${forName}`) #{title}
+        input.form-control(type=`${type}` name=`${forName}` placeholder=`${placeholder}`)
 
 
 mixin storyDisplay(username, image, content)
@@ -29,3 +30,4 @@ mixin storyDisplay(username, image, content)
                                 img#comment-user-picture(src="p1.jpeg")
                             #comment-user-name USER NAME
                         .comment-content Here is my take on the subject. It'll only work if the container has a specified size (max-width and max-height don't seem to get along with containers that don't have concrete size), but I wrote the CSS content in a way that allows it to be reused (add picture-frame class and px125 size class to your existing container).  Previous table-based image positioning had issues in Internet Explorer 11 (max-height doesn't work in display:table elements). I've replaced it with inline based positioning which not only
+

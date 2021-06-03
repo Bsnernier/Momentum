@@ -6,11 +6,28 @@ html
       link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh' crossorigin='anonymous')
       link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.13.0/css/all.css' integrity='sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V' crossorigin='anonymous')
       link(rel='stylesheet' type='text/css' href='/stylesheets/layout.css')
-      link(rel='stylesheet' type='text/css' href='/stylesheets/stories.css')
+      //- link(rel='stylesheet' type='text/css' href='/stylesheets/signup.css')
+
+      block head
+      //-   if locals.authenticated
+      //-     span Welcome #{user.firstName}!
+      //-     form.navbar-brand(action='/users/logout' method='post')
+      //-       button.btn.btn-primary.submit-button(type='submit') Logout
+      //-   else
+      //-     span
+      //-       a.navbar-brand(href='/users/login') Login
+      //-       a.navbar-brand(href='/users/signup') Sign Up
 
   body
     nav.navbar.navbar-light
-      a.navbar-brand(href='/') LOG IN
+      if locals.authenticated
+        span Welcome #{user.firstName}!
+        form.navbar-brand(action='/users/logout' method='post')
+          button.btn.btn-primary.submit-button(type='submit') Logout
+      else
+        span
+          a.loginSign(href='/users/login') Login
+          a.loginSign(href='/users/signup') Sign Up
       h1 MOMENTUM
       div
         input#search-input(type='text' name='search-input')
