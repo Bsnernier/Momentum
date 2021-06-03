@@ -32,7 +32,14 @@ mixin storyDisplay(username, image, content)
                         .comment-content Here is my take on the subject. It'll only work if the container has a specified size (max-width and max-height don't seem to get along with containers that don't have concrete size), but I wrote the CSS content in a way that allows it to be reused (add picture-frame class and px125 size class to your existing container).  Previous table-based image positioning had issues in Internet Explorer 11 (max-height doesn't work in display:table elements). I've replaced it with inline based positioning which not only
 
 
-//- mixin errorDisplay(errors)
-//-     if errors.length
-//-         each error in errors
-//-             .error #{error}
+mixin buttons
+    if locals.authenticated
+        span.welcome-logout Welcome #{user.firstName}!
+            form(action='/users/logout' method='post')
+                button.btn.btn-primary(type='submit') Logout
+
+    else
+        span
+            a.loginSign(href='/users/login') Login
+            a.loginSign(href='/users/signup') Sign Up
+

@@ -1,0 +1,8 @@
+if locals.authenticated
+    span.welcome-logout Welcome #{user.firstName}!
+        form(action='/users/logout' method='post')
+            button.btn.btn-primary(type='submit') Logout
+else
+    span
+        a.loginSign(href='/users/login') Login
+        a.loginSign(href='/users/signup') Sign Up

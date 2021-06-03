@@ -7,11 +7,12 @@ const { validationResult, check } = require('express-validator')
 const bcrypt = require('bcryptjs')
 
 const storiesRouter = require('../routes/stories');
-const personalRouter = require('../routes/personal.js');
-const { loginUser, logoutUser, requireAuth } = require('../auth');
+const personalRouter = require('../routes/personal');
+const { loginUser, logoutUser } = require('../auth');
 
+// router.use('/stories', storiesRouter);
+// router.use('/users/:id/', personalRouter);
 
-router.use('/followers/', storiesRouter) //followers and their profile page
 
 /* GET users listing. */
 

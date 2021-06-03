@@ -5,11 +5,14 @@ const db = require('../db/models');
 const { User, Follower } = db;
 const {asyncHandler, handleValidationErrors, csrfProtection} = require('../utils');
 
-//this might be get /:id instead, unclear to me
 
-router.get('/', requireAuth, asyncHandler( async (req, res) => {
+
+
+router.get('/followers/', requireAuth, asyncHandler( async (req, res) => {
     // query to get all the user's followers
-    const { userId } = req.body.id;
+    const { userId } = req.body.user.id;
+
+
 
     const allFollowers = await User.findByPk(userId, {
         include: [{
