@@ -7,11 +7,11 @@ const { validationResult, check } = require('express-validator')
 const bcrypt = require('bcryptjs')
 
 const storiesRouter = require('../routes/stories');
-const followersRouter = require('../routes/followers');
+const personalRouter = require('../routes/personal');
 const { loginUser, logoutUser } = require('../auth');
 
 // router.use('/stories', storiesRouter);
-// router.use('/followers', followersRouter);
+// router.use('/users/:id/', personalRouter);
 
 /* GET users listing. */
 router.get('/', asyncHandler( async(req, res, next) => {
