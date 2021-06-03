@@ -15,7 +15,7 @@ const likesRouter = require('../routes/likes');
 // router.use('/api/stories', apiStoriesRouter);
 
 router.get("/", asyncHandler(async(req, res)=>{
-    const allStories = await Story.findAll({include: User});
+    const allStories = await Story.findAll({include: User, order: [["createdAt", "DESC"]]});
     res.render("stories", {allStories})
 }))
 
