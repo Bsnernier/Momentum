@@ -21,7 +21,6 @@ nav {
 margin-bottom: 20px;
 position: relative;
 }
-
 /* .tweets-container {
 margin-top: 20px;
 }
@@ -42,4 +41,9 @@ input{
 }
 .loginSign{
     padding: 10px
+}
+.welcome-logout {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center
 }

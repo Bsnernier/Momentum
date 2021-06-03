@@ -9,7 +9,6 @@ const { requireAuth } = require('../auth')
 const commentsRouter = require('../routes/comments');
 const likesRouter = require('../routes/likes');
 // const apiStoriesRouter = require('./apiRoutes/stories')
-const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('../utils.js');
 
 // router.use('/comments', commentsRouter);
 // router.use('/likes', likesRouter);
