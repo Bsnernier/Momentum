@@ -3,7 +3,7 @@ include utils.pug
 
 block content
     if !allStories.length
-        span no stories...
+        h3 No stories currently available!
     else
         each post in allStories
             +storyDisplay(post.username, post.image, post.content)

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('../utils');
+const {asyncHandler, handleValidationErrors, csrfProtection} = require('../utils');
 const db = require('../db/models');
 const { User, Comment, Story } = db;
 const { requireAuth } = require('../auth')
@@ -14,7 +14,7 @@ const likesRouter = require('../routes/likes');
 // router.use('/likes', likesRouter);
 // router.use('/api/stories', apiStoriesRouter);
 
-router.get("/", asyncHandler(async(req, res)=>{
+router.get("/", requireAuth, asyncHandler(async(req, res)=>{
     const allStories = await Story.findAll({include: User});
     res.render("stories", {allStories})
 }))
@@ -28,11 +28,6 @@ router.get("/", asyncHandler(async(req, res)=>{
 //     res.render("stories", {username, image, content})
 // }))
 
-// router.get('/', asyncHandler( async (req, res) => {
-//     res.send('this is where all the stories will go')
-// }));
-
-
 //--------------------GET User's Stories Profile-------------------------------
 router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     const userId = parseInt(req.params.id, 10);
@@ -45,7 +40,7 @@ router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
 }))
 
 //-------------------PUT Update User's Story-----------------------------------
-router.put('/:id/users/:id', asyncHandler( async (req, res) => {
+router.put('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId);
 
@@ -56,7 +51,7 @@ router.put('/:id/users/:id', asyncHandler( async (req, res) => {
 }))
 
 //-------------------PUT Update User's Comments------------------------------
-router.put('/:id/users/:id/comments/:id', asyncHandler( async (req, res) => {
+router.put('/:id/users/:id/comments/:id', requireAuth, asyncHandler( async (req, res) => {
     const commentId = parseInt(req.params.id, 10); //IDK if this will work or how to fix
                                                    //if it doesn't
     const currentComment = await Comment.findByPk(commentId);
@@ -69,7 +64,7 @@ router.put('/:id/users/:id/comments/:id', asyncHandler( async (req, res) => {
 }))
 
 //-------------------DELETE User's Profile----------------------------------
-router.delete('/:id/users/:id', asyncHandler( async (req, res) => {
+router.delete('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId);
 

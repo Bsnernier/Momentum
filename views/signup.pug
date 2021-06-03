@@ -9,6 +9,7 @@ append head
     //- script(src="/javascripts/post.js" type="module" defer)
 
 block content
+    //- +errorDisplay(errors)
     h2.header-2 Sign Up
     form.form-group(action='/users/signup' method='post')
         input(type='hidden' name='_csrf' value=csrfToken)

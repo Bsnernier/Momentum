@@ -7,9 +7,12 @@ const {asyncHandler, handleValidationErrors, csrfProtection} = require('../utils
 
 
 
+
 router.get('/followers/', requireAuth, asyncHandler( async (req, res) => {
     // query to get all the user's followers
     const { userId } = req.body.user.id;
+
+
 
     const allFollowers = await User.findByPk(userId, {
         include: [{
