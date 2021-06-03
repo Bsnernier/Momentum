@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs')
 
 const storiesRouter = require('../routes/stories');
 const followersRouter = require('../routes/followers');
-const { loginUser, logoutUser } = require('../auth.js');
+const { loginUser, logoutUser } = require('../auth');
 
 // router.use('/stories', storiesRouter);
 // router.use('/followers', followersRouter);

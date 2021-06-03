@@ -2,10 +2,15 @@ extends layout.pug
 
 include utils.pug
 
+append head
+    link(rel="stylesheet" href="/stylesheets/login.css")
+
 block content
-    form(action='/users/login' method='post')
+    h2.header-2 Log In
+    form.form-group(action='/users/login' method='post')
         input(type='hidden' name='_csrf' value=csrfToken)
         +formField('Email', 'email', 'email', 'Enter Your Email')
         +formField('Password', 'password', 'password', 'Enter Your Password')
-        button(type='submit') Login
-        a(href='/') Cancel
+        div.button-group
+            button.btn.btn-primary.submit-button(type='submit') Login
+            button.btn.btn-primary.submit-button(type='button' href='/') Cancel

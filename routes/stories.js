@@ -3,7 +3,7 @@ const router = express.Router();
 const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('../utils');
 const db = require('../db/models');
 const { User, Comment } = db;
-const { requireAuth } = require('auth.js')
+const { requireAuth } = require('../auth')
 
 const commentsRouter = require('../routes/comments');
 const likesRouter = require('../routes/likes');
