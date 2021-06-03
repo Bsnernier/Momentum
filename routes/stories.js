@@ -10,8 +10,8 @@ const commentsRouter = require('../routes/comments');
 const likesRouter = require('../routes/likes');
 // const apiStoriesRouter = require('./apiRoutes/stories')
 
-// router.use('/comments', commentsRouter);
-// router.use('/likes', likesRouter);
+router.use('/:id/comments', commentsRouter);
+router.use('/:id/likes', likesRouter);
 // router.use('/api/stories', apiStoriesRouter);
 
 router.get("/", asyncHandler(async(req, res)=>{

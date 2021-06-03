@@ -10,6 +10,7 @@ append head
 
 block content
     h2.header-2 Sign Up
+    +validationErrorSummary(errors)
     form.form-group(action='/users/signup' method='post')
         input(type='hidden' name='_csrf' value=csrfToken)
         +formField('Username', 'username', 'text', 'Enter Username')
