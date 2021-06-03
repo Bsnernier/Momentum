@@ -1,6 +1,9 @@
 extends layout.pug
 include utils.pug
 
+block login
+    +buttons()
+
 block content
     if !allStories.length
         span no stories...
@@ -8,3 +11,4 @@ block content
         each post in allStories
             +storyDisplay(post.username, post.image, post.content)
     script(src="/routes/stories.js")
+    script(src="/javascripts/comments.js")

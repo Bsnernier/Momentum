@@ -1,0 +1,36 @@
+.form-group{
+    margin: 80px 300px;
+}
+
+label{
+    font-size: 30px;
+    font-weight: bold;
+    font-family:Helvetica,Arial,sans-serif;
+    color: #32A3D2;
+    margin-right: 20px;
+}
+
+.input-group{
+    padding-bottom: 50px;
+    padding-right: 0;
+}
+
+#comments.form-control{
+    padding-left: 20px;
+    border-radius: 10px;
+}
+
+
+.comments-textarea#comments.form-control{
+    margin-right: 20px;
+}
+
+.submit-button{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.btn.btn-primary{
+    background-color:#f08080;
+    border: none;
+}

@@ -24,6 +24,7 @@ router.use(express.urlencoded({ extended: false }));
 
 router.get(
     "/",
+    requireAuth,
     asyncHandler(async (req, res) => {
       const stories = await Story.findAll({
         include: User,
@@ -74,6 +75,7 @@ const validateStory = [
 
 router.post(
     "/",
+    requireAuth,
     validateStory,
     jsonParser,
     asyncHandler(async (req, res) => {
@@ -81,8 +83,8 @@ router.post(
       console.log(req.body);
       try{
         // const user = await User.create({ username: "XXX", firstName: "Jia", lastName:"X", email:"xyz@gmail.com", password:"dxaid#!"})
-        const story = await Story.create({ category: "a", content, image, location, userId: 1 });
-        res.json({user, story})
+        const story = await Story.create({ category:"a", content, image, location, userId: 1});
+        res.json({ user,story })
       }catch(e){
         console.log(e);
       }

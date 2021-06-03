@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs')
 
 const storiesRouter = require('../routes/stories');
 const followersRouter = require('../routes/followers');
-const { loginUser, logoutUser } = require('../auth');
+const { loginUser, logoutUser, restoreUser } = require('../auth');
 
 // router.use('/stories', storiesRouter);
 // router.use('/followers', followersRouter);
@@ -136,7 +136,7 @@ router.get('/login', csrfProtection, asyncHandler(async (req, res) => {
 );
 
 router.post('/login', csrfProtection, loginValidators,
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     const {
       email,
       password,

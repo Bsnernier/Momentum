@@ -8,6 +8,9 @@ append head
     //- add page specific js
     //- script(src="/javascripts/post.js" type="module" defer)
 
+block login
+    +buttons()
+
 block content
     h2.header-2 Sign Up
     form.form-group(action='/users/signup' method='post')

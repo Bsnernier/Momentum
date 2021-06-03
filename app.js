@@ -12,7 +12,9 @@ const {asyncHandler, handleValidationErrors, csrfProtection} = require('./utils'
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const storiesRouter = require('./routes/stories');
+const commentsRouter = require('./routes/comments');
 const apiStoriesRouter = require('./routes/apiRoutes/stories')
+const apiCommentsRouter = require('./routes/apiRoutes/comments')
 const postsRouter = require('./routes/posts');
 
 const apiRouter = require('./routes/apiRoutes');
@@ -48,11 +50,12 @@ app.use(restoreUser)
 store.sync();
 
 app.use('/api/stories', apiStoriesRouter)
-
+app.use('/api/comments', apiCommentsRouter)
 app.use('/api', apiRouter)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/stories', storiesRouter);
+app.use('/comments', commentsRouter);
 // app.use('/post', postsRouter)
 
 // catch 404 and forward to error handler

@@ -70,4 +70,15 @@ window.addEventListener("DOMContentLoaded", (event)=>{
       };
 
       fetchStories();
+      
+      const fetchComments = async () => {
+        const res = await fetch('/api/comments');
+        if (res.status === 401) {
+          window.location.href = "/log-in";
+          return;
+        }
+      };
+
+      fetchComments();
+
 })

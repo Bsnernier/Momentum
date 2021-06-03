@@ -5,6 +5,9 @@ include utils.pug
 append head
     link(rel="stylesheet" href="/stylesheets/login.css")
 
+block login
+    include loginbuttons.pug
+
 block content
     h2.header-2 Log In
     form.form-group(action='/users/login' method='post')
@@ -14,4 +17,3 @@ block content
         div.button-group
             button.btn.btn-primary.submit-button(type='submit') Login
             button.btn.btn-primary.submit-button(type='button' href='/') Cancel
-
