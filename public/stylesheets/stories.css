@@ -120,8 +120,12 @@
     font-weight: bold;
     font-family: Helvetica, Arial, sans-serif;
     color: #706f70;
+    text-align: left;
 }
 
+.fas.fa-backspace{
+    color:#f08080;
+}
 .story-title{
     font-size: 16px;
     font-weight: bold;
@@ -135,6 +139,8 @@
     font-weight: bold;
     font-family: Helvetica, Arial,sans-serif;
     color: #706f70;
+    text-align: left;
+
 }
 
 .comment-title{

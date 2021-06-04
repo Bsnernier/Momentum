@@ -8,32 +8,25 @@ const { requireAuth } = require('../auth')
 
 const commentsRouter = require('../routes/comments');
 const likesRouter = require('../routes/likes');
-// const apiStoriesRouter = require('./apiRoutes/stories')
-
-router.use('/:id/comments', commentsRouter);
-router.use('/:id/likes', likesRouter);
-// router.use('/api/stories', apiStoriesRouter);
 
 router.get("/", asyncHandler(async(req, res)=>{
-    const allStories = await Story.findAll({include: User});
+
+    const allStories = await Story.findAll({include: [User, {model:Comment, include: User}], order: [["createdAt", "DESC"]]});
     res.render("stories", {allStories})
 }))
 
-// router.get('/', csrfProtection, validators, asyncHandler(async(req, res)=>{
-//     const allPost = await Story.findByPk(30, {include: User});
+router.get("/mystories", asyncHandler(async(req, res)=>{
 
-//     const {username, image, content} = allPost
+    const { userId } = req.session.auth;
 
-//     console.log(username);
-//     res.render("stories", {username, image, content})
-// }))
-
-// router.get('/', asyncHandler( async (req, res) => {
-//     res.send('this is where all the stories will go')
-// }));
+    const allStories = await Story.findAll({
+        include: [User, {model:Comment, include: User}],
+        where: {userId},
+        order: [["createdAt", "DESC"]]});
+    res.render("stories", {allStories})
+}))
 
 
-//--------------------GET User's Stories Profile-------------------------------
 router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId);
@@ -44,7 +37,6 @@ router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     })
 }))
 
-//-------------------PUT Update User's Story-----------------------------------
 router.put('/:id/users/:id', asyncHandler( async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId);
@@ -55,7 +47,6 @@ router.put('/:id/users/:id', asyncHandler( async (req, res) => {
     })
 }))
 
-//-------------------PUT Update User's Comments------------------------------
 router.put('/:id/users/:id/comments/:id', asyncHandler( async (req, res) => {
     const commentId = parseInt(req.params.id, 10); //IDK if this will work or how to fix
                                                    //if it doesn't

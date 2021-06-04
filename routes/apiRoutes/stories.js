@@ -24,6 +24,7 @@ router.use(express.urlencoded({ extended: false }));
 
 router.get(
     "/",
+    requireAuth,
     asyncHandler(async (req, res) => {
       const stories = await Story.findAll({
         include: User,
@@ -74,73 +75,22 @@ const validateStory = [
 
 router.post(
     "/",
+    requireAuth,
     validateStory,
     jsonParser,
     asyncHandler(async (req, res) => {
-      const { content, image, location } = req.body;
-      console.log(req.body);
+
       try{
-        // const user = await User.create({ username: "XXX", firstName: "Jia", lastName:"X", email:"xyz@gmail.com", password:"dxaid#!"})
-        const story = await Story.create({ category: "a", content, image, location, userId: 1 });
-        res.json({user, story})
+        const { content, image, location, category} = req.body;
+        const { userId } = req.session.auth;
+        const story = await Story.create({ category, content, image, location, userId});
+        res.send(200)
       }catch(e){
         console.log(e);
+        res.send(400)
       }
 
-
-    //   console.log(story);
     })
 );
 
-// router.put(
-//     "/:id",
-//     validateStory,
-//     asyncHandler(async (req, res, next) => {
-//       const story = await Story.findOne({
-//         where: {
-//           id: req.params.id,
-//         },
-//       });
-//       if (req.user.id !== story.userId) {
-//         const err = new Error("Unauthorized");
-//         err.status = 401;
-//         err.message = "You are not authorized to edit this story.";
-//         err.title = "Unauthorized";
-//         throw err;
-//       }
-//       if (story) {
-//         await story.update({ content: req.body.content, image: req.body.image, location: req.body.location, userId: req.body.userId});
-//         res.json({ story});
-//       } else {
-//         next(storyNotFoundError(req.params.id));
-//       }
-//     })
-//   );
-
-
-//   router.delete(
-//     "/:id",
-//     asyncHandler(async (req, res, next) => {
-//       const story = await Story.findOne({
-//         where: {
-//           id: req.params.id,
-//         },
-//       });
-//       if (req.user.id !== story.userId) {
-//         const err = new Error("Unauthorized");
-//         err.status = 401;
-//         err.message = "You are not authorized to delete this story.";
-//         err.title = "Unauthorized";
-//         throw err;
-//       }
-//       if (story) {
-//         await story.destroy();
-//         res.json({ message: `Deleted story with id of ${req.params.id}.` });
-//       } else {
-//         next(storyNotFoundError(req.params.id));
-//       }
-//     })
-//   );
-
   module.exports = router;
-

@@ -5,6 +5,9 @@ include utils.pug
 append head
     link(rel="stylesheet" href="/stylesheets/login.css")
 
+block login
+    include loginbuttons.pug
+
 block content
     h2.header-2 Log In
     +validationErrorSummary(errors)

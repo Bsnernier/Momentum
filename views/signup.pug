@@ -3,10 +3,11 @@ extends layout.pug
 include utils.pug
 
 append head
-    //- add page specific styles by appending to the head
     link(rel="stylesheet" href="/stylesheets/signup.css")
-    //- add page specific js
-    //- script(src="/javascripts/post.js" type="module" defer)
+
+
+block login
+    +buttons()
 
 block content
     h2.header-2 Sign Up
@@ -25,4 +26,4 @@ block content
             div.login-group
                 a(href='/login') If you already have an account click here.
                 a(href='/login') Guest Demo
-    //- script(src='../routes/users.js')
+
