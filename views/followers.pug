@@ -9,10 +9,15 @@ block content
             div
                 ul
                     li= account.userObj.username
-                if account.mutual
-                    li MUTUAL IS TRUE
-                else
-                    li MUTUAL IS FALSE
+                    button.profile-button(type='button' href=`/users/${account.userObj.id}`) Follower's Profile
+                    if account.mutual
+                        button.unfollow-button(type='button' id=`${account.userObj.id}`) UNFOLLOW BUTTON HERE
+                        //- href="unfollow logic delete route"
+                    else
+                        button.follow-button(type='button' id=`${account.userObj.id}`) FOLLOW BACK BUTTON HERE
+                        //- href="follow logic post route"
+        script(src="/javascripts/followers.js" type="module" defer)
+
 
 
     script(src="/routes/personal.js")

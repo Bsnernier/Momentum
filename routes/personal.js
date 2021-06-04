@@ -24,7 +24,6 @@ router.get('/', requireAuth, asyncHandler( async (req, res) => {
     })
 
     const allUsers = UsersFollowers.followers
-    const allUsernames = allUsers.map(user => user.username)
 
     const allIDs = allUsers.map(follower => follower.id) //
     const allFollowedIDs = allPeopleFollowed.users.map(user => user.id) // only need one time
@@ -51,8 +50,6 @@ router.get('/', requireAuth, asyncHandler( async (req, res) => {
     }
 
     populator(allUsers, mutualArray)
-    console.log(allFollowers)
-
     res.render('followers', { allFollowers })
 }))
 
