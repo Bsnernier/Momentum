@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('../utils');
+const {asyncHandler, handleValidationErrors, csrfProtection} = require('../utils');
 const db = require('../db/models');
 const { User, Story, Comment } = db;
 

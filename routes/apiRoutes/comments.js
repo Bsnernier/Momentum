@@ -55,8 +55,6 @@ router.post(
     })
 );
 
-
-
 router.post('/:commentId/likes', requireAuth, asyncHandler( async (req, res) => {
     const commentId = parseInt(req.params.commentId, 10);
     const loggedUserId = req.params.user.id
