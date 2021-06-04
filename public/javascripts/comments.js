@@ -1,12 +1,4 @@
 window.addEventListener("DOMContentLoaded", (event)=>{
-    // console.log("hello from javascript!")
-    // document.addEventListener("DOMContentLoaded", async () => {
-    //     try {
-    //       await fetchStories();
-    //     } catch (e) {
-    //       console.error(e);
-    //     }
-    // });
 
     const commentButtons = document.querySelectorAll(".fa-comment")
 
@@ -39,7 +31,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
         if(res.status == 200){
           document.getElementById(`${id}`).innerHTML="";
         }
-        
+
 
        })
       })
@@ -68,12 +60,11 @@ window.addEventListener("DOMContentLoaded", (event)=>{
           if (!res.ok) {
             throw res;
           }
-        //   form.reset();
-        //   await fetchComments();
+
           window.location.href = "/stories";
 
         } catch (err) {
-        //   handleErrors(err);
+          
         }
       });
     }

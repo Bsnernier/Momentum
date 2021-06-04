@@ -141,7 +141,6 @@ router.post('/login', csrfProtection, loginValidators,
       password,
     } = req.body;
 
-    // let errors = [];
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {

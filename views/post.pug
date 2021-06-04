@@ -1,9 +1,9 @@
 extends layout.pug
 
 append head
-    //- add page specific styles by appending to the head
+
     link(rel="stylesheet" href="/stylesheets/post.css")
-    //- add page specific js
+
 
 block login
     +buttons()
@@ -36,8 +36,3 @@ block content
 
     script(src="/javascripts/post.js" type="module" defer)
 
-
-
-//- select.dropdown-menu(name='category', id='category')
-//-                     each val in ['EAST' , 'WEST' , 'NORTH', "MIDDLE" ,"SOUTH", "OTHERS"]
-//-                         option=val

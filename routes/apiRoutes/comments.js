@@ -10,8 +10,6 @@ const user = require("../../db/models/user");
 
 const { Comment, Story, User, Like } = db;
 
-// router.use(requireAuth);
-
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
@@ -24,12 +22,7 @@ router.get(
         order: [["createdAt", "DESC"]]
       });
 
-    //   res.render("stories", { stories });
-    //   res.render("comment")
-
       res.json({comments})
-     
-    //   res.redirect("/")
     })
   );
 
@@ -37,21 +30,11 @@ const validateComment = [
     check("content")
       .exists({ checkFalsy: true })
       .withMessage("Comment can't be empty."),
-    //  message cannot be longer than 280 characters:
     check("content")
       .isLength({ max: 500 })
       .withMessage("Comment can't be longer than 280 characters."),
     handleValidationErrors,
 ];
-
-// router.get("/:id",
-// validateComment,
-// jsonParser,
-// asyncHandler(async (req, res) => {
-
-
-
-// }))
 
 router.post(
     "/:id",
@@ -59,9 +42,8 @@ router.post(
     jsonParser,
     asyncHandler(async (req, res) => {
       const { content,userId, storyId } = req.body;
-    //   console.log(req.body);
+
       try{
-        // const user = await User.create({ username: "XXX", firstName: "Jia", lastName:"X", email:"xyz@gmail.com", password:"dxaid#!"})
         const id = req.params.id
         const { userId } = req.session.auth;
         const comments = await Comment.create({ content, userId: userId, storyId:id });
@@ -70,10 +52,9 @@ router.post(
         console.log("Error in posting comment");
         console.log(e);
       }
-    //   console.log(Comment);
     })
 );
-//---------------------------------------------------------------------------
+
 
 
 router.post('/:commentId/likes', requireAuth, asyncHandler( async (req, res) => {
@@ -131,7 +112,6 @@ router.delete('/:id', asyncHandler( async (req, res) => {
             if(currentComment.userId == userId || currentComment.Story.userId == userId){
                 await currentComment.destroy()
                 res.send(200);
-                // res.redirect('/stories');
             }else{
                 res.send(400)
                 console.log("you can not delete this!");
@@ -145,7 +125,6 @@ router.delete('/:id', asyncHandler( async (req, res) => {
         res.send(400)
         console.log(e);
     }
-// console.log("finish deleting!!!!!");
 }));
 
 
