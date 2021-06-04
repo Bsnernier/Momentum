@@ -9,13 +9,12 @@ router.get('/', requireAuth, asyncHandler( async (req, res) => {
     // query to get all the user's followers
     const userId = res.locals.user.id;
 
-    const allFollowers = await User.findByPk(userId, {
+    const UsersFollowers = await User.findByPk(userId, {
         include: [{
             model: User,
             as: 'followers',
         }]
     })
-
 
     const allPeopleFollowed = await User.findByPk(userId, {
         include: [{
@@ -24,35 +23,37 @@ router.get('/', requireAuth, asyncHandler( async (req, res) => {
         }]
     })
 
-
-
-    const allUsers = allFollowers.followers
+    const allUsers = UsersFollowers.followers
     const allUsernames = allUsers.map(user => user.username)
 
-    const allIDs = allFollowers.followers.map(follower => follower.id) //
+    const allIDs = allUsers.map(follower => follower.id) //
     const allFollowedIDs = allPeopleFollowed.users.map(user => user.id) // only need one time
 
     const mutualFollowers = (whoIfollowArray, whoFollowsMeArray) => {
         const ansArray = [];
         whoFollowsMeArray.forEach(personId => {
             if(whoIfollowArray.includes(personId)) {
-                mutualArray.push = true;
+                ansArray.push('true');
             } else {
-                mutualArray.push = false;
+                ansArray.push('false');
             }
         })
-        return mutualArray
+        return ansArray
     }
 
     const mutualArray = mutualFollowers(allFollowedIDs, allIDs)
-    //     if mutual = true;
-    //         buttons are unfollow, and go to user's profile page
-    //     else:
-    //         buttons are follow back, and go to user's profile
-    // *
 
+    const allFollowers = []
+    const populator = (userObjArray, booleanArray) => {
+        userObjArray.forEach((userObj, i) => {
+            allFollowers.push({ userObj: userObj, mutual: booleanArray[i]})
+        })
+    }
 
-    res.render('followers', { allFollowers, allPeopleFollowed})
+    populator(allUsers, mutualArray)
+    console.log(allFollowers)
+
+    res.render('followers', { allFollowers })
 }))
 
 module.exports = router;

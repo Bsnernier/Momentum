@@ -1,14 +1,14 @@
 extends layout.pug
 
 block content
-    if !allFollowers.followers
+    if !allFollowers
         h3 You have zero followers.
     else
         h3 Followers:
-        each account in allFollowers.followers
+        each account in allFollowers
             div
                 ul
-                    li= account.username
+                    li= account.userObj.username
                 if account.mutual
                     li MUTUAL IS TRUE
                 else
