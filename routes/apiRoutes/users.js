@@ -34,6 +34,7 @@ router.delete(
         })
 
         await followedUser.destroy()
+        res.json({})
     })
 );
 

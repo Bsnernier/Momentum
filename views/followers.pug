@@ -1,21 +1,21 @@
 extends layout.pug
 
+append head
+    //- add page specific styles by appending to the head
+    link(rel="stylesheet" href="/stylesheets/followers.css")
+    //- add page specific js
+
+
 block content
     if !allFollowers
         h3 You have zero followers.
     else
         h3 Followers:
         each account in allFollowers
-            div
+            div.individual-follower
                 ul
                     li= account.userObj.username
-                    button.profile-button(type='button' href=`/users/${account.userObj.id}`) PROFILE
+                    button.btn.profile-button(type='button' href=`/users/${account.userObj.id}`) PROFILE
+                    include followerButtons.pug
 
-                    if account.mutual
-                        button.unfollow-button(type='button' id=`${account.userObj.id}` href=`/api/users/${account.userObj.id}`) UNFOLLOW
-                        //- href="unfollow logic delete route"
-                    else
-                        button.follow-button(type='button' id=`${account.userObj.id}` href=`/api/users/${account.userObj.id}`) FOLLOW BACK
-                        
         script(src="/javascripts/followers.js" type="module" defer)
-        //- script(src="/routes/personal.js")

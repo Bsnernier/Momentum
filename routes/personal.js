@@ -9,7 +9,7 @@ router.get('/', requireAuth, asyncHandler( async (req, res) => {
     // query to get all the user's followers
     const userId = res.locals.user.id;
 
-    const UsersFollowers = await User.findByPk(userId, {
+    const usersFollowers = await User.findByPk(userId, {
         include: [{
             model: User,
             as: 'followers',
@@ -23,7 +23,7 @@ router.get('/', requireAuth, asyncHandler( async (req, res) => {
         }]
     })
 
-    const allUsers = UsersFollowers.followers
+    const allUsers = usersFollowers.followers
 
     const allIDs = allUsers.map(follower => follower.id) //
     const allFollowedIDs = allPeopleFollowed.users.map(user => user.id) // only need one time
@@ -39,8 +39,7 @@ router.get('/', requireAuth, asyncHandler( async (req, res) => {
         })
         return ansArray
     }
-    console.log(allIDs)
-    console.log(allFollowedIDs)
+
     const mutualArray = mutualFollowers(allFollowedIDs, allIDs)
     console.log(mutualArray)
 
@@ -52,7 +51,6 @@ router.get('/', requireAuth, asyncHandler( async (req, res) => {
     }
 
     populator(allUsers, mutualArray)
-    console.log(allFollowers)
     res.render('followers', { allFollowers })
 }))
 
