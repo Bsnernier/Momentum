@@ -4,7 +4,7 @@ mixin formField(title, forName, type, placeholder)
         input.form-control(type=`${type}` name=`${forName}` placeholder=`${placeholder}`)
 
 
-mixin storyDisplay(username, image, content)
+mixin storyDisplay(username, image, content, likes)
     .container
         .story
             .user-column
@@ -12,7 +12,7 @@ mixin storyDisplay(username, image, content)
                     img#user-picture(src="p1.jpeg")
                 .user-name #{username}
                 .follow-state Follow
-                .likes-counter 123
+                .likes-counter #{likes}
                 .like-icon
                     i(class="fas fa-heart")
                 .comment-icon

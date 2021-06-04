@@ -2,20 +2,34 @@ const express = require('express');
 const router = express.Router();
 const {asyncHandler, handleValidationErrors, cookieParser, csrfProtection} = require('../utils');
 const db = require('../db/models');
-const { User, Comment, Story } = db;
+const { User, Comment, Story, Like } = db;
 const { requireAuth } = require('../auth')
+const { Op } = require("sequelize")
 
 
-const commentsRouter = require('../routes/comments');
-const likesRouter = require('../routes/likes');
-// const apiStoriesRouter = require('./apiRoutes/stories')
+const commentsRouter = require('./comments');
+// const apiStoriesRouter = require('./apiRoutes/likes')
 
 router.use('/:id/comments', commentsRouter);
-router.use('/:id/likes', likesRouter);
-// router.use('/api/stories', apiStoriesRouter);
+// router.use('/api/likes', apiStoriesRouter);
 
 router.get("/", asyncHandler(async(req, res)=>{
     const allStories = await Story.findAll({include: User});
+
+//---------------------------------------------------------beginning of likes loop
+    for (i = 0; i < allStories.length; i++) {
+        const storyId = allStories[i].id
+        const currentLikes = await Like.findAndCountAll({
+            where: {
+                storyId: {
+                    [Op.eq]: storyId
+                }
+            }
+        })
+        allStories[i].likes = currentLikes.count
+    }
+//---------------------------------------------------------end of likes loop
+
     res.render("stories", {allStories})
 }))
 

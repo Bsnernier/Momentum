@@ -6,9 +6,14 @@ const { Like } = db;
 
 const { requireAuth } = require('../../auth');
 
-router.post('/', requireAuth, asyncHandler( async (req, res) => {
+router.get('/api/likes', requireAuth, asyncHandler( async (req, res) => {
+    console.log("hey")
+}))
+
+router.post('/api/likes', requireAuth, asyncHandler( async (req, res) => {
     const storyId = parseInt(req.params.id, 10);
-    const loggedUserId = req.params.user.id
+    const loggedUserId = res.locals.user.id
+    console.log("THERE IS NO WAY THIS WORKS")
 
     const currentLike = await Like.findAll({
         where: {
@@ -31,7 +36,7 @@ router.post('/', requireAuth, asyncHandler( async (req, res) => {
 
 router.delete('/', requireAuth, asyncHandler( async (req, res) => {
     const storyId = parseInt(req.params.id, 10);
-    const loggedUserId = req.params.user.id
+    const loggedUserId = res.locals.user.id
 
     const currentLike = await Like.findAll({
         where: {
@@ -46,3 +51,5 @@ router.delete('/', requireAuth, asyncHandler( async (req, res) => {
 
     await currentLike.destroy()
 }));
+
+module.exports = router;
