@@ -1,3 +1,69 @@
-h1 {
-    color: #555555;
+.home-container{
+    color:#FFFF;
+    font-size: 30px;
+    font-family: Helvetica, Arial, sans-serif;
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-template-rows:1fr 1fr;
+    grid-template-areas:
+    "img-group1 img-group2 img-group3"
+    "img-group4 img-group5 img-group6"
+    ;
+
+}
+
+.img-group1{
+    grid-area: img-group1;
+}
+
+.img-group2{
+    grid-area: img-group2;
+}
+
+
+.img-group3{
+    grid-area: img-group3;
+}
+
+.img-group4{
+    grid-area: img-group4;
+}
+
+.img-group5{
+    grid-area: img-group5;
+}
+
+.img-group6{
+    grid-area: img-group6;
+}
+
+img{
+    width: 480px;
+    height: 299px;
+    padding-bottom: 40px;
+    opacity: 82%;
+
+}
+.img-group{
+    position: relative;
+}
+
+.textGroup1,.textGroup2,.textGroup3,.textGroup4,.textGroup5,.textGroup6{
+   position: absolute;
+   top: 25%;
+   left: -5%;
+   width: 100%;
+   z-index: 10000;
+
+}
+
+.textGroup1,.textGroup2,.textGroup3,.textGroup4,.textGroup5,.textGroup6{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+a.storyLink {
+    text-decoration: underline;
 }

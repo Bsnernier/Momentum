@@ -2,11 +2,43 @@ extends layout.pug
 include utils.pug
 append head
   //- add page specific styles by appending to the head
-  //- link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/index.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
 
+
 block login
-    +buttons()
+  +buttons()
 
 block content
+  .home-container
+    .img-group.img-group1
+      img(src="/1.jpeg")
+      .textGroup1
+        .category1.text EAST
+        a.storyLink STORIES
+    .img-group.img-group2
+      img(src="/2.jpeg")
+      .textGroup2
+        .category2.text WEST
+        a.storyLink STORIES
+    .img-group.img-group3
+      img(src="/3.jpeg")
+      .textGroup3
+        .category3.text NORTH
+        a.storyLink STORIES
+    .img-group.img-group4
+      img(src="/4.jpeg")
+      .textGroup4
+          .category4.text SOUTH
+          a.storyLink STORIES
+    .img-group.img-group5
+      img(src="/5.jpeg")
+      .textGroup5
+        .category5.text MIDDLE
+        a.storyLink STORIES
+    .img-group.img-group6
+      img(src="/6.jpeg")
+      .textGroup6
+        .category6.text OTHERS
+        a.storyLink STORIES
