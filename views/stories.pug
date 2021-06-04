@@ -9,6 +9,6 @@ block content
         span no stories...
     else
         each post in allStories
-            +storyDisplay(post.username, post.image, post.content)
-    script(src="/routes/stories.js")
-    script(src="/javascripts/comments.js")
+            +storyDisplay(post.User.username, post.image, post.content, post.Comments, post.id)
+    //- script(src="/routes/stories.js" type="module" defer)
+    script(src="/javascripts/comments.js" type="module" defer)

@@ -1,8 +1,5 @@
 window.addEventListener("DOMContentLoaded", (event)=>{
     // console.log("hello from javascript!")
-
-
-
     // document.addEventListener("DOMContentLoaded", async () => {
     //     try {
     //       await fetchStories();
@@ -11,23 +8,57 @@ window.addEventListener("DOMContentLoaded", (event)=>{
     //     }
     // });
 
+    const commentButtons = document.querySelectorAll(".fa-comment")
 
+    if(commentButtons){
+      commentButtons.forEach(commentButton =>{
+        commentButton.addEventListener("click", (e)=>{
+          const id = e.target.id;
+          window.location.href = `/comments/${id}`;
+        })
+      })
+    }
+
+    const deleteButtons = document.querySelectorAll(".fa-backspace")
+
+    if(deleteButtons){
+      deleteButtons.forEach(deleteButton => {
+       deleteButton.addEventListener("click", async (e)=>{
+        const id = e.target.id;
+
+        const res = await fetch(`/api/comments/${id}`, {
+          method: "DElETE",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).catch((error) => {
+          console.error(error);
+        });
+
+
+        if(res.status == 200){
+          document.getElementById(`${id}`).innerHTML="";
+        }
+        
+
+       })
+      })
+    }
 
     const form = document.querySelector(".comment-form");
 
-    form.addEventListener("submit", async (e) => {
+    if(form){
+      form.addEventListener("submit", async (event) => {
         const formData = new FormData(form);
-        const image = formData.get("content");
+        const content = formData.get("content");
         const body = { content };
         try {
-          const res = await fetch('/api/comments', {
+          const id = event.target.id
+          const res = await fetch(`/api/comments/${id}`, {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
               "Content-Type": "application/json"
-            //   Authorization: `Bearer ${localStorage.getItem(
-            //     "STORY_LITE_ACCESS_TOKEN"
-            //   )}`,
             },
           });
           if (res.status === 401) {
@@ -40,19 +71,11 @@ window.addEventListener("DOMContentLoaded", (event)=>{
         //   form.reset();
         //   await fetchComments();
           window.location.href = "/stories";
+
         } catch (err) {
         //   handleErrors(err);
         }
       });
-
-
-    const commentButton = document.querySelector(".far.fa-comment")
-
-    
-
-    commentButton.addEventListener("click", (e)=>{
-          console.log("commentButton is here");
-          window.location.href = "/api/comments";
-    })
+    }
 
 })

@@ -9,29 +9,39 @@ const jsonParser = bodyParser.json();
 const db = require("../db/models");
 const user = require("../db/models/user");
 
-const { Comment, User } = db;
+const { Comment, User,  Like } = db;
 
 // router.use(requireAuth);
 
-router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
 router.get(
-    "/",
+    "/:id",
     asyncHandler(async (req, res) => {
-        console.log("!!!!!!!!comment root get");
-      const comments = await Comment.findAll({
-        include: User,
-        order: [["createdAt", "DESC"]]
-      });
-      console.log("comment root find sql finished");
+    //   const comments = await Comment.findAll({
+    //     include: User,
+    //     order: [["createdAt", "DESC"]]
+    //   });
     //   res.render("stories", { stories });
-      res.render("comment")
-      console.log("comment root render finished");
+        const id = req.params.id
+        res.render("comment", { id })
     //   res.json({comments})
-      console.log("comment root get finished");
     //   res.redirect("/")
+    
     })
   );
 
-  module.exports = router;
+
+router.get("/commentId/likes", requireAuth, asyncHandler( async(req, res) => {
+    const commentId = parseInt(req.params.commentId, 10);
+    const currentLikes = await Like.findAndCountAll({
+        where: {
+            storyId: {
+                [Op.eq]: commentId
+            }
+        }
+    })
+    return currentLikes
+}))
+
+module.exports = router;

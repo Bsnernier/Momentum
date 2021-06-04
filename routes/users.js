@@ -81,7 +81,6 @@ const registerValidators = [
 ]
 
 router.post('/signup', csrfProtection, registerValidators, asyncHandler( async (req, res, next) => {
-  console.log("test route")
   const {
     username,
     firstName,
@@ -142,7 +141,7 @@ router.post('/login', csrfProtection, loginValidators,
       password,
     } = req.body;
 
-    let errors = [];
+    // let errors = [];
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
@@ -153,17 +152,16 @@ router.post('/login', csrfProtection, loginValidators,
           loginUser(req,res,user)
           return res.redirect('/');
         }
+      }
     } else {
-      errors = validatorErrors.array().map((error) => error.msg);
-    }
-    res.render('login', {
-      title: 'Login',
-      email,
-      errors,
-      csrfToken: req.csrfToken(),
-    });
-    }
-  }));
+      const errors = validatorErrors.array().map((error) => error.msg);
+      res.render('login', {
+        title: 'Login',
+        email,
+        errors,
+        csrfToken: req.csrfToken(),
+      });
+    }}));
 
 router.post('/logout', (req, res) => {
   logoutUser(req, res);

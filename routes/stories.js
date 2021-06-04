@@ -10,28 +10,26 @@ const commentsRouter = require('../routes/comments');
 const likesRouter = require('../routes/likes');
 // const apiStoriesRouter = require('./apiRoutes/stories')
 
-// router.use('/comments', commentsRouter);
-// router.use('/likes', likesRouter);
+// router.use('/:id/comments', commentsRouter);
+// router.use('/:id/likes', likesRouter);
 // router.use('/api/stories', apiStoriesRouter);
 
 router.get("/", asyncHandler(async(req, res)=>{
-    const allStories = await Story.findAll({include: User, order: [["createdAt", "DESC"]]});
+
+    const allStories = await Story.findAll({include: [User, {model:Comment, include: User}], order: [["createdAt", "DESC"]]});
     res.render("stories", {allStories})
 }))
 
-// router.get('/', csrfProtection, validators, asyncHandler(async(req, res)=>{
-//     const allPost = await Story.findByPk(30, {include: User});
+router.get("/mystories", asyncHandler(async(req, res)=>{
 
-//     const {username, image, content} = allPost
+    const { userId } = req.session.auth;
 
-//     console.log(username);
-//     res.render("stories", {username, image, content})
-// }))
-
-// router.get('/', asyncHandler( async (req, res) => {
-//     res.send('this is where all the stories will go')
-// }));
-
+    const allStories = await Story.findAll({
+        include: [User, {model:Comment, include: User}],
+        where: {userId},
+        order: [["createdAt", "DESC"]]});
+    res.render("stories", {allStories})
+}))
 
 //--------------------GET User's Stories Profile-------------------------------
 router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {

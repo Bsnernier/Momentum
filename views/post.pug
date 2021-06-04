@@ -21,7 +21,23 @@ block content
                 .input-group
                     label(for='content') STORIES
                     textarea.stories-textarea#stories.form-control(name="content", cols="30", rows="10", placeholder='')
+                .categorydiv
+                    label(for='category') CATEGORY
+                    select#category.select.form-control.input-lg(form='category', name='category')
+                        option(value='select') -- Select --
+                        option(value='east') EAST
+                        option(value='west') WEST
+                        option(value='north') NORTH
+                        option(value='south') SOUTH
+                        option(value='middle') MIDDLE
+                        option(value='others') OTHERS
                 .submit-button
                     button.btn.btn-primary(type='submit') SUBMIT
 
-    script(src="/public/javascripts/post.js" type="module" defer)
+    script(src="/javascripts/post.js" type="module" defer)
+
+
+
+//- select.dropdown-menu(name='category', id='category')
+//-                     each val in ['EAST' , 'WEST' , 'NORTH', "MIDDLE" ,"SOUTH", "OTHERS"]
+//-                         option=val

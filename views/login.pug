@@ -10,6 +10,7 @@ block login
 
 block content
     h2.header-2 Log In
+    +validationErrorSummary(errors)
     form.form-group(action='/users/login' method='post')
         input(type='hidden' name='_csrf' value=csrfToken)
         +formField('Email', 'email', 'email', 'Enter Your Email')

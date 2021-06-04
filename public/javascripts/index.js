@@ -1,14 +1,6 @@
 window.addEventListener("DOMContentLoaded", (event)=>{
     const fetchStories = async () => {
-        const res = await fetch('/api/stories'
-        // , {
-        //   headers: {
-        //     Authorization: `Bearer ${localStorage.getItem(
-        //       "STORY_LITE_ACCESS_TOKEN"
-        //     )}`,
-        //   },
-        // }
-        );
+        const res = await fetch('/api/stories');
         if (res.status === 401) {
           window.location.href = "/log-in";
           return;
@@ -70,15 +62,15 @@ window.addEventListener("DOMContentLoaded", (event)=>{
       };
 
       fetchStories();
-      
-      const fetchComments = async () => {
-        const res = await fetch('/api/comments');
-        if (res.status === 401) {
-          window.location.href = "/log-in";
-          return;
-        }
-      };
 
-      fetchComments();
+    //   const fetchComments = async () => {
+    //     const res = await fetch('/api/comments');
+    //     if (res.status === 401) {
+    //       window.location.href = "/log-in";
+    //       return;
+    //     }
+    //   };
+
+    //   fetchComments();
 
 })
