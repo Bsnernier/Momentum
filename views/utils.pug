@@ -25,6 +25,8 @@ mixin storyDisplay(username, image, content, commentContent, storyId)
                     i(class="fas fa-heart")
                 .comment-icon
                     i.far.fa-comment(id=`${storyId}`)
+                .delete-icon
+                    i.far.fa-trash-alt(id=`${storyId}` class="deleteButtonDisplay")
             .story-board
                 .story-picture
                     img#story-picture(src=`/${image}`)
@@ -33,6 +35,34 @@ mixin storyDisplay(username, image, content, commentContent, storyId)
                     .story-content #{content}
                     .comments
                         .comment-title COMMENTS:
+                        if commentContent
+                            each comment in commentContent
+                                +commentContent(comment)
+
+
+mixin personalStoryDisplay(username, image, content, commentContent, storyId)
+    .container
+        .story(class=`story${storyId}`)
+            .user-column
+                .user-picture
+                    img#user-picture(src="/p1.jpeg")
+                .user-name #{username}
+                .follow-state Follow
+                .likes-counter 123
+                .like-icon
+                    i(class="fas fa-heart")
+                .comment-icon
+                    i.far.fa-comment(id=`${storyId}`)
+                .delete-icon
+                    i.far.fa-trash-alt(id=`${storyId}`)
+            .story-board
+                .story-picture
+                    img#story-picture(src=`/${image}`)
+                .content
+                    a.story-title(href="/post/new") STORIES:
+                    .story-content #{content}
+                    .comments
+                        a.comment-title(href=`/comments/${storyId}`) COMMENTS:
                         if commentContent
                             each comment in commentContent
                                 +commentContent(comment)

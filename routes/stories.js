@@ -23,7 +23,7 @@ router.get("/mystories", asyncHandler(async(req, res)=>{
         include: [User, {model:Comment, include: User}],
         where: {userId},
         order: [["createdAt", "DESC"]]});
-    res.render("stories", {allStories})
+    res.render("storiesForPersonal", {allStories})
 }))
 
 
