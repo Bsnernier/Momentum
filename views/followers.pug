@@ -9,15 +9,13 @@ block content
             div
                 ul
                     li= account.userObj.username
-                    button.profile-button(type='button' href=`/users/${account.userObj.id}`) Follower's Profile
+                    button.profile-button(type='button' href=`/users/${account.userObj.id}`) PROFILE
+
                     if account.mutual
-                        button.unfollow-button(type='button' id=`${account.userObj.id}`) UNFOLLOW BUTTON HERE
+                        button.unfollow-button(type='button' id=`${account.userObj.id}` href=`/api/users/${account.userObj.id}`) UNFOLLOW
                         //- href="unfollow logic delete route"
                     else
-                        button.follow-button(type='button' id=`${account.userObj.id}`) FOLLOW BACK BUTTON HERE
-                        //- href="follow logic post route"
+                        button.follow-button(type='button' id=`${account.userObj.id}` href=`/api/users/${account.userObj.id}`) FOLLOW BACK
+                        
         script(src="/javascripts/followers.js" type="module" defer)
-
-
-
-    script(src="/routes/personal.js")
+        //- script(src="/routes/personal.js")

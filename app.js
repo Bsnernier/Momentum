@@ -13,6 +13,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const storiesRouter = require('./routes/stories');
 const apiStoriesRouter = require('./routes/apiRoutes/stories')
+const apiUsersRouter = require('./routes/apiRoutes/users')
 const postsRouter = require('./routes/posts');
 // const personalRouter = require('../routes/personal');
 
@@ -48,9 +49,9 @@ app.use(
   // create Session table if it doesn't already exist
   store.sync();
 
-  app.use('/users', usersRouter);
   app.use('/api/stories', apiStoriesRouter)
-  app.use('/api', apiRouter)
+  app.use('/api/users', apiUsersRouter)
+  app.use('/users', usersRouter);
   app.use('/', indexRouter);
   // app.use('/users/:id/', personalRouter);
   app.use('/stories', storiesRouter);

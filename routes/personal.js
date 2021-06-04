@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { requireAuth } = require('../auth');
 const db = require('../db/models');
-const { User, Follower } = db;
-const {asyncHandler, handleValidationErrors, csrfProtection} = require('../utils');
+const { User } = db;
+const { asyncHandler } = require('../utils');
 
 router.get('/', requireAuth, asyncHandler( async (req, res) => {
     // query to get all the user's followers
@@ -32,15 +32,17 @@ router.get('/', requireAuth, asyncHandler( async (req, res) => {
         const ansArray = [];
         whoFollowsMeArray.forEach(personId => {
             if(whoIfollowArray.includes(personId)) {
-                ansArray.push('true');
+                ansArray.push(true);
             } else {
-                ansArray.push('false');
+                ansArray.push(false);
             }
         })
         return ansArray
     }
-
+    console.log(allIDs)
+    console.log(allFollowedIDs)
     const mutualArray = mutualFollowers(allFollowedIDs, allIDs)
+    console.log(mutualArray)
 
     const allFollowers = []
     const populator = (userObjArray, booleanArray) => {
@@ -50,6 +52,7 @@ router.get('/', requireAuth, asyncHandler( async (req, res) => {
     }
 
     populator(allUsers, mutualArray)
+    console.log(allFollowers)
     res.render('followers', { allFollowers })
 }))
 
