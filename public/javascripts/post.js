@@ -15,6 +15,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 
   const form = document.querySelector(".create-form");
+
+
   if (form) {
     form.addEventListener("submit", async (e) => {
 
@@ -23,13 +25,17 @@ window.addEventListener("DOMContentLoaded", (event) => {
         const image = formData.get("image");
         const location = formData.get("location");
         const content = formData.get("content");
-        const category = formData.get("category");
+        const categoryEle = document.querySelector("#category");
+
+        const category = categoryEle.value;
+        // const category = null
+
         const body = { image, location, content, category };
         const res = await fetch('/api/stories', {
           method: "POST",
           body: JSON.stringify(body),
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
             //   Authorization: `Bearer ${localStorage.getItem(
             //     "STORY_LITE_ACCESS_TOKEN"
             //   )}`,
@@ -48,6 +54,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         window.location.href = "/stories";
       } catch (err) {
         console.log(err)
+        throw err
       }
     });
   }

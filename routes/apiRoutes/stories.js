@@ -79,15 +79,17 @@ router.post(
     validateStory,
     jsonParser,
     asyncHandler(async (req, res) => {
-      const { content, image, location, category} = req.body;
+
       try{
+        const { content, image, location, category} = req.body;
         const { userId } = req.session.auth;
-        // const user = await User.create({ username: "XXX", firstName: "Jia", lastName:"X", email:"xyz@gmail.com", password:"dxaid#!"})
-        const story = await Story.create({ category: "a", content, image, location, userId});
-        res.json({ user,story })
+        const story = await Story.create({ category, content, image, location, userId});
+        res.send(200)
       }catch(e){
         console.log(e);
+        res.send(400)
       }
+
     })
 );
 
