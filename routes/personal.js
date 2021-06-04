@@ -5,19 +5,17 @@ const db = require('../db/models');
 const { User, Follower } = db;
 const {asyncHandler, handleValidationErrors, csrfProtection} = require('../utils');
 
-
-
-
-router.get('/followers/', requireAuth, asyncHandler( async (req, res) => {
+router.get('/', requireAuth, asyncHandler( async (req, res) => {
     // query to get all the user's followers
     const userId = res.locals.user.id;
 
     const allFollowers = await User.findByPk(userId, {
         include: [{
             model: User,
-            as: 'followers'
+            as: 'followers',
         }]
     })
+
 
     const allPeopleFollowed = await User.findByPk(userId, {
         include: [{
@@ -25,39 +23,36 @@ router.get('/followers/', requireAuth, asyncHandler( async (req, res) => {
             as: 'users'
         }]
     })
-    console.log(allFollowers)
-    console.log(allPeopleFollowed)
-    // const mutualFollower = (user, follower) => {
-
-    //     const userId = user.id
-    //     const followerId = follower.userId
-    //     //grab the followerId here in a query, and check if they are mutual, return true
 
 
 
+    const allUsers = allFollowers.followers
+    const allUsernames = allUsers.map(user => user.username)
 
-    //     return false
-    // }
+    const allIDs = allFollowers.followers.map(follower => follower.id) //
+    const allFollowedIDs = allPeopleFollowed.users.map(user => user.id) // only need one time
 
-    // allFollowers.forEach(follower => {
-    //     if (mutualFollower(user, follower)) {
-    //         //1st button is go to user page
-    //         //query or fetch to go to user/:id based on follower
-    //         //2nd button is unfollow
+    const mutualFollowers = (whoIfollowArray, whoFollowsMeArray) => {
+        const ansArray = [];
+        whoFollowsMeArray.forEach(personId => {
+            if(whoIfollowArray.includes(personId)) {
+                mutualArray.push = true;
+            } else {
+                mutualArray.push = false;
+            }
+        })
+        return mutualArray
+    }
 
-                //update each follower to have a key of mutual or not!!!!
-    //     } else {
-    //         //buttons are go to user page
-    //         //query or fetch to go to user/:id based on follower
+    const mutualArray = mutualFollowers(allFollowedIDs, allIDs)
+    //     if mutual = true;
+    //         buttons are unfollow, and go to user's profile page
+    //     else:
+    //         buttons are follow back, and go to user's profile
+    // *
 
-    //     }
-    // })
-    // /*  checker to see if following state,
-    //     if following,
-    //         buttons are unfollow, and go to user page
-    //     if not follow
-    //         buttons are follow back, and go to user page
-    // */
 
-    res.render('followers', { allFollowers, allPeopleFollowed })
+    res.render('followers', { allFollowers, allPeopleFollowed})
 }))
+
+module.exports = router;

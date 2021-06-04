@@ -1,3 +1,18 @@
 extends layout.pug
 
 block content
+    if !allFollowers.followers
+        h3 You have zero followers.
+    else
+        h3 Followers:
+        each account in allFollowers.followers
+            div
+                ul
+                    li= account.username
+                if account.mutual
+                    li MUTUAL IS TRUE
+                else
+                    li MUTUAL IS FALSE
+
+
+    script(src="/routes/personal.js")

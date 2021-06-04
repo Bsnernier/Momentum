@@ -7,6 +7,7 @@ const { validationResult, check } = require('express-validator')
 const bcrypt = require('bcryptjs')
 
 const storiesRouter = require('../routes/stories');
+const personalRouter = require('../routes/personal');
 const { loginUser, logoutUser, requireAuth } = require('../auth');
 
 // router.use('/stories', storiesRouter);
@@ -14,6 +15,8 @@ const { loginUser, logoutUser, requireAuth } = require('../auth');
 
 
 /* GET users listing. */
+router.use('/followers', personalRouter)
+
 
 // what is this???
 router.get('/', asyncHandler( async(req, res, next) => {
@@ -171,8 +174,8 @@ router.post('/logout', (req, res) => {
   res.redirect('/users/login');
 });
 
-router.get('/:id', requireAuth, asyncHandler( async (req, res) => {
-  //pathway to show us the personal page of the user?
-}))
+// router.get('/:id', requireAuth, asyncHandler( async (req, res) => {
+//   //pathway to show us the personal page of the user?
+// }))
 
 module.exports = router;

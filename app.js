@@ -48,12 +48,11 @@ app.use(
   // create Session table if it doesn't already exist
   store.sync();
 
+  app.use('/users', usersRouter);
   app.use('/api/stories', apiStoriesRouter)
-
   app.use('/api', apiRouter)
   app.use('/', indexRouter);
   // app.use('/users/:id/', personalRouter);
-  app.use('/users', usersRouter);
   app.use('/stories', storiesRouter);
 // app.use('/post', postsRouter)
 
