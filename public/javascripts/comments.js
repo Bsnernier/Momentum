@@ -19,7 +19,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
         const id = e.target.id;
 
         const res = await fetch(`/api/comments/${id}`, {
-          method: "DElETE",
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json"
           }
@@ -64,7 +64,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
           window.location.href = "/stories";
 
         } catch (err) {
-          
+
         }
       });
     }
