@@ -15,26 +15,16 @@ html
 
   body
     nav.navbar.navbar-light
-      if locals.authenticated
-        //- span.welcome-logout Welcome #{user.firstName}!
-        //-   form(action='/users/logout' method='post')
-        //-     button.btn.btn-primary(type='submit') Logout
-        +buttons()
-
-      else
-        //- span
-          //- a.loginSign(href='/users/login') Login
-          //- a.loginSign(href='/users/signup') Sign Up
-        +buttons()
       h1 MOMENTUM
+      block login
       div
         input#search-input(type='text' name='search-input')
         i(class= 'fas fa-search')
     nav.navbar.navbar-light
-      a.navbar-brand(href='/') HOME
-      a.navbar-brand(href='/') PERSONAL
-      a.navbar-brand(href='/post/new') POST
-      a.navbar-brand(href='/') FOLLOWING
-      a.navbar-brand(href='/users/followers') FOLLOWERS
+      a.navbar-brand#home(href='/') HOME
+      a.navbar-brand#personal(href=`/stories/mystories`) PERSONAL
+      a.navbar-brand#post(href='/post/new') POST
+      a.navbar-brand#following(href='/') FOLLOWING
+      a.navbar-brand#followers(href='/users/followers') FOLLOWERS
     .errors-container
     block content

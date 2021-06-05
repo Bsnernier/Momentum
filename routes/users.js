@@ -7,6 +7,7 @@ const { validationResult, check } = require('express-validator')
 const bcrypt = require('bcryptjs')
 
 const storiesRouter = require('../routes/stories');
+
 const personalRouter = require('../routes/personal');
 const { loginUser, logoutUser, requireAuth } = require('../auth');
 
@@ -85,7 +86,6 @@ const registerValidators = [
 ]
 
 router.post('/signup', csrfProtection, registerValidators, asyncHandler( async (req, res, next) => {
-  console.log("test route")
   const {
     username,
     firstName,
@@ -140,13 +140,12 @@ router.get('/login', csrfProtection, asyncHandler(async (req, res) => {
 );
 
 router.post('/login', csrfProtection, loginValidators,
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     const {
       email,
       password,
     } = req.body;
 
-    let errors = [];
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
@@ -157,17 +156,16 @@ router.post('/login', csrfProtection, loginValidators,
           loginUser(req,res,user)
           return res.redirect('/');
         }
+      }
     } else {
-      errors = validatorErrors.array().map((error) => error.msg);
-    }
-    res.render('login', {
-      title: 'Login',
-      email,
-      errors,
-      csrfToken: req.csrfToken(),
-    });
-    }
-  }));
+      const errors = validatorErrors.array().map((error) => error.msg);
+      res.render('login', {
+        title: 'Login',
+        email,
+        errors,
+        csrfToken: req.csrfToken(),
+      });
+    }}));
 
 router.post('/logout', (req, res) => {
   logoutUser(req, res);
