@@ -13,6 +13,7 @@ module.exports = {
       */
     const users = await User.findAll()
     const stories = await Story.findAll()
+
    return queryInterface.bulkInsert('Likes', [
    { userId: users[0].id, storyId: stories[0].id, createdAt: new Date(), updatedAt: new Date() },
    { userId: users[0].id, storyId: stories[1].id, createdAt: new Date(), updatedAt: new Date() },
