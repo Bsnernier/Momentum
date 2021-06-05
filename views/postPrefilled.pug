@@ -2,7 +2,7 @@ extends layout.pug
 
 append head
 
-    link(rel="stylesheet" href="/stylesheets/post.css")
+    link(rel="stylesheet" href="/stylesheets/postprefilled.css")
 
 
 block login
@@ -14,13 +14,13 @@ block content
             .form-group
                 .input-group
                     label(for='image') PICTURE URL
-                    input#pictureUrl.form-control(type='text', name="image",  placeholder='')
+                    input#pictureUrl.form-control(type='text', name="image",  value=`${image}` , placeholder='')
                 .input-group
                     label(for='location') PLACE NAME
-                    input#placeName.form-control(type='text', name="location",  placeholder='')
+                    input#placeName.form-control(type='text', name="location", value=`${location}`, placeholder='')
                 .input-group
                     label(for='content') STORIES
-                    textarea.stories-textarea#stories.form-control(name="content", cols="30", rows="10",  placeholder='')
+                    textarea.stories-textarea#stories.form-control(name="content", cols="30", rows="10", value=`${content}`, placeholder='')
                 .categorydiv
                     label(for='category') CATEGORY
                     select#category.select.form-control.input-lg(name='category')
@@ -34,4 +34,5 @@ block content
                 .submit-button
                     button.btn.btn-primary(type='submit') SUBMIT
 
-    script(src="/javascripts/post.js" type="module" defer)
+    //- script(src="/javascripts/post.js" type="module" defer)
+    script(src="/javascripts/postprefilled.js" type="module" defer)
