@@ -10,13 +10,13 @@ block content
     if !allFollowers
         h3 You have zero followers.
     else
-        div.followers-container
-        h3 Followers:
-        each account in allFollowers
-            div.individual-follower
-                ul
-                    li= account.userObj.username
-                    button.btn.profile-button(type='button' href=`/users/${account.userObj.id}`) PROFILE
-                    include followerButtons.pug
+        .followers-container
+            .followers-title Followers:
+            each account in allFollowers
+                .individual-follower-container
+                    .individual-follower #{account.userObj.username}
+                        .button-group
+                            button.btn.profile-button(type='button' href=`/users/${account.userObj.id}`) PROFILE
+                            include followerButtons.pug
 
         script(src="/javascripts/followers.js" type="module" defer)

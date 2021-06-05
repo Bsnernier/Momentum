@@ -169,10 +169,52 @@ router.post('/login', csrfProtection, loginValidators,
     }
   }));
 
+router.post('/login', csrfProtection, loginValidators,
+  asyncHandler(async (req, res) => {
+    const {
+      email,
+      password,
+    } = req.body;
+
+    let errors = [];
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+      const user = await db.User.findOne({ where: { email } });
+      if (user !== null) {
+        const passwordMatch = await bcrypt.compare(password, user.password.toString());
+        if (passwordMatch) {
+          loginUser(req,res,user)
+          return res.redirect('/');
+        }
+    } else {
+      errors = validatorErrors.array().map((error) => error.msg);
+    }
+    res.render('login', {
+      title: 'Login',
+      email,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
+    }
+  }));
+
+
 router.post('/logout', (req, res) => {
   logoutUser(req, res);
   res.redirect('/users/login');
 });
+
+
+router.post('/logout', (req, res) => {
+  logoutUser(req, res);
+  res.redirect('/users/login');
+});
+
+// router.get('/:id', requireAuth, asyncHandler( async (req, res) => {
+//   //pathway to show us the personal page of the user?
+
+// }))
 
 // router.get('/:id', requireAuth, asyncHandler( async (req, res) => {
 //   //pathway to show us the personal page of the user?
