@@ -103,4 +103,18 @@ router.delete('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     })
 }))
 
+
+router.get("/:category", requireAuth, asyncHandler( async (req, res) => {
+    const category = req.params.category;
+    console.log(req.params);
+    const allStories = await Story.findAll({include: [User, {model:Comment, include: User}], order: [["createdAt", "DESC"]],
+        where:{
+            category
+        }
+    });
+    res.render('stories', {
+        allStories
+    })
+}))
+
 module.exports = router;

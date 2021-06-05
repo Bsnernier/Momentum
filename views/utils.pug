@@ -5,7 +5,8 @@ mixin commentContent(commentContent)
             img#comment-user-picture(src="/p1.jpeg")
         #comment-user-name #{commentContent.User.username}
             .comment-content #{commentContent.content}
-            i.fas.fa-backspace(id=`${commentContent.id}`)
+            if locals.authenticated
+                i.fas.fa-backspace(id=`${commentContent.id}`)
 
 mixin formField(title, forName, type, placeholder)
     span.form-row
