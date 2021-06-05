@@ -66,6 +66,12 @@
     color: #f08080;
 }
 
+.far.fa-heart{
+        padding-top: 25px;
+    font-size: 54px;
+    color: #f08080;
+}
+
 .follow-state{
     padding-top: 25px;
     font-size: 16px;
@@ -171,6 +177,7 @@
     font-family: Helvetica, Arial,sans-serif;
     color: #706f70;
 }
+
 
 .comments{
     padding-top: 25px;

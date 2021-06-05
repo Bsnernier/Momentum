@@ -3,11 +3,11 @@ include utils.pug
 
 block login
     +buttons()
-
+(id, username, image, content, commentContent, storyId,  likes, liked)
 block content
     if !allStories.length
         span no stories...
     else
         each post in allStories
-            +storyDisplay(post.User.username, post.image, post.content, post.Comments, post.id)
-    script(src="/javascripts/comments.js" type="module" defer)
+            +storyDisplay(post.id, post.username, post.image, post.content, post.Comments, post.likes, post.liked)
+    script(src="./javascripts/likes.js")

@@ -14,43 +14,50 @@ const { Like } = db;
 
 const { requireAuth } = require('../../auth');
 
-router.post('/', requireAuth, asyncHandler( async (req, res) => {
-    const storyId = parseInt(req.params.id, 10);
-    const loggedUserId = req.params.user.id
+// router.get('/api/story/:id/likes', requireAuth, asyncHandler( async (req, res) => {
+//     console.log("hey")
+// }))
 
-    const currentLike = await Like.findAll({
-        where: {
-            storyId: {
-                [Op.eq]: storyId
-            },
-            userId: {
-                [Op.eq]: loggedUserId
-            }
-        }
-    })
+// router.post('/:id/likes', requireAuth, asyncHandler( async (req, res) => {
+//     const storyId = parseInt(req.params.id, 10);
+//     const loggedUserId = res.locals.user.id
+//     console.log("THERE IS NO WAY THIS WORKS")
 
-    if(!currentLike) {
-        await currentLike.update({
-            userId,
-            storiesId
-        })
-    }
-}));
+//     const currentLike = await Like.findOne({
+//         where: {
+//             storyId: {
+//                 [Op.eq]: storyId
+//             },
+//             userId: {
+//                 [Op.eq]: loggedUserId
+//             }
+//         }
+//     })
 
-router.delete('/', requireAuth, asyncHandler( async (req, res) => {
-    const storyId = parseInt(req.params.id, 10);
-    const loggedUserId = req.params.user.id
+//     if(!currentLike) {
+//         await currentLike.update({
+//             userId,
+//             storiesId
+//         })
+//     }
+// }));
 
-    const currentLike = await Like.findAll({
-        where: {
-            storyId: {
-                [Op.eq]: storyId
-            },
-            userId: {
-                [Op.eq]: loggedUserId
-            }
-        }
-    })
+// router.delete('/', requireAuth, asyncHandler( async (req, res) => {
+//     const storyId = parseInt(req.params.id, 10);
+//     const loggedUserId = res.locals.user.id
 
-    await currentLike.destroy()
-}));
+//     const currentLike = await Like.findAll({
+//         where: {
+//             storyId: {
+//                 [Op.eq]: storyId
+//             },
+//             userId: {
+//                 [Op.eq]: loggedUserId
+//             }
+//         }
+//     })
+
+//     await currentLike.destroy()
+// }));
+
+module.exports = router;
