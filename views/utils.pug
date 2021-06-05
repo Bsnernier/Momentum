@@ -1,15 +1,24 @@
+
+mixin commentContent(commentContent)
+    div(class="comment-user", id = `${commentContent.id}`)
+        .comment-user-picture
+            img#comment-user-picture(src="/p1.jpeg")
+        #comment-user-name #{commentContent.User.username}
+            .comment-content #{commentContent.content}
+            i.fas.fa-backspace(id=`${commentContent.id}`)
+
 mixin formField(title, forName, type, placeholder)
     span.form-row
         label.label-control(for=`${forName}`) #{title}
         input.form-control(type=`${type}` name=`${forName}` placeholder=`${placeholder}`)
 
 
-mixin storyDisplay(id, username, image, content, likes, liked)
+mixin storyDisplay(id, username, image, content, commentContent, likes, liked)
     .container
         .story
             .user-column
                 .user-picture
-                    img#user-picture(src="p1.jpeg")
+                    img#user-picture(src="/p1.jpeg")
                 .user-name #{username}
                 .follow-state Follow
                 .likes-counter(class=`counter-${id}`) #{likes}
@@ -19,20 +28,49 @@ mixin storyDisplay(id, username, image, content, likes, liked)
                     else
                         i(class=`far fa-heart` id=`${id}`)
                 .comment-icon
-                    i.far.fa-comment
+                    i.far.fa-comment(id=`${id}`)
+                .delete-icon
+                    i.far.fa-trash-alt(id=`${id}` class="deleteButtonDisplay")
             .story-board
                 .story-picture
-                    img#story-picture(src=`${image}`)
+                    img#story-picture(src=`/${image}`)
                 .content
                     .story-title STORIES:
                     .story-content #{content}
                     .comments
                         .comment-title COMMENTS:
-                        .comment-user
-                            .comment-user-picture
-                                img#comment-user-picture(src="p1.jpeg")
-                            #comment-user-name USER NAME
-                        .comment-content Here is my take on the subject. It'll only work if the container has a specified size (max-width and max-height don't seem to get along with containers that don't have concrete size), but I wrote the CSS content in a way that allows it to be reused (add picture-frame class and px125 size class to your existing container).  Previous table-based image positioning had issues in Internet Explorer 11 (max-height doesn't work in display:table elements). I've replaced it with inline based positioning which not only
+                        if commentContent
+                            each comment in commentContent
+                                +commentContent(comment)
+
+
+mixin personalStoryDisplay(username, image, content, commentContent, storyId)
+    .container
+        .story(class=`story${storyId}`)
+            .user-column
+                .user-picture
+                    img#user-picture(src="/p1.jpeg")
+                .user-name #{username}
+                .follow-state Follow
+                .likes-counter 123
+                .like-icon
+                    i(class="fas fa-heart")
+                .comment-icon
+                    i.far.fa-comment(id=`${storyId}`)
+                .delete-icon
+                    i.far.fa-trash-alt(id=`${storyId}`)
+            .story-board
+                .story-picture
+                    img#story-picture(src=`/${image}`)
+                .content
+                    a.story-title(href="/post/new") STORIES:
+                    .story-content #{content}
+                    .comments
+                        a.comment-title(href=`/comments/${storyId}`) COMMENTS:
+                        if commentContent
+                            each comment in commentContent
+                                +commentContent(comment)
+
 
 mixin buttons
     if locals.authenticated
@@ -53,8 +91,4 @@ mixin validationErrorSummary(errors)
         each error in errors
           li= error
 
-//- mixin checkLike(likeState, id)
-//-     if (likeState)
-//-         i(class=`fas fa-heart ${likeState} blah` id=`${id}`)
-//-     else
-//-         i(class="far fa-heart" id=`${id}`)
+

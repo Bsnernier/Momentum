@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
   Story.associate = function(models) {
     // associations can be defined here
     Story.belongsTo(models.User, {foreignKey: 'userId'}),
-    Story.hasMany(models.Comment, {foreignKey: 'storyId'}),
-    Story.hasMany(models.Like, {foreignKey: 'storyId'})
+    Story.hasMany(models.Comment, {foreignKey: 'storyId', onDelete: 'CASCADE', hooks: true}),
+    Story.hasMany(models.Like, {foreignKey: 'storyId', onDelete: 'CASCADE', hooks: true})
 
   };
   return Story;

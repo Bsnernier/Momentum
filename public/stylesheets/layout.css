@@ -6,6 +6,14 @@ body {
     color:#030303;
 }
 
+a:link .navbar-brand {
+    color:#030303;
+}
+
+a:visited .navbar-brand {
+    color: #32A3D2;
+  }
+
 h1 {
     position: absolute;
     margin-left: auto;

@@ -8,9 +8,22 @@ label{
     font-family:Helvetica,Arial,sans-serif;
     color: #32A3D2;
 }
+.categorydiv{
+    display: flex;
+    flex-direction: row;
+}
 
+#category{
+   margin-left: 80px;
+   margin-right: 0;
+   padding-right: 0;
+   width: 100%;
+   border-radius: 10px;
+
+}
 .input-group{
-    padding-bottom: 50px;
+    padding-bottom: 30px;
+
 }
 
 #pictureUrl.form-control, #placeName.form-control, #stories.form-control{
@@ -18,7 +31,10 @@ label{
     border-radius: 10px;
 }
 
-
+.form-control{
+    margin-right: 0;
+    padding-right: 0;
+}
 .stories-textarea#stories.form-control{
     margin-left: 120px;
 }
@@ -32,5 +48,3 @@ label{
     background-color:#f08080;
     border: none;
 }
-
-

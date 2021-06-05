@@ -7,6 +7,7 @@ const { requireAuth } = require('../auth')
 const { Op } = require("sequelize")
 
 
+const likesRouter = require('../routes/likes');
 const commentsRouter = require('./comments');
 const user = require('../db/models/user');
 // const apiStoriesRouter = require('./apiRoutes/likes')
@@ -16,7 +17,7 @@ router.use('/:id/comments', commentsRouter);
 
 router.get("/", asyncHandler(async(req, res)=>{
     const loggedInUser = res.locals.user.id
-    const allStories = await Story.findAll({include: User});
+    const allStories = await Story.findAll({include: [User, {model:Comment, include: User}], order: [["createdAt", "DESC"]]});
 
 //---------------------------------------------------------beginning of likes loop
     for (i = 0; i < allStories.length; i++) {
@@ -38,36 +39,25 @@ router.get("/", asyncHandler(async(req, res)=>{
     res.render("stories", {allStories})
 }))
 
-// router.get("/:id", asyncHandler(async(req, res) => {
-//     const id = req.params.id
-//     const story = await Story.findByPk(`${id}`, {include: User});
+// router.get("/", asyncHandler(async(req, res)=>{
 
-//     const likesCount = await Like.findAndCountAll({
-//         where: {
-//             storyId: id,
-//         }
-//     })
-
-//     story.likes = likesCount.count
-
-//     res.render("stories", {story})
+//     const allStories = await Story.findAll({include: [User, {model:Comment, include: User}], order: [["createdAt", "DESC"]]});
+//     res.render("stories", {allStories})
 // }))
 
-// router.get('/', csrfProtection, validators, asyncHandler(async(req, res)=>{
-//     const allPost = await Story.findByPk(30, {include: User});
-
-//     const {username, image, content} = allPost
-
-//     console.log(username);
-//     res.render("stories", {username, image, content})
-// }))
-
-// router.get('/', asyncHandler( async (req, res) => {
-//     res.send('this is where all the stories will go')
-// }));
+router.get("/mystories", asyncHandler(async(req, res)=>{
 
 
-//--------------------GET User's Stories Profile-------------------------------
+    const { userId } = req.session.auth;
+
+    const allStories = await Story.findAll({
+        include: [User, {model:Comment, include: User}],
+        where: {userId},
+        order: [["createdAt", "DESC"]]});
+    res.render("storiesForPersonal", {allStories})
+}))
+
+
 router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId);
@@ -78,7 +68,6 @@ router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     })
 }))
 
-//-------------------PUT Update User's Story-----------------------------------
 router.put('/:id/users/:id', asyncHandler( async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId);
@@ -89,7 +78,6 @@ router.put('/:id/users/:id', asyncHandler( async (req, res) => {
     })
 }))
 
-//-------------------PUT Update User's Comments------------------------------
 router.put('/:id/users/:id/comments/:id', asyncHandler( async (req, res) => {
     const commentId = parseInt(req.params.id, 10); //IDK if this will work or how to fix
                                                    //if it doesn't
