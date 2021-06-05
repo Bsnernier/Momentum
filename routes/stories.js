@@ -7,7 +7,7 @@ const { requireAuth } = require('../auth')
 const { Op } = require("sequelize")
 
 
-const likesRouter = require('../routes/likes');
+// const likesRouter = require('../routes/likes');
 const commentsRouter = require('./comments');
 const user = require('../db/models/user');
 // const apiStoriesRouter = require('./apiRoutes/likes')

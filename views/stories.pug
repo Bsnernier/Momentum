@@ -3,7 +3,6 @@ include utils.pug
 
 block login
     +buttons()
-(id, username, image, content, commentContent, storyId,  likes, liked)
 block content
     if !allStories
         h3 No stories currently available!
@@ -11,3 +10,4 @@ block content
         each post in allStories
             +storyDisplay(post.id, post.username, post.image, post.content, post.Comments, post.likes, post.liked)
     script(src="./javascripts/likes.js")
+    script(src="./javascripts/comments.js" type="module" defer)
