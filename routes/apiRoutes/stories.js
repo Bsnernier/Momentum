@@ -15,7 +15,7 @@ const jsonParser = bodyParser.json();
 const db = require("../../db/models");
 const user = require("../../db/models/user");
 
-const { Story, User } = db;
+const { Story, User,Comment } = db;
 
 // router.use(requireAuth);
 
@@ -92,5 +92,63 @@ router.post(
 
     })
 );
+
+
+router.delete('/:id', asyncHandler( async (req, res) => {
+  try{
+      const storyId = parseInt(req.params.id, 10);
+      if(req.session.auth){
+        const {userId} = req.session.auth;
+        console.log(userId);
+      }
+
+      const currentStory = await Story.findOne({
+        where:{
+          id: storyId,
+        }
+      })
+
+      if(currentStory){
+          await currentStory.destroy()
+          res.send(200);
+
+      }else{
+          res.send(400)
+          console.log("story not found!");
+      }
+  }catch(e){
+      res.send(400)
+      console.log(e);
+  }
+}));
+
+
+
+router.put('/:id', async function (req, res) {
+  try{
+    const storyId = parseInt(req.params.id, 10);
+    if(req.session.auth){
+      const {userId} = req.session.auth;
+      console.log(userId);
+    }
+
+    const currentStory = await Story.findOne({
+      where:{
+        id: storyId,
+      }
+    })
+
+    if(currentStory){
+        res.json(currentStory);
+
+    }else{
+        res.send(400)
+        console.log("story not found!");
+    }
+}catch(e){
+    res.send(400)
+    console.log(e);
+}
+});
 
   module.exports = router;

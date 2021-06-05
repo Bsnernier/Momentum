@@ -1,18 +1,5 @@
-// import { handleErrors } from "./utils.js";
+
 window.addEventListener("DOMContentLoaded", (event) => {
-  // console.log("hello from javascript!")
-
-
-
-  // document.addEventListener("DOMContentLoaded", async () => {
-  //     try {
-  //       await fetchStories();
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  // });
-
-
 
   const form = document.querySelector(".create-form");
 

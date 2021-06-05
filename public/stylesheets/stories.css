@@ -97,6 +97,17 @@
     color: #030303;
 }
 
+
+.far.fa-trash-alt{
+    padding-top: 50px;
+    font-size: 50px;
+    color: #030303;
+}
+
+.deleteButtonDisplay{
+    display: none;
+}
+
 .comment-user{
     padding-top: 10px;
     display: flex;
@@ -131,6 +142,7 @@
     font-weight: bold;
     font-family: Helvetica, Arial,sans-serif;
     color: #32a3d2;
+
 }
 
 .story-content{
@@ -149,6 +161,7 @@
     font-weight: bold;
     font-family: Helvetica, Arial,sans-serif;
     color: #32a3d2;
+
 }
 
 .comment-content{
@@ -157,4 +170,12 @@
     font-weight: bold;
     font-family: Helvetica, Arial,sans-serif;
     color: #706f70;
+}
+
+.comments{
+    padding-top: 25px;
+}
+
+a.comment-title, a.story-title{
+    text-decoration: underline;
 }
