@@ -1,0 +1,20 @@
+.btn{
+    color:white;
+}
+
+.btn.profile-button{
+    background-color:#070606;
+    border-color: aliceblue;
+    border: 10px;
+}
+
+.btn.unfollow-button{
+    background-color:#f08080;
+    border-color: aliceblue;
+    border: 10px;
+}
+.btn.follow-button{
+    background-color:#9480f0;
+    border-color: aliceblue;
+    border: 10px;
+}

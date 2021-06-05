@@ -1,0 +1,21 @@
+extends layout.pug
+
+append head
+    //- add page specific styles by appending to the head
+    link(rel="stylesheet" href="/stylesheets/followers.css")
+    //- add page specific js
+
+
+block content
+    if !allFollowers
+        h3 You have zero followers.
+    else
+        h3 Followers:
+        each account in allFollowers
+            div.individual-follower
+                ul
+                    li= account.userObj.username
+                    button.btn.profile-button(type='button' href=`/users/${account.userObj.id}`) PROFILE
+                    include followerButtons.pug
+
+        script(src="/javascripts/followers.js" type="module" defer)

@@ -20,12 +20,4 @@ const handleValidationErrors = (req, res, next) => {
     next();
 };
 
-const validationErrorsSummary = (errors) => {
-  errors.forEach(error => {
-    console.log(error)
-    //still have to create divs and show the errors here
-  })
-}
-
-
 module.exports = {asyncHandler, handleValidationErrors, csrfProtection};

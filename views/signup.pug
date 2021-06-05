@@ -10,6 +10,7 @@ block login
     +buttons()
 
 block content
+    //- +errorDisplay(errors)
     h2.header-2 Sign Up
     +validationErrorSummary(errors)
     form.form-group(action='/users/signup' method='post')

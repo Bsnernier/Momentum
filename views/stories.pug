@@ -5,8 +5,8 @@ block login
     +buttons()
 (id, username, image, content, commentContent, storyId,  likes, liked)
 block content
-    if !allStories.length
-        span no stories...
+    if !allStories
+        h3 No stories currently available!
     else
         each post in allStories
             +storyDisplay(post.id, post.username, post.image, post.content, post.Comments, post.likes, post.liked)
