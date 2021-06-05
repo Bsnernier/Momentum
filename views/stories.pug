@@ -6,5 +6,5 @@ block content
         span no stories...
     else
         each post in allStories
-            +storyDisplay(post.username, post.image, post.content, post.likes)
+            +storyDisplay(post.id, post.username, post.image, post.content, post.likes, post.liked)
     script(src="./javascripts/likes.js")

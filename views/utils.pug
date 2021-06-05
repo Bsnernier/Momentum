@@ -4,7 +4,7 @@ mixin formField(title, forName, type, placeholder)
         input.form-control(type=`${type}` name=`${forName}` placeholder=`${placeholder}`)
 
 
-mixin storyDisplay(username, image, content, likes)
+mixin storyDisplay(id, username, image, content, likes, liked)
     .container
         .story
             .user-column
@@ -12,9 +12,12 @@ mixin storyDisplay(username, image, content, likes)
                     img#user-picture(src="p1.jpeg")
                 .user-name #{username}
                 .follow-state Follow
-                .likes-counter #{likes}
+                .likes-counter(class=`counter-${id}`) #{likes}
                 .like-icon
-                    i(class="fas fa-heart")
+                    if (liked)
+                        i(class=`fas fa-heart` id=`${id}`)
+                    else
+                        i(class=`far fa-heart` id=`${id}`)
                 .comment-icon
                     i.far.fa-comment
             .story-board
@@ -49,3 +52,9 @@ mixin validationErrorSummary(errors)
       ul
         each error in errors
           li= error
+
+//- mixin checkLike(likeState, id)
+//-     if (likeState)
+//-         i(class=`fas fa-heart ${likeState} blah` id=`${id}`)
+//-     else
+//-         i(class="far fa-heart" id=`${id}`)

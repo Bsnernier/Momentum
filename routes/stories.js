@@ -8,12 +8,14 @@ const { Op } = require("sequelize")
 
 
 const commentsRouter = require('./comments');
+const user = require('../db/models/user');
 // const apiStoriesRouter = require('./apiRoutes/likes')
 
 router.use('/:id/comments', commentsRouter);
 // router.use('/api/likes', apiStoriesRouter);
 
 router.get("/", asyncHandler(async(req, res)=>{
+    const loggedInUser = res.locals.user.id
     const allStories = await Story.findAll({include: User});
 
 //---------------------------------------------------------beginning of likes loop
@@ -21,17 +23,35 @@ router.get("/", asyncHandler(async(req, res)=>{
         const storyId = allStories[i].id
         const currentLikes = await Like.findAndCountAll({
             where: {
-                storyId: {
-                    [Op.eq]: storyId
-                }
+                storyId,
             }
         })
+        const userArr = currentLikes.rows.map((like) => like.userId)
+        if (userArr.includes(loggedInUser)) {
+            allStories[i].liked = true
+        } else {
+            allStories[i].liked = false
+        }
         allStories[i].likes = currentLikes.count
     }
 //---------------------------------------------------------end of likes loop
-
     res.render("stories", {allStories})
 }))
+
+// router.get("/:id", asyncHandler(async(req, res) => {
+//     const id = req.params.id
+//     const story = await Story.findByPk(`${id}`, {include: User});
+
+//     const likesCount = await Like.findAndCountAll({
+//         where: {
+//             storyId: id,
+//         }
+//     })
+
+//     story.likes = likesCount.count
+
+//     res.render("stories", {story})
+// }))
 
 // router.get('/', csrfProtection, validators, asyncHandler(async(req, res)=>{
 //     const allPost = await Story.findByPk(30, {include: User});

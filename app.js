@@ -47,12 +47,11 @@ app.use(restoreUser)
 // create Session table if it doesn't already exist
 store.sync();
 
-app.use('/api/stories', apiStoriesRouter)
-
 app.use('/api', apiRouter)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/stories', storiesRouter);
+app.use('/api/stories',apiStoriesRouter)
 // app.use('/post', postsRouter)
 
 // catch 404 and forward to error handler
