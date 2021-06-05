@@ -23,7 +23,6 @@ router.delete(
     `/:id`,
     requireAuth,
     asyncHandler(async (req, res) => {
-        console.log('inside router delete')
         const userId = res.locals.user.id
         const followerId = req.params.id
         const followedUser = await Follower.findOne({
@@ -38,4 +37,28 @@ router.delete(
     })
 );
 
+router.delete(
+    `/:id/block`,
+    requireAuth,
+    asyncHandler(async (req, res) => {
+        const userId = res.locals.user.id
+        const followerId = req.params.id
+        const blockedUser = await Follower.findOne({
+            where: {
+                followerId: followerId,
+                userId: userId,
+            }
+        })
+        const followedUser = await Follower.findOne({
+            where: {
+                followerId: userId,
+                userId: followerId,
+            }
+        })
+
+        await followedUser.destroy()
+        await blockedUser.destroy()
+        res.json({})
+    })
+)
 module.exports = router;
