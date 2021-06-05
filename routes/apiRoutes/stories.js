@@ -15,7 +15,9 @@ const jsonParser = bodyParser.json();
 const db = require("../../db/models");
 const user = require("../../db/models/user");
 
-const { Story, User,Comment } = db;
+
+const { Story, User, Like, Comment } = db;
+
 
 // router.use(requireAuth);
 
@@ -94,6 +96,80 @@ router.post(
 );
 
 
+
+router.get('/:id/likes', requireAuth, asyncHandler( async (req, res) => {
+  const storyId = parseInt(req.params.id, 10);
+  const loggedUserId = res.locals.user.id
+  let likeState = ''
+
+  const currentLike = await Like.findAll({
+    where: {
+        storyId,
+    }
+  })
+
+  const userLike = await Like.findOne({
+    where: {
+        storyId,
+        userId: loggedUserId
+    }
+  })
+  if(userLike) {
+    likeState = true
+  } else {
+    likeState = false
+  }
+  await res.json({currentLike, likeState})
+}))
+
+router.post('/:id/likes', requireAuth, asyncHandler( async (req, res) => {
+  const storyId = parseInt(req.params.id, 10);
+  const loggedUserId = res.locals.user.id
+  let likeState = false
+
+  const currentLike = await Like.findOne({
+    where: {
+        storyId,
+        userId: loggedUserId
+    }
+  })
+
+  if(!currentLike) {
+      const newLike = await Like.build({
+          count: 1,
+          userId: loggedUserId,
+          storyId
+      })
+      likeState = true
+      res.locals.storyId = true
+      await newLike.save()
+  }
+
+  res.json({currentLike, likeState})
+}));
+
+router.delete('/:id/likes', requireAuth, asyncHandler( async (req, res) => {
+  const storyId = parseInt(req.params.id, 10);
+  const loggedUserId = res.locals.user.id
+  let likeState = true
+
+  const currentLike = await Like.findOne({
+    where: {
+      storyId,
+      userId: loggedUserId
+  }
+  })
+
+  if(currentLike) {
+    await currentLike.destroy()
+    likeState = false
+    res.locals.storyId = false
+  }
+
+  res.json({currentLike, likeState})
+}));
+
+
 router.delete('/:id', asyncHandler( async (req, res) => {
   try{
       const storyId = parseInt(req.params.id, 10);
@@ -145,5 +221,6 @@ router.put('/:id', async function (req, res) {
     console.log(e);
 }
 });
+
 
   module.exports = router;

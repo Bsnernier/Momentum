@@ -12,7 +12,7 @@ mixin formField(title, forName, type, placeholder)
         label.label-control(for=`${forName}`) #{title}
         input.form-control(type=`${type}` name=`${forName}` placeholder=`${placeholder}`)
 
-mixin storyDisplay(username, image, content, commentContent, storyId)
+mixin storyDisplay(id, username, image, content, commentContent, likes, liked)
     .container
         .story
             .user-column
@@ -20,13 +20,16 @@ mixin storyDisplay(username, image, content, commentContent, storyId)
                     img#user-picture(src="/p1.jpeg")
                 .user-name #{username}
                 .follow-state Follow
-                .likes-counter 123
+                .likes-counter(class=`counter-${id}`) #{likes}
                 .like-icon
-                    i(class="fas fa-heart")
+                    if (liked)
+                        i(class=`fas fa-heart` id=`${id}`)
+                    else
+                        i(class=`far fa-heart` id=`${id}`)
                 .comment-icon
-                    i.far.fa-comment(id=`${storyId}`)
+                    i.far.fa-comment(id=`${id}`)
                 .delete-icon
-                    i.far.fa-trash-alt(id=`${storyId}` class="deleteButtonDisplay")
+                    i.far.fa-trash-alt(id=`${id}` class="deleteButtonDisplay")
             .story-board
                 .story-picture
                     img#story-picture(src=`/${image}`)
@@ -59,13 +62,14 @@ mixin personalStoryDisplay(username, image, content, commentContent, storyId)
                 .story-picture
                     img#story-picture(src=`/${image}`)
                 .content
-                    a.story-title(href="/post/new") STORIES:
+                    a.story-title(href=`/post/new/${storyId}`) STORIES:
                     .story-content #{content}
                     .comments
-                        a.comment-title(href=`/comments/${storyId}`) COMMENTS:
+                        .comment-title COMMENTS:
                         if commentContent
                             each comment in commentContent
                                 +commentContent(comment)
+
 
 
 mixin buttons

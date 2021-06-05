@@ -6,12 +6,17 @@ const { User, Comment, Story } = db;
 const { requireAuth } = require('../auth')
 
 
-router.get("/post/new/:id", asyncHandler(async(req, res)=>{
+router.get("/new/:id", requireAuth,asyncHandler(async(req, res)=>{
+    try{
+        // console.log("______IM HERE!!!!!!!!!");
+        const id = parseInt(req.params.id, 10);
+        const currentStory = await Story.findByPk(id);
+        const {image, location, content } = currentStory;
+        res.render("postPrefilled", {image, location, content})
+    }catch(e){
+        console.log(e);
+    }
 
-
-    
-
-    res.render("postPrefilled", {content, image, location})
 }))
 
 

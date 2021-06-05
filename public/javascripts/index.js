@@ -8,5 +8,4 @@ window.addEventListener("DOMContentLoaded", (event)=>{
       };
 
       fetchStories();
-
 })

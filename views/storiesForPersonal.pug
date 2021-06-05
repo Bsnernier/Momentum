@@ -3,9 +3,8 @@ include utils.pug
 
 block login
     +buttons()
-
 block content
-    if !allStories.length
+    if !allStories
         span no stories...
     else
         each post in allStories

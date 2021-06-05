@@ -9,6 +9,7 @@ block login
     include loginbuttons.pug
 
 block content
+    //- +errorDisplay(errors)
     h2.header-2 Log In
     +validationErrorSummary(errors)
     form.form-group(action='/users/login' method='post')
@@ -18,3 +19,5 @@ block content
         div.button-group
             button.btn.btn-primary.submit-button(type='submit') Login
             button.btn.btn-primary.submit-button(type='button' href='/') Cancel
+            a(href="signup") Not registered? Sign up here!
+
