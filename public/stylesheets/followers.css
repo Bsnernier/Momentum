@@ -2,11 +2,18 @@
     color:white;
 }
 
-.btn.profile-button{
+.btn.block-button{
     background-color:#070606;
     border-color: aliceblue;
     border: 10px;
 }
+
+.btn.profile-button{
+    background-color:#92ca92;
+    border-color: aliceblue;
+    border: 10px;
+}
+
 
 .btn.unfollow-button{
     background-color:#f08080;

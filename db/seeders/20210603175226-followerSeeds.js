@@ -8,18 +8,34 @@ module.exports = {
     const users = await User.findAll()
 
     return queryInterface.bulkInsert('Followers', [
-      { userId: users[0].id, followerId: users[1].id, createdAt: new Date(), updatedAt: new Date() },
-      { userId: users[0].id, followerId: users[2].id, createdAt: new Date(), updatedAt: new Date() },
-      { userId: users[2].id, followerId: users[1].id, createdAt: new Date(), updatedAt: new Date() },
-      { userId: users[2].id, followerId: users[0].id, createdAt: new Date(), updatedAt: new Date() },
-      { userId: users[1].id, followerId: users[0].id, createdAt: new Date(), updatedAt: new Date() },
-      { userId: users[1].id, followerId: users[2].id, createdAt: new Date(), updatedAt: new Date() },
-      { userId: users[3].id, followerId: users[4].id, createdAt: new Date(), updatedAt: new Date() },
-      { userId: users[4].id, followerId: users[3].id, createdAt: new Date(), updatedAt: new Date() },
-      { userId: users[2].id, followerId: users[4].id, createdAt: new Date(), updatedAt: new Date() },
-      { userId: users[1].id, followerId: users[4].id, createdAt: new Date(), updatedAt: new Date() },
-      { userId: users[1].id, followerId: users[3].id, createdAt: new Date(), updatedAt: new Date() },
-    ], {})
+    { userId: users[0].id, followerId: users[1].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[0].id, followerId: users[2].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[0].id, followerId: users[3].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[0].id, followerId: users[4].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[0].id, followerId: users[5].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[0].id, followerId: users[6].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[0].id, followerId: users[7].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[0].id, followerId: users[8].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[1].id, followerId: users[0].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[4].id, followerId: users[0].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[7].id, followerId: users[0].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[8].id, followerId: users[0].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[3].id, followerId: users[0].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[2].id, followerId: users[0].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[1].id, followerId: users[2].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[3].id, followerId: users[4].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[4].id, followerId: users[3].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[2].id, followerId: users[4].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[1].id, followerId: users[3].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[2].id, followerId: users[1].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[1].id, followerId: users[8].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[3].id, followerId: users[5].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[2].id, followerId: users[7].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[1].id, followerId: users[4].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[1].id, followerId: users[5].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[5].id, followerId: users[6].id, createdAt: new Date(), updatedAt: new Date() },
+  ]
+  , {})
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.

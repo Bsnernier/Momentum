@@ -10,6 +10,7 @@ block content
     if !allFollowers
         h3 You have zero followers.
     else
+        div.followers-container
         h3 Followers:
         each account in allFollowers
             div.individual-follower
