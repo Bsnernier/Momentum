@@ -101,17 +101,18 @@ router.post(
   validateStory,
   jsonParser,
   asyncHandler(async (req, res) => {
-
+    console.log("api/posting")
     try{
       const { content, image, location, category} = req.body;
       const { userId } = req.session.auth;
       const story = await Story.create({ category, content, image, location, userId});
-      res.json({story})
+      // res.json({story})
+      res.send(200)
     }catch(e){
       console.log(e);
       res.send(400)
     }
-
+    console.log("guschen802: api/posting finished")
   })
 );
 

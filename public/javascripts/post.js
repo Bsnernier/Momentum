@@ -6,7 +6,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   if (form) {
     form.addEventListener("submit", async (e) => {
-
+      // e.preventDefault();
       try {
         const formData = new FormData(form);
         const image = formData.get("image");
@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         const categoryEle = document.querySelector("#category");
 
         const category = categoryEle.value;
-
+        console.log("posting stories")
         const body = { image, location, content, category };
         const res = await fetch(`/api/stories`, {
           method: "POST",
@@ -24,7 +24,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
             "Content-Type": "application/json"
           }
         });
-
+        console.log("posting stories success")
         if (res.status === 401) {
           window.location.href = "/log-in";
           return;

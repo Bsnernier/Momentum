@@ -56,7 +56,9 @@ router.post(
       }catch(e){
         console.log("Error in posting comment");
         console.log(e);
+        res.send(400);
       }
+      console.log("Finished commenting for category");
     })
 );
 
