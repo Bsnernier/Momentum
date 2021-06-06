@@ -1,27 +1,55 @@
+.followers-container {
+    max-width: 1120px;
+}
+
+.followers-title {
+    padding-left: 720px;
+    font-size: 40px;
+    font-weight: bold;
+    font-family:Helvetica,Arial,sans-serif;
+    color: #070606;
+}
+
+.individual-follower {
+    display: flex;
+    font-size: 30px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.button-group{
+    justify-content: flex-end;
+}
+
 .btn{
     color:white;
 }
 
 .btn.block-button{
     background-color:#070606;
-    border-color: aliceblue;
-    border: 10px;
+    border: none;
+    margin: 10px;
+    margin-top: 20px;
 }
 
 .btn.profile-button{
-    background-color:#92ca92;
-    border-color: aliceblue;
-    border: 10px;
+    background-color:#32A3D2;
+    border: none;
+    margin: 10px;
+    margin-top: 20px;
 }
 
 
 .btn.unfollow-button{
     background-color:#f08080;
-    border-color: aliceblue;
-    border: 10px;
+    border: none;
+    margin: 10px;
+    margin-top: 20px;
+
 }
 .btn.follow-button{
-    background-color:#9480f0;
-    border-color: aliceblue;
-    border: 10px;
+    background-color: #32A3D2;
+    border: none;
+    margin: 10px;
+    margin-top: 20px;
 }

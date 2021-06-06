@@ -1,5 +1,5 @@
-button.btn.block-button(type='button' id=`${account.userObj.id}` href=`/api/users/${account.userObj.id}`) BLOCK
 if account.mutual
     button.btn.unfollow-button(type='button' id=`${account.userObj.id}` href=`/api/users/${account.userObj.id}`) UNFOLLOW
 else
     button.btn.follow-button(type='button' id=`${account.userObj.id}` href=`/api/users/${account.userObj.id}`) FOLLOW BACK
+button.btn.block-button(type='button' id=`${account.userObj.id}` href=`/api/users/${account.userObj.id}`) BLOCK
