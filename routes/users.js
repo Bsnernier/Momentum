@@ -170,8 +170,8 @@ router.post('/login', csrfProtection, loginValidators,
       csrfToken: req.csrfToken(),
     });
     }
-  }));
-  
+  ));
+
   router.post('/demo', csrfProtection, loginValidators,
   asyncHandler(async (req, res) => {
     console.log('in demo router')
