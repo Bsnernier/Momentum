@@ -41,13 +41,15 @@ router.post(
     validateComment,
     jsonParser,
     asyncHandler(async (req, res) => {
-      const { content,userId, storyId } = req.body;
+      const { content } = req.body;
 
       try{
         const id = req.params.id
         const { userId } = req.session.auth;
+        const story = await Story.findByPk(id)
+        const {category} = story;
         const comments = await Comment.create({ content, userId: userId, storyId:id });
-        res.json({comments})
+        res.json({comments, category})
       }catch(e){
         console.log("Error in posting comment");
         console.log(e);
@@ -78,25 +80,25 @@ router.post('/:commentId/likes', requireAuth, asyncHandler( async (req, res) => 
     }
 }));
 
-router.delete('/', requireAuth, asyncHandler( async (req, res) => {
-    const commentId = parseInt(req.params.id, 10);
-    const loggedUserId = req.params.user.id
+// router.delete('/', requireAuth, asyncHandler( async (req, res) => {
+//     const commentId = parseInt(req.params.id, 10);
+//     const loggedUserId = req.params.user.id
 
-    const currentLike = await Like.findAll({
-        where: {
-            commentId: {
-                [Op.eq]: commentId
-            },
-            userId: {
-                [Op.eq]: loggedUserId
-            }
-        }
-    })
+//     const currentLike = await Like.findAll({
+//         where: {
+//             commentId: {
+//                 [Op.eq]: commentId
+//             },
+//             userId: {
+//                 [Op.eq]: loggedUserId
+//             }
+//         }
+//     })
 
-    await currentLike.destroy()
-}));
+//     await currentLike.destroy()
+// }));
 
-router.delete('/:id', asyncHandler( async (req, res) => {
+router.delete('/:id',requireAuth, asyncHandler( async (req, res) => {
     try{
         const commentId = parseInt(req.params.id, 10);
         const {userId} = req.session.auth;

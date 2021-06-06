@@ -23,6 +23,7 @@ h1 {
     text-align: center;
     font-weight: bold;
     z-index:-1000;
+    text-transform: uppercase;
 }
 
 nav {
@@ -41,7 +42,9 @@ input{
 
 .navbar-brand {
     margin-right: 0;
-    font-size: 16px;
+    font-size: 24px;
+    width: 150px;
+
 }
 
 .fas.fa-search{
@@ -54,4 +57,17 @@ input{
     display: flex;
     justify-content: flex-start;
     align-items: center
+}
+
+nav.navbar.navbar-light{
+    display: flex;
+    justify-content: space-between;
+    padding-left:0px;
+    padding-right: 0px;
+
+}
+a#post.navbar-brand{
+    display: flex;
+    align-self: center;
+    justify-content: center;
 }

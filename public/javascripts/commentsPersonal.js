@@ -6,7 +6,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
       commentButtons.forEach(commentButton =>{
         commentButton.addEventListener("click", (e)=>{
           const id = e.target.id;
-          window.location.href = `/comments/${id}`;
+          window.location.href = `/comments/personal/${id}`;
         })
       })
     }

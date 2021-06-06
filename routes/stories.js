@@ -36,7 +36,7 @@ router.get("/", requireAuth, asyncHandler(async(req, res)=>{
         allStories[i].likes = currentLikes.count
     }
 //---------------------------------------------------------end of likes loop
-    res.render("stories", {allStories, userId})
+    res.render("stories", {allStories, userId, title1: "MOMENTUM"})
 }))
 
 // router.get("/", asyncHandler(async(req, res)=>{
@@ -46,13 +46,13 @@ router.get("/", requireAuth, asyncHandler(async(req, res)=>{
 // }))
 
 //--------------------GET User's Stories Profile-------------------------------
-router.get("/mystories", asyncHandler(async(req, res)=>{
+router.get("/mystories", requireAuth, asyncHandler(async(req, res)=>{
 
 
     const { userId } = req.session.auth;
 //---------------------------------------------------------beginning of likes loop
     const allStories = await Story.findAll({
-        include: [User, {model:Comment, include: User}],
+        include: [User, {model:Comment,order: [["createdAt", "DESC"]], include: User}],
         where: {userId},
         order: [["createdAt", "DESC"]]});
 
@@ -72,7 +72,7 @@ router.get("/mystories", asyncHandler(async(req, res)=>{
         allStories[i].likes = currentLikes.count
     }
 
-    res.render("storiesForPersonal", {allStories, userId})
+    res.render("storiesForPersonal", {allStories, userId, title1: "MOMENTUM"})
 
 }))
 
@@ -82,7 +82,8 @@ router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
 
     res.render('user', {
         title: currentUser.username,
-        currentUser
+        currentUser,
+        title1: "MOMENTUM"
     })
 }))
 
@@ -94,7 +95,8 @@ router.put('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
 
     res.render('signup', {
         title: currentUser.username,
-        currentUser
+        currentUser,
+        title1: "MOMENTUM"
     })
 }))
 
@@ -106,7 +108,8 @@ router.put('/:id/users/:id/comments/:id', requireAuth, asyncHandler( async (req,
 
     res.render('comment', {
         title: `${currentUser.username}'s Comment`,
-        currentComment
+        currentComment,
+        title1: "MOMENTUM"
     })
 }))
 
@@ -117,7 +120,8 @@ router.delete('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
 
     res.render('user', {
         title: currentUser.username,
-        currentUser
+        currentUser,
+        title1: "MOMENTUM"
     })
 }))
 
@@ -127,7 +131,7 @@ router.get("/:category", requireAuth, asyncHandler( async (req, res) => {
     // console.log(req.params);
     const { userId } = req.session.auth;
     const loggedInUser = res.locals.user.id
-    const allStories = await Story.findAll({include: [User, {model:Comment, include: User}], order: [["createdAt", "DESC"]],
+    const allStories = await Story.findAll({include: [User, {model:Comment,order: [["createdAt", "DESC"]], include: User}], order: [["createdAt", "DESC"]],
         where:{
             category
         }
@@ -149,9 +153,10 @@ router.get("/:category", requireAuth, asyncHandler( async (req, res) => {
         allStories[i].likes = currentLikes.count
     }
 
-    res.render('stories', {
+    res.render('storiesForcategory', {
         userId,
-        allStories
+        allStories,
+        title1: `${category}`
     })
 }))
 
