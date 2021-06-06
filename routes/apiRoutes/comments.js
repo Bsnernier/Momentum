@@ -15,6 +15,7 @@ router.use(express.urlencoded({ extended: false }));
 
 router.get(
     "/",
+    requireAuth,
     asyncHandler(async (req, res) => {
 
       const comments = await Comment.findAll({
@@ -36,35 +37,14 @@ const validateComment = [
     handleValidationErrors,
 ];
 
-// router.post(
-//     "/category/:id",
-//     validateComment,
-//     jsonParser,
-//     requireAuth,
-//     asyncHandler(async (req, res) => {
-//       const { content } = req.body;
-
-//       try{
-//         const id = req.params.id
-//         const { userId } = req.session.auth;
-//         const story = await Story.findByPk(id)
-//         const {category} = story;
-//         const comments = await Comment.create({ content, userId: userId, storyId:id });
-//         res.json({comments, category})
-//       }catch(e){
-//         console.log("Error in posting comment");
-//         console.log(e);
-//       }
-//     })
-// );
-
 router.post(
-    "/:id",
+    "/category/:id",
     validateComment,
     jsonParser,
     requireAuth,
     asyncHandler(async (req, res) => {
       const { content } = req.body;
+      console.log('category')
 
       try{
         const id = req.params.id
@@ -80,27 +60,51 @@ router.post(
     })
 );
 
-// router.post(
-//     "/personal/:id",
-//     validateComment,
-//     jsonParser,
-//     requireAuth,
-//     asyncHandler(async (req, res) => {
-//       const { content } = req.body;
+router.post(
+    "/:id",
+    validateComment,
+    jsonParser,
+    requireAuth,
+    asyncHandler(async (req, res) => {
+      const { content } = req.body;
+      console.log('normal')
 
-//       try{
-//         const id = req.params.id
-//         const { userId } = req.session.auth;
-//         const story = await Story.findByPk(id)
-//         const {category} = story;
-//         const comments = await Comment.create({ content, userId: userId, storyId:id });
-//         res.json({comments, category})
-//       }catch(e){
-//         console.log("Error in posting comment");
-//         console.log(e);
-//       }
-//     })
-// );
+      try{
+        const id = req.params.id
+        const { userId } = req.session.auth;
+        const story = await Story.findByPk(id)
+        const {category} = story;
+        const comments = await Comment.create({ content, userId: userId, storyId:id });
+        res.json({comments, category})
+      }catch(e){
+        console.log("Error in posting comment");
+        console.log(e);
+      }
+    })
+);
+
+router.post(
+    "/personal/:id",
+    validateComment,
+    jsonParser,
+    requireAuth,
+    asyncHandler(async (req, res) => {
+      const { content } = req.body;
+      console.log('personal')
+
+      try{
+        const id = req.params.id
+        const { userId } = req.session.auth;
+        const story = await Story.findByPk(id)
+        const {category} = story;
+        const comments = await Comment.create({ content, userId: userId, storyId:id });
+        res.json({comments, category})
+      }catch(e){
+        console.log("Error in posting comment");
+        console.log(e);
+      }
+    })
+);
 
 
 
