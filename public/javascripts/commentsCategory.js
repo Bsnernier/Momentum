@@ -38,7 +38,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
      })
     })
   }
-
+  console.log("fffffffffffffffffffffffffffffffffffff")
   const form = document.querySelector(".comment-form");
 
 
@@ -46,16 +46,14 @@ window.addEventListener("DOMContentLoaded", (event)=>{
     form.addEventListener("submit", async (event) => {
       const formData = new FormData(form);
       const content = formData.get("content");
-      // console.log("_______",category);
       console.log("start2!!!");
       const body = { content };
       // try {
         const id = event.target.id
         console.log("my id: ", id)
 
-        const res = await fetch(`/api/comments/${id}`, {
+        const res = await fetch(`/api/comments/category/${id}`, {
           method: "POST",
-          body: JSON.stringify(body),
           headers: {
             "Content-Type": "application/json"
           },
@@ -71,6 +69,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
         // }
         const { category } = await res.json();
         window.location.href = `/stories/${category}`;
+        console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 
       // } catch (err) {
         // window.location.href = "/stories";

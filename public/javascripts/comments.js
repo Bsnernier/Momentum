@@ -46,10 +46,9 @@ window.addEventListener("DOMContentLoaded", (event)=>{
         const body = { content };
         // try {
           const id = event.target.id
-          
+
           const res = await fetch(`/api/comments/${id}`, {
             method: "POST",
-            body: JSON.stringify(body),
             headers: {
               "Content-Type": "application/json"
             },

@@ -46,13 +46,13 @@ window.addEventListener("DOMContentLoaded", (event)=>{
         const body = { content };
         // try {
           const id = event.target.id
-          const res = await fetch(`/api/comments/${id}`, {
+          const res = await fetch(`/api/comments/personal/${id}`, {
             method: "POST",
-            body: JSON.stringify(body),
             headers: {
               "Content-Type": "application/json"
             },
           });
+          console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
           if (res.status === 401) {
             window.location.href = "/log-in";
             return;
