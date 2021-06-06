@@ -40,7 +40,6 @@ mixin storyDisplay(id, username, image, content, commentContent, likes, liked, u
                     .comments
                         .comment-title COMMENTS:
                         if commentContent
-                            - commentContent.sort((a, b) => {return a.createdAt > b.createdAt})
                             each comment in commentContent
                                 +commentContent(comment, userId, storyAuthorId)
 
