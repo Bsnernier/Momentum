@@ -41,13 +41,15 @@ router.post(
     validateComment,
     jsonParser,
     asyncHandler(async (req, res) => {
-      const { content,userId, storyId } = req.body;
+      const { content } = req.body;
 
       try{
         const id = req.params.id
         const { userId } = req.session.auth;
+        const story = await Story.findByPk(id)
+        const {category} = story;
         const comments = await Comment.create({ content, userId: userId, storyId:id });
-        res.json({comments})
+        res.json({comments, category})
       }catch(e){
         console.log("Error in posting comment");
         console.log(e);

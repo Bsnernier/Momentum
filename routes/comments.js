@@ -22,6 +22,21 @@ router.get(
     })
   );
 
+  router.get(
+    "/category/:id",
+    asyncHandler(async (req, res) => {
+        const id = req.params.id
+        res.render("commentForCategory", { id })
+    })
+  );
+
+  router.get(
+    "/personal/:id",
+    asyncHandler(async (req, res) => {
+        const id = req.params.id
+        res.render("commentForPersonal", { id })
+    })
+  );
 
 router.get("/commentId/likes", requireAuth, asyncHandler( async(req, res) => {
     const commentId = parseInt(req.params.commentId, 10);

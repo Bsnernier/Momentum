@@ -52,7 +52,7 @@ router.get("/mystories", asyncHandler(async(req, res)=>{
     const { userId } = req.session.auth;
 
     const allStories = await Story.findAll({
-        include: [User, {model:Comment, include: User}],
+        include: [User, {model:Comment,order: [["createdAt", "DESC"]], include: User}],
         where: {userId},
         order: [["createdAt", "DESC"]]});
     res.render("storiesForPersonal", {allStories, userId})
@@ -109,7 +109,7 @@ router.get("/:category", requireAuth, asyncHandler( async (req, res) => {
     // console.log(req.params);
     const { userId } = req.session.auth;
     const loggedInUser = res.locals.user.id
-    const allStories = await Story.findAll({include: [User, {model:Comment, include: User}], order: [["createdAt", "DESC"]],
+    const allStories = await Story.findAll({include: [User, {model:Comment,order: [["createdAt", "DESC"]], include: User}], order: [["createdAt", "DESC"]],
         where:{
             category
         }
@@ -131,7 +131,7 @@ router.get("/:category", requireAuth, asyncHandler( async (req, res) => {
         allStories[i].likes = currentLikes.count
     }
 
-    res.render('stories', {
+    res.render('storiesForcategory', {
         userId,
         allStories,
 
