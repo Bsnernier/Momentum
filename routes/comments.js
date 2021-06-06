@@ -16,12 +16,30 @@ router.use(express.urlencoded({ extended: false }));
 
 router.get(
     "/:id",
+    requireAuth,
     asyncHandler(async (req, res) => {
         const id = req.params.id
-        res.render("comment", { id })
+        res.render("comment", { id, title1: "MOMENTUM"})
     })
   );
 
+  router.get(
+    "/category/:id",
+    requireAuth,
+    asyncHandler(async (req, res) => {
+        const id = req.params.id
+        res.render("commentForCategory", { id ,title1: "MOMENTUM"})
+    })
+  );
+
+  router.get(
+    "/personal/:id",
+    requireAuth,
+    asyncHandler(async (req, res) => {
+        const id = req.params.id
+        res.render("commentForPersonal", { id, title1: "MOMENTUM" })
+    })
+  );
 
 router.get("/commentId/likes", requireAuth, asyncHandler( async(req, res) => {
     const commentId = parseInt(req.params.commentId, 10);

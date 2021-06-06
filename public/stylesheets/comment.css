@@ -1,5 +1,5 @@
 .form-group{
-    margin: 80px 300px;
+    margin: 80px auto;
 }
 
 label{
@@ -34,5 +34,3 @@ label{
     background-color:#f08080;
     border: none;
 }
-
-

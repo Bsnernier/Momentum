@@ -15,7 +15,7 @@ html
 
   body
     nav.navbar.navbar-light
-      h1 MOMENTUM
+      h1= title1
       block login
       div
         input#search-input(type='text' name='search-input')
@@ -24,7 +24,7 @@ html
       a.navbar-brand#home(href='/') HOME
       a.navbar-brand#personal(href=`/stories/mystories`) PERSONAL
       a.navbar-brand#post(href='/post/new') POST
-      a.navbar-brand#following(href='/stories') FOLLOWING
+      a.navbar-brand#following(href='/stories') STORIES
       a.navbar-brand#followers(href='/users/followers') FOLLOWERS
     .errors-container
     block content

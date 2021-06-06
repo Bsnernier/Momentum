@@ -51,7 +51,7 @@ router.get('/', requireAuth, asyncHandler( async (req, res) => {
     }
 
     populator(allUsers, mutualArray)
-    res.render('followers', { allFollowers })
+    res.render('followers', { allFollowers, title1: "MOMENTUM" })
 }))
 
 module.exports = router;

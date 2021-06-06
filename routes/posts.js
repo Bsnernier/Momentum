@@ -12,7 +12,7 @@ router.get("/new/:id", requireAuth,asyncHandler(async(req, res)=>{
         const id = parseInt(req.params.id, 10);
         const currentStory = await Story.findByPk(id);
         const {image, location, content} = currentStory;
-        res.render("postPrefilled", {image, location, content, id})
+        res.render("postPrefilled", {image, location, content, id, title1: "MOMENTUM"})
     }catch(e){
         console.log(e);
     }

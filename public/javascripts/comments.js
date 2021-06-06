@@ -46,6 +46,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
         const body = { content };
         // try {
           const id = event.target.id
+          
           const res = await fetch(`/api/comments/${id}`, {
             method: "POST",
             body: JSON.stringify(body),
@@ -60,7 +61,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
           // if (!res.ok) {
           //   throw res;
           // }
-          
+
           window.location.href = "/stories";
 
         // } catch (err) {
