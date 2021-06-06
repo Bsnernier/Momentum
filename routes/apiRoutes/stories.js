@@ -204,17 +204,24 @@ router.put('/:id', async function (req, res) {
   try{
     const {content, image, category, location} = req.body
     const {userId} = req.session.auth;
+    const storyId = req.params.id
 
     const currentStory = await Story.update({
       category,
       content,
       image,
       location,
-      userId
+    },
+    {
+      where: {
+        id:storyId,
+        userId
+      }
     })
-    const {category1,content1,image1,location1,userId1 } = currentStory
-    res.render("postPrefilled", {category:category1,content:content1,image:image1,location:location1,userId: userId1});
-    
+    // const {category1,content1,image1,location1,userId1 } = currentStory
+    // res.render("postPrefilled", {category:category1,content:content1,image:image1,location:location1,userId: userId1});
+    // res.json({currentStory})
+    res.send(200)
 
 }catch(e){
     res.send(400)

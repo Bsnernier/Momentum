@@ -60,7 +60,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
           // if (!res.ok) {
           //   throw res;
           // }
-
+          
           window.location.href = "/stories";
 
         // } catch (err) {
