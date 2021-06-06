@@ -19,7 +19,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
         const body = { image, location, content, category };
         const res = await fetch('/api/stories', {
           method: "POST",
-          body: JSON.stringify(body),
           headers: {
             "Content-Type": "application/json"
           }
