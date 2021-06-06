@@ -10,7 +10,7 @@ block login
 
 block content
     .errors-container
-        form(method="post" action=`/post/new` class="create-form")
+        form(method="post" action=`/api/stories` class="create-form")
             .form-group
                 .input-group
                     label(for='image') PICTURE URL
@@ -35,4 +35,3 @@ block content
                     button.btn.btn-primary(type='submit') SUBMIT
 
     script(src="/javascripts/post.js" type="module" defer)
-    
