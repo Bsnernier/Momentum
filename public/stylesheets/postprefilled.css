@@ -1,0 +1,50 @@
+.form-group{
+    margin: 80px 300px;
+}
+
+label{
+    font-size: 30px;
+    font-weight: bold;
+    font-family:Helvetica,Arial,sans-serif;
+    color: #32A3D2;
+}
+.categorydiv{
+    display: flex;
+    flex-direction: row;
+}
+
+#category{
+   margin-left: 80px;
+   margin-right: 0;
+   padding-right: 0;
+   width: 100%;
+   border-radius: 10px;
+
+}
+.input-group{
+    padding-bottom: 30px;
+
+}
+
+#pictureUrl.form-control, #placeName.form-control, #stories.form-control{
+    margin-left: 60px;
+    border-radius: 10px;
+}
+
+.form-control{
+    margin-right: 0;
+    padding-right: 0;
+}
+.stories-textarea#stories.form-control{
+    margin-left: 120px;
+}
+
+.submit-button{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.btn.btn-primary{
+    background-color:#f08080;
+    border: none;
+}

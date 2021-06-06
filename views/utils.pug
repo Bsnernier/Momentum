@@ -1,18 +1,19 @@
 
-mixin commentContent(commentContent)
+mixin commentContent(commentContent, userId, storyAuthorId)
     div(class="comment-user", id = `${commentContent.id}`)
         .comment-user-picture
             img#comment-user-picture(src="/p1.jpeg")
         #comment-user-name #{commentContent.User.username}
             .comment-content #{commentContent.content}
-            i.fas.fa-backspace(id=`${commentContent.id}`)
+            if commentContent.User.id == userId || storyAuthorId == userId
+                i.fas.fa-backspace(id=`${commentContent.id}`)
 
 mixin formField(title, forName, type, placeholder)
     span.form-row
         label.label-control(for=`${forName}`) #{title}
         input.form-control(type=`${type}` name=`${forName}` placeholder=`${placeholder}`)
 
-mixin storyDisplay(id, username, image, content, commentContent, likes, liked)
+mixin storyDisplay(id, username, image, content, commentContent, likes, liked, userId, storyAuthorId)
     .container
         .story
             .user-column
@@ -40,10 +41,10 @@ mixin storyDisplay(id, username, image, content, commentContent, likes, liked)
                         .comment-title COMMENTS:
                         if commentContent
                             each comment in commentContent
-                                +commentContent(comment)
+                                +commentContent(comment, userId, storyAuthorId)
 
 
-mixin personalStoryDisplay(username, image, content, commentContent, storyId)
+mixin personalStoryDisplay(username, image, content, commentContent, storyId, userId, storyAuthorId)
     .container
         .story(class=`story${storyId}`)
             .user-column
@@ -62,13 +63,13 @@ mixin personalStoryDisplay(username, image, content, commentContent, storyId)
                 .story-picture
                     img#story-picture(src=`/${image}`)
                 .content
-                    a.story-title(href="/post/new") STORIES:
+                    a.story-title(href=`/post/new/${storyId}`) STORIES:
                     .story-content #{content}
                     .comments
-                        a.comment-title(href=`/comments/${storyId}`) COMMENTS:
+                        .comment-title COMMENTS:
                         if commentContent
                             each comment in commentContent
-                                +commentContent(comment)
+                                +commentContent(comment, userId, storyAuthorId)
 
 
 
@@ -90,5 +91,3 @@ mixin validationErrorSummary(errors)
       ul
         each error in errors
           li= error
-
-

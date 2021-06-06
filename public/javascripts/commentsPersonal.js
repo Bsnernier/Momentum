@@ -60,8 +60,8 @@ window.addEventListener("DOMContentLoaded", (event)=>{
           // if (!res.ok) {
           //   throw res;
           // }
-          
-          window.location.href = "/stories";
+
+          window.location.href = "/stories/mystories";
 
         // } catch (err) {
           // window.location.href = "/stories";

@@ -17,8 +17,8 @@ router.use('/:id/comments', commentsRouter);
 
 router.get("/", requireAuth, asyncHandler(async(req, res)=>{
     const loggedInUser = res.locals.user.id
-    const allStories = await Story.findAll({include: [User, {model:Comment, include: User}], order: [["createdAt", "DESC"]]});
-
+    const allStories = await Story.findAll({include: [User, {model:Comment, order: [["createdAt", "DESC"]], include: User}], order: [["createdAt", "DESC"]]});
+    const { userId } = req.session.auth;
 //---------------------------------------------------------beginning of likes loop
     for (i = 0; i < allStories.length; i++) {
         const storyId = allStories[i].id
@@ -36,7 +36,7 @@ router.get("/", requireAuth, asyncHandler(async(req, res)=>{
         allStories[i].likes = currentLikes.count
     }
 //---------------------------------------------------------end of likes loop
-    res.render("stories", {allStories})
+    res.render("stories", {allStories, userId})
 }))
 
 // router.get("/", asyncHandler(async(req, res)=>{
@@ -55,7 +55,7 @@ router.get("/mystories", asyncHandler(async(req, res)=>{
         include: [User, {model:Comment, include: User}],
         where: {userId},
         order: [["createdAt", "DESC"]]});
-    res.render("storiesForPersonal", {allStories})
+    res.render("storiesForPersonal", {allStories, userId})
 }))
 
 router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
@@ -100,6 +100,40 @@ router.delete('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     res.render('user', {
         title: currentUser.username,
         currentUser
+    })
+}))
+
+
+router.get("/:category", requireAuth, asyncHandler( async (req, res) => {
+    const category = req.params.category;
+    // console.log(req.params);
+    const { userId } = req.session.auth;
+    const loggedInUser = res.locals.user.id
+    const allStories = await Story.findAll({include: [User, {model:Comment, include: User}], order: [["createdAt", "DESC"]],
+        where:{
+            category
+        }
+    });
+
+    for (i = 0; i < allStories.length; i++) {
+        const storyId = allStories[i].id
+        const currentLikes = await Like.findAndCountAll({
+            where: {
+                storyId,
+            }
+        })
+        const userArr = currentLikes.rows.map((like) => like.userId)
+        if (userArr.includes(loggedInUser)) {
+            allStories[i].liked = true
+        } else {
+            allStories[i].liked = false
+        }
+        allStories[i].likes = currentLikes.count
+    }
+
+    res.render('stories', {
+        userId,
+        allStories
     })
 }))
 
