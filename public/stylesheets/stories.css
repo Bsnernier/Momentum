@@ -66,6 +66,12 @@
     color: #f08080;
 }
 
+.far.fa-heart{
+        padding-top: 25px;
+    font-size: 54px;
+    color: #f08080;
+}
+
 .follow-state{
     padding-top: 25px;
     font-size: 16px;
@@ -97,6 +103,17 @@
     color: #030303;
 }
 
+
+.far.fa-trash-alt{
+    padding-top: 50px;
+    font-size: 50px;
+    color: #030303;
+}
+
+.deleteButtonDisplay{
+    display: none;
+}
+
 .comment-user{
     padding-top: 10px;
     display: flex;
@@ -120,13 +137,18 @@
     font-weight: bold;
     font-family: Helvetica, Arial, sans-serif;
     color: #706f70;
+    text-align: left;
 }
 
+.fas.fa-backspace{
+    color:#f08080;
+}
 .story-title{
     font-size: 16px;
     font-weight: bold;
     font-family: Helvetica, Arial,sans-serif;
     color: #32a3d2;
+
 }
 
 .story-content{
@@ -135,6 +157,8 @@
     font-weight: bold;
     font-family: Helvetica, Arial,sans-serif;
     color: #706f70;
+    text-align: left;
+
 }
 
 .comment-title{
@@ -143,6 +167,7 @@
     font-weight: bold;
     font-family: Helvetica, Arial,sans-serif;
     color: #32a3d2;
+
 }
 
 .comment-content{
@@ -151,4 +176,13 @@
     font-weight: bold;
     font-family: Helvetica, Arial,sans-serif;
     color: #706f70;
+}
+
+
+.comments{
+    padding-top: 25px;
+}
+
+a.story-title{
+    text-decoration: underline;
 }

@@ -5,13 +5,20 @@ include utils.pug
 append head
     link(rel="stylesheet" href="/stylesheets/login.css")
 
+block login
+    include loginbuttons.pug
+
 block content
     //- +errorDisplay(errors)
     h2.header-2 Log In
+
     div.demo-button
         form.demo-group(action='/users/demo' method='post')
             input(type='hidden' name='_csrf' value=csrfToken)
             button.btn.btn-primary.submit-button(type='submit') Guest Demo
+
+    +validationErrorSummary(errors)
+
     form.form-group(action='/users/login' method='post')
         input(type='hidden' name='_csrf' value=csrfToken)
         +formField('Email', 'email', 'email', 'Enter Your Email')
@@ -19,3 +26,5 @@ block content
         div.button-group
             button.btn.btn-primary.submit-button(type='submit') Login
             button.btn.btn-primary.submit-button(type='button' href='/') Cancel
+            a(href="signup") Not registered? Sign up here!
+

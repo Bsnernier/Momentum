@@ -12,9 +12,11 @@ const {asyncHandler, handleValidationErrors, csrfProtection} = require('./utils'
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const storiesRouter = require('./routes/stories');
+const postsRouter = require('./routes/posts');
+const commentsRouter = require('./routes/comments');
 const apiStoriesRouter = require('./routes/apiRoutes/stories')
 const apiUsersRouter = require('./routes/apiRoutes/users')
-const postsRouter = require('./routes/posts');
+const apiCommentsRouter = require('./routes/apiRoutes/comments')
 // const personalRouter = require('../routes/personal');
 
 const apiRouter = require('./routes/apiRoutes');
@@ -49,12 +51,19 @@ app.use(
   // create Session table if it doesn't already exist
   store.sync();
 
+
   app.use('/api/stories', apiStoriesRouter)
   app.use('/api/users', apiUsersRouter)
   app.use('/users', usersRouter);
   app.use('/', indexRouter);
   // app.use('/users/:id/', personalRouter);
   app.use('/stories', storiesRouter);
+  app.use('/api/comments', apiCommentsRouter)
+  app.use('/api', apiRouter)
+  app.use('/comments', commentsRouter);
+  app.use("/post", postsRouter);
+
+
 // app.use('/post', postsRouter)
 
 // catch 404 and forward to error handler

@@ -1,10 +1,14 @@
 extends layout.pug
 include utils.pug
 
+block login
+    +buttons()
 block content
     if !allStories
         h3 No stories currently available!
     else
         each post in allStories
-            +storyDisplay(post.username, post.image, post.content)
-    script(src="/routes/stories.js")
+
+            +storyDisplay(post.id, post.User.username, post.image, post.content, post.Comments, post.likes, post.liked, userId, post.User.id)
+    script(src="./javascripts/likes.js")
+    script(src="./javascripts/comments.js" type="module" defer)

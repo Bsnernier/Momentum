@@ -2,33 +2,80 @@ const express = require('express');
 const router = express.Router();
 const {asyncHandler, handleValidationErrors, csrfProtection} = require('../utils');
 const db = require('../db/models');
-const { User, Comment, Story } = db;
+const { User, Comment, Story, Like } = db;
 const { requireAuth } = require('../auth')
+const { Op } = require("sequelize")
 
 
-const commentsRouter = require('../routes/comments');
-const likesRouter = require('../routes/likes');
-// const apiStoriesRouter = require('./apiRoutes/stories')
+// const likesRouter = require('../routes/likes');
+const commentsRouter = require('./comments');
+const user = require('../db/models/user');
+// const apiStoriesRouter = require('./apiRoutes/likes')
 
-// router.use('/comments', commentsRouter);
-// router.use('/likes', likesRouter);
-// router.use('/api/stories', apiStoriesRouter);
+router.use('/:id/comments', commentsRouter);
+// router.use('/api/likes', apiStoriesRouter);
 
 router.get("/", requireAuth, asyncHandler(async(req, res)=>{
-    const allStories = await Story.findAll({include: User});
-    res.render("stories", {allStories})
+    const loggedInUser = res.locals.user.id
+    const allStories = await Story.findAll({include: [User, {model:Comment, order: [["createdAt", "DESC"]], include: User}], order: [["createdAt", "DESC"]]});
+    const { userId } = req.session.auth;
+//---------------------------------------------------------beginning of likes loop
+    for (i = 0; i < allStories.length; i++) {
+        const storyId = allStories[i].id
+        const currentLikes = await Like.findAndCountAll({
+            where: {
+                storyId,
+            }
+        })
+        const userArr = currentLikes.rows.map((like) => like.userId)
+        if (userArr.includes(loggedInUser)) {
+            allStories[i].liked = true
+        } else {
+            allStories[i].liked = false
+        }
+        allStories[i].likes = currentLikes.count
+    }
+//---------------------------------------------------------end of likes loop
+    res.render("stories", {allStories, userId})
 }))
 
-// router.get('/', csrfProtection, validators, asyncHandler(async(req, res)=>{
-//     const allPost = await Story.findByPk(30, {include: User});
+// router.get("/", asyncHandler(async(req, res)=>{
 
-//     const {username, image, content} = allPost
-
-//     console.log(username);
-//     res.render("stories", {username, image, content})
+//     const allStories = await Story.findAll({include: [User, {model:Comment, include: User}], order: [["createdAt", "DESC"]]});
+//     res.render("stories", {allStories})
 // }))
 
 //--------------------GET User's Stories Profile-------------------------------
+router.get("/mystories", asyncHandler(async(req, res)=>{
+
+
+    const { userId } = req.session.auth;
+//---------------------------------------------------------beginning of likes loop
+    const allStories = await Story.findAll({
+        include: [User, {model:Comment, include: User}],
+        where: {userId},
+        order: [["createdAt", "DESC"]]});
+
+    for (i = 0; i < allStories.length; i++) {
+        const storyId = allStories[i].id
+        const currentLikes = await Like.findAndCountAll({
+            where: {
+                storyId,
+            }
+        })
+        const userArr = currentLikes.rows.map((like) => like.userId)
+        if (userArr.includes(userId)) {
+            allStories[i].liked = true
+        } else {
+            allStories[i].liked = false
+        }
+        allStories[i].likes = currentLikes.count
+    }
+
+    res.render("storiesForPersonal", {allStories, userId})
+
+}))
+
 router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const currentUser = await User.findByPk(userId);
@@ -38,6 +85,7 @@ router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
         currentUser
     })
 }))
+
 
 //-------------------PUT Update User's Story-----------------------------------
 router.put('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
@@ -50,7 +98,6 @@ router.put('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     })
 }))
 
-//-------------------PUT Update User's Comments------------------------------
 router.put('/:id/users/:id/comments/:id', requireAuth, asyncHandler( async (req, res) => {
     const commentId = parseInt(req.params.id, 10); //IDK if this will work or how to fix
                                                    //if it doesn't
@@ -71,6 +118,40 @@ router.delete('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
     res.render('user', {
         title: currentUser.username,
         currentUser
+    })
+}))
+
+
+router.get("/:category", requireAuth, asyncHandler( async (req, res) => {
+    const category = req.params.category;
+    // console.log(req.params);
+    const { userId } = req.session.auth;
+    const loggedInUser = res.locals.user.id
+    const allStories = await Story.findAll({include: [User, {model:Comment, include: User}], order: [["createdAt", "DESC"]],
+        where:{
+            category
+        }
+    });
+
+    for (i = 0; i < allStories.length; i++) {
+        const storyId = allStories[i].id
+        const currentLikes = await Like.findAndCountAll({
+            where: {
+                storyId,
+            }
+        })
+        const userArr = currentLikes.rows.map((like) => like.userId)
+        if (userArr.includes(loggedInUser)) {
+            allStories[i].liked = true
+        } else {
+            allStories[i].liked = false
+        }
+        allStories[i].likes = currentLikes.count
+    }
+
+    res.render('stories', {
+        userId,
+        allStories
     })
 }))
 
