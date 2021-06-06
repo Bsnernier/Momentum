@@ -80,23 +80,23 @@ router.post('/:commentId/likes', requireAuth, asyncHandler( async (req, res) => 
     }
 }));
 
-router.delete('/', requireAuth, asyncHandler( async (req, res) => {
-    const commentId = parseInt(req.params.id, 10);
-    const loggedUserId = req.params.user.id
+// router.delete('/', requireAuth, asyncHandler( async (req, res) => {
+//     const commentId = parseInt(req.params.id, 10);
+//     const loggedUserId = req.params.user.id
 
-    const currentLike = await Like.findAll({
-        where: {
-            commentId: {
-                [Op.eq]: commentId
-            },
-            userId: {
-                [Op.eq]: loggedUserId
-            }
-        }
-    })
+//     const currentLike = await Like.findAll({
+//         where: {
+//             commentId: {
+//                 [Op.eq]: commentId
+//             },
+//             userId: {
+//                 [Op.eq]: loggedUserId
+//             }
+//         }
+//     })
 
-    await currentLike.destroy()
-}));
+//     await currentLike.destroy()
+// }));
 
 router.delete('/:id',requireAuth, asyncHandler( async (req, res) => {
     try{
