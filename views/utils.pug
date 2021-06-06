@@ -44,7 +44,9 @@ mixin storyDisplay(id, username, image, content, commentContent, likes, liked, u
                                 +commentContent(comment, userId, storyAuthorId)
 
 
-mixin personalStoryDisplay(username, image, content, commentContent, storyId, userId, storyAuthorId)
+
+mixin personalStoryDisplay(username, image, content, commentContent, storyId, userId, storyAuthorId, likes, liked)
+
     .container
         .story(class=`story${storyId}`)
             .user-column
@@ -52,9 +54,12 @@ mixin personalStoryDisplay(username, image, content, commentContent, storyId, us
                     img#user-picture(src="/p1.jpeg")
                 .user-name #{username}
                 .follow-state Follow
-                .likes-counter 123
+                .likes-counter(class=`counter-${storyId}`) #{likes}
                 .like-icon
-                    i(class="fas fa-heart")
+                    if (liked)
+                        i(class=`fas fa-heart` id=`${storyId}`)
+                    else
+                        i(class=`far fa-heart` id=`${storyId}`)
                 .comment-icon
                     i.far.fa-comment(id=`${storyId}`)
                 .delete-icon
