@@ -202,25 +202,27 @@ router.delete('/:id', asyncHandler( async (req, res) => {
 
 router.put('/:id', async function (req, res) {
   try{
-    const storyId = parseInt(req.params.id, 10);
-    if(req.session.auth){
-      const {userId} = req.session.auth;
-      console.log(userId);
-    }
+    const {content, image, category, location} = req.body
+    const {userId} = req.session.auth;
+    const storyId = req.params.id
 
-    const currentStory = await Story.findOne({
-      where:{
-        id: storyId,
+    const currentStory = await Story.update({
+      category,
+      content,
+      image,
+      location,
+    },
+    {
+      where: {
+        id:storyId,
+        userId
       }
     })
+    // const {category1,content1,image1,location1,userId1 } = currentStory
+    // res.render("postPrefilled", {category:category1,content:content1,image:image1,location:location1,userId: userId1});
+    // res.json({currentStory})
+    res.send(200)
 
-    if(currentStory){
-        res.json(currentStory);
-
-    }else{
-        res.send(400)
-        console.log("story not found!");
-    }
 }catch(e){
     res.send(400)
     console.log(e);

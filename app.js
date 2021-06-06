@@ -12,11 +12,11 @@ const {asyncHandler, handleValidationErrors, csrfProtection} = require('./utils'
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const storiesRouter = require('./routes/stories');
+const postsRouter = require('./routes/posts');
 const commentsRouter = require('./routes/comments');
 const apiStoriesRouter = require('./routes/apiRoutes/stories')
 const apiUsersRouter = require('./routes/apiRoutes/users')
 const apiCommentsRouter = require('./routes/apiRoutes/comments')
-const postsRouter = require('./routes/posts');
 // const personalRouter = require('../routes/personal');
 
 const apiRouter = require('./routes/apiRoutes');
@@ -61,6 +61,8 @@ app.use(
   app.use('/api/comments', apiCommentsRouter)
   app.use('/api', apiRouter)
   app.use('/comments', commentsRouter);
+  app.use("/post", postsRouter);
+
 
 // app.use('/post', postsRouter)
 
