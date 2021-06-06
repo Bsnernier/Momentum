@@ -133,7 +133,8 @@ router.get("/:category", requireAuth, asyncHandler( async (req, res) => {
 
     res.render('stories', {
         userId,
-        allStories
+        allStories,
+
     })
 }))
 
