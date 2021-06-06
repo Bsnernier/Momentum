@@ -8,6 +8,7 @@ block content
         span no stories...
     else
         each post in allStories
-            +personalStoryDisplay(post.User.username, post.image, post.content, post.Comments, post.id)
+            +personalStoryDisplay(post.User.username, post.image, post.content, post.Comments, post.id, post.likes, post.liked)
+    script(src="../javascripts/likes.js")
     script(src="/javascripts/personal.js" type="module" defer)
     script(src="/javascripts/comments.js" type="module" defer)

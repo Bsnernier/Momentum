@@ -50,11 +50,28 @@ router.get("/mystories", asyncHandler(async(req, res)=>{
 
 
     const { userId } = req.session.auth;
-
+//---------------------------------------------------------beginning of likes loop
     const allStories = await Story.findAll({
         include: [User, {model:Comment, include: User}],
         where: {userId},
         order: [["createdAt", "DESC"]]});
+
+    for (i = 0; i < allStories.length; i++) {
+        const storyId = allStories[i].id
+        const currentLikes = await Like.findAndCountAll({
+            where: {
+                storyId,
+            }
+        })
+        const userArr = currentLikes.rows.map((like) => like.userId)
+        if (userArr.includes(userId)) {
+            allStories[i].liked = true
+        } else {
+            allStories[i].liked = false
+        }
+        allStories[i].likes = currentLikes.count
+    }
+//---------------------------------------------------------end of likes loop
     res.render("storiesForPersonal", {allStories})
 }))
 
