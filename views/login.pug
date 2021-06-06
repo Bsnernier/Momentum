@@ -11,7 +11,14 @@ block login
 block content
     //- +errorDisplay(errors)
     h2.header-2 Log In
+
+    div.demo-button
+        form.demo-group(action='/users/demo' method='post')
+            input(type='hidden' name='_csrf' value=csrfToken)
+            button.btn.btn-primary.submit-button(type='submit') Guest Demo
+
     +validationErrorSummary(errors)
+
     form.form-group(action='/users/login' method='post')
         input(type='hidden' name='_csrf' value=csrfToken)
         +formField('Email', 'email', 'email', 'Enter Your Email')
