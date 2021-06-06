@@ -98,7 +98,7 @@ router.delete('/', requireAuth, asyncHandler( async (req, res) => {
     await currentLike.destroy()
 }));
 
-router.delete('/:id', asyncHandler( async (req, res) => {
+router.delete('/:id',requireAuth, asyncHandler( async (req, res) => {
     try{
         const commentId = parseInt(req.params.id, 10);
         const {userId} = req.session.auth;

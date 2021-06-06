@@ -30,6 +30,7 @@ router.get('/signup', csrfProtection, (req, res) => {
   res.render('signup', {
     title: 'New User',
     newUser,
+    title1: "MOMENTUM",
     csrfToken: req.csrfToken()
   })
 });
@@ -116,6 +117,7 @@ router.post('/signup', csrfProtection, registerValidators, asyncHandler( async (
       title: 'New User',
       errors,
       user,
+      title1: "MOMENTUM",
       csrfToken: req.csrfToken()
     })
   }
@@ -134,6 +136,7 @@ const loginValidators = [
 router.get('/login', csrfProtection, asyncHandler(async (req, res) => {
   res.render('login', {
     title: 'Login',
+    title1: "MOMENTUM",
     csrfToken: req.csrfToken(),
   });
 })
@@ -167,6 +170,7 @@ router.post('/login', csrfProtection, loginValidators,
       title: 'Login',
       email,
       errors,
+      title1: "MOMENTUM",
       csrfToken: req.csrfToken(),
     });
   }));
@@ -188,6 +192,7 @@ router.post('/login', csrfProtection, loginValidators,
       title: 'Login',
       email,
       errors,
+      title1: "MOMENTUM",
       csrfToken: req.csrfToken(),
     });
     }

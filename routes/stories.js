@@ -36,7 +36,7 @@ router.get("/", requireAuth, asyncHandler(async(req, res)=>{
         allStories[i].likes = currentLikes.count
     }
 //---------------------------------------------------------end of likes loop
-    res.render("stories", {allStories, userId})
+    res.render("stories", {allStories, userId, title1: "MOMENTUM"})
 }))
 
 // router.get("/", asyncHandler(async(req, res)=>{
@@ -46,7 +46,7 @@ router.get("/", requireAuth, asyncHandler(async(req, res)=>{
 // }))
 
 //--------------------GET User's Stories Profile-------------------------------
-router.get("/mystories", asyncHandler(async(req, res)=>{
+router.get("/mystories", requireAuth, asyncHandler(async(req, res)=>{
 
 
     const { userId } = req.session.auth;
@@ -72,7 +72,7 @@ router.get("/mystories", asyncHandler(async(req, res)=>{
         allStories[i].likes = currentLikes.count
     }
 
-    res.render("storiesForPersonal", {allStories, userId})
+    res.render("storiesForPersonal", {allStories, userId, title1: "MOMENTUM"})
 
 }))
 
@@ -82,7 +82,8 @@ router.get('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
 
     res.render('user', {
         title: currentUser.username,
-        currentUser
+        currentUser,
+        title1: "MOMENTUM"
     })
 }))
 
@@ -94,7 +95,8 @@ router.put('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
 
     res.render('signup', {
         title: currentUser.username,
-        currentUser
+        currentUser,
+        title1: "MOMENTUM"
     })
 }))
 
@@ -106,7 +108,8 @@ router.put('/:id/users/:id/comments/:id', requireAuth, asyncHandler( async (req,
 
     res.render('comment', {
         title: `${currentUser.username}'s Comment`,
-        currentComment
+        currentComment,
+        title1: "MOMENTUM"
     })
 }))
 
@@ -117,7 +120,8 @@ router.delete('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
 
     res.render('user', {
         title: currentUser.username,
-        currentUser
+        currentUser,
+        title1: "MOMENTUM"
     })
 }))
 
@@ -152,7 +156,7 @@ router.get("/:category", requireAuth, asyncHandler( async (req, res) => {
     res.render('storiesForcategory', {
         userId,
         allStories,
-
+        title1: `${category}`
     })
 }))
 
