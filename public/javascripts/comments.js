@@ -59,15 +59,9 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             window.location.href = "/log-in";
             return;
           }
-          // if (!res.ok) {
-          //   throw res;
-          // }
-
+      
           window.location.href = "/stories";
 
-        // } catch (err) {
-          // window.location.href = "/stories";
-        // }
       });
     }
 

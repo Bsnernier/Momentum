@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", async (event) => {
-    console.log("DOM LOADED")
 
     const likeCounters = document.querySelectorAll(".likes-counter")
     const likeButtons = document.querySelectorAll(".fa-heart")
@@ -40,16 +39,6 @@ document.addEventListener("DOMContentLoaded", async (event) => {
         return count
     }
 
-    // const getLikeNumber = async function (id) {
-    //     const res = await fetch (`/stories/${id}`, {
-    //         method: "GET",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         }
-    //     })
-    //     const json = await res.json()
-    //     console.log(res)
-    // }
 
     likeButtons.forEach((button) => {
         button.addEventListener("click", async (e) => {
@@ -69,18 +58,5 @@ document.addEventListener("DOMContentLoaded", async (event) => {
         }
     )})
 
-
-
-
-
-
-    // likedButtons.forEach((button) => {
-    //     button.addEventListener("click", async (e) => {
-    //         console.log(e.target)
-    //         removeLike(e.target.id)
-    //         button.classList.remove("fas")
-    //         button.classList.add("far")
-    //     }
-    // )})
 
 })

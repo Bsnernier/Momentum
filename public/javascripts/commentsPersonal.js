@@ -45,7 +45,6 @@ window.addEventListener("DOMContentLoaded", (event)=>{
         const formData = new FormData(form);
         const content = formData.get("content");
         const body = { content };
-        // try {
           const id = event.target.id
           const res = await fetch(`/api/comments/personal/${id}`, {
             method: "POST",
@@ -58,15 +57,10 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             window.location.href = "/log-in";
             return;
           }
-          // if (!res.ok) {
-          //   throw res;
-          // }
 
           window.location.href = "/stories/mystories";
 
-        // } catch (err) {
-          // window.location.href = "/stories";
-        // }
+
       });
     }
 

@@ -7,13 +7,12 @@ const { requireAuth } = require('../auth')
 const { Op } = require("sequelize")
 
 
-// const likesRouter = require('../routes/likes');
+
 const commentsRouter = require('./comments');
 const user = require('../db/models/user');
-// const apiStoriesRouter = require('./apiRoutes/likes')
 
 router.use('/:id/comments', commentsRouter);
-// router.use('/api/likes', apiStoriesRouter);
+
 
 router.get("/", requireAuth, asyncHandler(async(req, res)=>{
     const loggedInUser = res.locals.user.id
@@ -38,12 +37,6 @@ router.get("/", requireAuth, asyncHandler(async(req, res)=>{
 //---------------------------------------------------------end of likes loop
     res.render("stories", {allStories, userId, title1: "MOMENTUM"})
 }))
-
-// router.get("/", asyncHandler(async(req, res)=>{
-
-//     const allStories = await Story.findAll({include: [User, {model:Comment, include: User}], order: [["createdAt", "DESC"]]});
-//     res.render("stories", {allStories})
-// }))
 
 //--------------------GET User's Stories Profile-------------------------------
 router.get("/mystories", requireAuth, asyncHandler(async(req, res)=>{
@@ -128,7 +121,6 @@ router.delete('/:id/users/:id', requireAuth, asyncHandler( async (req, res) => {
 
 router.get("/:category", requireAuth, asyncHandler( async (req, res) => {
     const category = req.params.category;
-    // console.log(req.params);
     const { userId } = req.session.auth;
     const loggedInUser = res.locals.user.id
     const allStories = await Story.findAll({include: [User, {model:Comment,order: [["createdAt", "DESC"]], include: User}], order: [["createdAt", "DESC"]],

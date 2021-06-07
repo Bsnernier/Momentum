@@ -32,10 +32,7 @@ router.get(
         include: User,
         order: [["createdAt", "DESC"]]
       });
-    //   console.log(stories);
-    //   res.render("stories", { stories });
       res.json({stories})
-    //   res.redirect("/")
     })
   );
 
@@ -52,48 +49,13 @@ const validateStory = [
     check("content")
       .exists({ checkFalsy: true })
       .withMessage("Story can't be empty."),
-    //  message cannot be longer than 280 characters:
     check("content")
       .isLength({ max: 280 })
       .withMessage("Story can't be longer than 280 characters."),
     handleValidationErrors,
   ];
 
-// router.get(
-// "/:id",
-// asyncHandler(async (req, res, next) => {
-//     const story = await Story.findOne({
-//     where: {
-//         id: req.params.id,
-//     },
-//     });
-//     if (story) {
-//     res.json({ story });
-//     } else {
-//     next(storyNotFoundError(req.params.id));
-//     }
-// })
-// );
 
-// router.post(
-//     "/",
-//     requireAuth,
-//     validateStory,
-//     jsonParser,
-//     asyncHandler(async (req, res) => {
-
-//       try{
-//         const { content, image, location, category} = req.body;
-//         const { userId } = req.session.auth;
-//         const story = await Story.create({ category, content, image, location, userId});
-//         res.send(200)
-//       }catch(e){
-//         console.log(e);
-//         res.send(400)
-//       }
-
-//     })
-// );
 
 router.post(
   "/",
@@ -101,12 +63,12 @@ router.post(
   validateStory,
   jsonParser,
   asyncHandler(async (req, res) => {
-    console.log("api/posting")
+
     try{
       const { content, image, location, category} = req.body;
       const { userId } = req.session.auth;
       const story = await Story.create({ category, content, image, location, userId});
-      // res.json({story})
+
       res.send(200)
     }catch(e){
       console.log(e);
@@ -194,7 +156,6 @@ router.delete('/:id', asyncHandler( async (req, res) => {
       const storyId = parseInt(req.params.id, 10);
       if(req.session.auth){
         const {userId} = req.session.auth;
-        console.log(userId);
       }
 
       const currentStory = await Story.findOne({
@@ -237,9 +198,6 @@ router.put('/:id', async function (req, res) {
         userId
       }
     })
-    // const {category1,content1,image1,location1,userId1 } = currentStory
-    // res.render("postPrefilled", {category:category1,content:content1,image:image1,location:location1,userId: userId1});
-    // res.json({currentStory})
     res.send(200)
 
 }catch(e){

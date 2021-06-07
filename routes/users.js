@@ -112,7 +112,6 @@ router.post('/signup', csrfProtection, registerValidators, asyncHandler( async (
     res.redirect('/')
   } else {
     const errors = validatorErrors.array().map((error) => error.msg)
-    console.log(errors)
     res.render('signup', {
       title: 'New User',
       errors,
@@ -177,7 +176,6 @@ router.post('/login', csrfProtection, loginValidators,
 
   router.post('/demo', csrfProtection, loginValidators,
   asyncHandler(async (req, res) => {
-    console.log('in demo router')
     const email = 'troybarnes@gmail.com'
     const password = 'Ab1!'
 

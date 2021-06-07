@@ -44,7 +44,6 @@ router.post(
     requireAuth,
     asyncHandler(async (req, res) => {
       const { content } = req.body;
-      console.log('category')
 
       try{
         const id = req.params.id
@@ -54,11 +53,8 @@ router.post(
         const comments = await Comment.create({ content, userId: userId, storyId:id });
         res.json({comments, category})
       }catch(e){
-        console.log("Error in posting comment");
-        console.log(e);
         res.send(400);
       }
-      console.log("Finished commenting for category");
     })
 );
 
@@ -69,7 +65,6 @@ router.post(
     requireAuth,
     asyncHandler(async (req, res) => {
       const { content } = req.body;
-      console.log('normal')
 
       try{
         const id = req.params.id
@@ -79,8 +74,7 @@ router.post(
         const comments = await Comment.create({ content, userId: userId, storyId:id });
         res.json({comments, category})
       }catch(e){
-        console.log("Error in posting comment");
-        console.log(e);
+        throw e
       }
     })
 );
@@ -92,8 +86,6 @@ router.post(
     requireAuth,
     asyncHandler(async (req, res) => {
       const { content } = req.body;
-      console.log('personal')
-
       try{
         const id = req.params.id
         const { userId } = req.session.auth;
@@ -102,8 +94,7 @@ router.post(
         const comments = await Comment.create({ content, userId: userId, storyId:id });
         res.json({comments, category})
       }catch(e){
-        console.log("Error in posting comment");
-        console.log(e);
+        throw e
       }
     })
 );
@@ -133,24 +124,6 @@ router.post('/:commentId/likes', requireAuth, asyncHandler( async (req, res) => 
     }
 }));
 
-// router.delete('/', requireAuth, asyncHandler( async (req, res) => {
-//     const commentId = parseInt(req.params.id, 10);
-//     const loggedUserId = req.params.user.id
-
-//     const currentLike = await Like.findAll({
-//         where: {
-//             commentId: {
-//                 [Op.eq]: commentId
-//             },
-//             userId: {
-//                 [Op.eq]: loggedUserId
-//             }
-//         }
-//     })
-
-//     await currentLike.destroy()
-// }));
-
 router.delete('/:id',requireAuth, asyncHandler( async (req, res) => {
     try{
         const commentId = parseInt(req.params.id, 10);
@@ -167,7 +140,6 @@ router.delete('/:id',requireAuth, asyncHandler( async (req, res) => {
                 res.send(200);
             }else{
                 res.send(400)
-                console.log("you can not delete this!");
             }
 
         }else{
