@@ -33,7 +33,7 @@ module.exports = {
     { userId: users[2].id, followerId: users[7].id, createdAt: new Date(), updatedAt: new Date() },
     { userId: users[1].id, followerId: users[4].id, createdAt: new Date(), updatedAt: new Date() },
     { userId: users[1].id, followerId: users[5].id, createdAt: new Date(), updatedAt: new Date() },
-    { userId: users[5].id, followerId: users[6].id, createdAt: new Date(), updatedAt: new Date() },
+    { userId: users[6].id, followerId: users[0].id, createdAt: new Date(), updatedAt: new Date() },
   ]
   , {})
     /*
