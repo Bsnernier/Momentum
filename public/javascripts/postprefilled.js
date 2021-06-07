@@ -6,7 +6,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     if (form) {
         form.addEventListener("submit", async (e) => {
-
+            event.preventDefault();
             try {
                 const formData = new FormData(form);
                 const image = formData.get("image");
