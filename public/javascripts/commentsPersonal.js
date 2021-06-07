@@ -41,6 +41,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
 
     if(form){
       form.addEventListener("submit", async (event) => {
+        event.preventDefault();
         const formData = new FormData(form);
         const content = formData.get("content");
         const body = { content };
@@ -53,7 +54,6 @@ window.addEventListener("DOMContentLoaded", (event)=>{
               "Content-Type": "application/json"
             },
           });
-          console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
           if (res.status === 401) {
             window.location.href = "/log-in";
             return;

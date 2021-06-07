@@ -41,6 +41,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
 
     if(form){
       form.addEventListener("submit", async (event) => {
+        event.preventDefault();
         const formData = new FormData(form);
         const content = formData.get("content");
         const body = { content };
