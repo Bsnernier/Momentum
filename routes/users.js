@@ -133,7 +133,7 @@ const loginValidators = [
     .withMessage('Please provide a value for Password'),
 ];
 
-router.get('/login', csrfProtection, asyncHandler(async (req, res) => {
+router.get('/login', loginValidators, csrfProtection, asyncHandler(async (req, res) => {
   res.render('login', {
     title: 'Login',
     title1: "MOMENTUM",
