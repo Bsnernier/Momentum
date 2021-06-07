@@ -54,7 +54,6 @@ window.addEventListener("DOMContentLoaded", (event)=>{
               "Content-Type": "application/json"
             },
           });
-          console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
           if (res.status === 401) {
             window.location.href = "/log-in";
             return;
