@@ -20,7 +20,7 @@ router.get("/", requireAuth, asyncHandler(async(req, res)=>{
     const allStories = await Story.findAll({include: [User, {model:Comment, order: [["createdAt", "DESC"]], include: User}], order: [["createdAt", "DESC"]]});
     const { userId } = req.session.auth;
 //---------------------------------------------------------beginning of likes loop
-    for (i = 0; i < allStories.length; i++) {
+    for (let i = 0; i < allStories.length; i++) {
         const storyId = allStories[i].id
         const currentLikes = await Like.findAndCountAll({
             where: {
@@ -56,7 +56,7 @@ router.get("/mystories", requireAuth, asyncHandler(async(req, res)=>{
         where: {userId},
         order: [["createdAt", "DESC"]]});
 
-    for (i = 0; i < allStories.length; i++) {
+    for (let i = 0; i < allStories.length; i++) {
         const storyId = allStories[i].id
         const currentLikes = await Like.findAndCountAll({
             where: {
@@ -137,20 +137,20 @@ router.get("/:category", requireAuth, asyncHandler( async (req, res) => {
         }
     });
 
-    for (i = 0; i < allStories.length; i++) {
+    for (let i = 0; i < allStories.length; i++) {
         const storyId = allStories[i].id
-        const currentLikes = await Like.findAndCountAll({
-            where: {
-                storyId,
+            const currentLikes = await Like.findAndCountAll({
+                where: {
+                    storyId,
+                }
+            })
+            const userArr = currentLikes.rows.map((like) => like.userId)
+            if (userArr.includes(loggedInUser)) {
+                allStories[i].liked = true
+            } else {
+                allStories[i].liked = false
             }
-        })
-        const userArr = currentLikes.rows.map((like) => like.userId)
-        if (userArr.includes(loggedInUser)) {
-            allStories[i].liked = true
-        } else {
-            allStories[i].liked = false
-        }
-        allStories[i].likes = currentLikes.count
+            allStories[i].likes = currentLikes.count
     }
 
     res.render('storiesForcategory', {
