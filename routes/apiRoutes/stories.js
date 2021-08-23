@@ -101,7 +101,6 @@ router.post(
   validateStory,
   jsonParser,
   asyncHandler(async (req, res) => {
-    console.log("api/posting")
     try{
       const { content, image, location, category} = req.body;
       const { userId } = req.session.auth;
@@ -109,10 +108,8 @@ router.post(
       // res.json({story})
       res.send(200)
     }catch(e){
-      console.log(e);
       res.send(400)
     }
-    console.log("guschen802: api/posting finished")
   })
 );
 
@@ -194,7 +191,6 @@ router.delete('/:id', asyncHandler( async (req, res) => {
       const storyId = parseInt(req.params.id, 10);
       if(req.session.auth){
         const {userId} = req.session.auth;
-        console.log(userId);
       }
 
       const currentStory = await Story.findOne({
@@ -209,11 +205,9 @@ router.delete('/:id', asyncHandler( async (req, res) => {
 
       }else{
           res.send(400)
-          console.log("story not found!");
       }
   }catch(e){
       res.send(400)
-      console.log(e);
   }
 }));
 
@@ -244,7 +238,6 @@ router.put('/:id', async function (req, res) {
 
 }catch(e){
     res.send(400)
-    console.log(e);
 }
 });
 

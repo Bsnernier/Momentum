@@ -41,7 +41,6 @@ router.get('/', requireAuth, asyncHandler( async (req, res) => {
     }
 
     const mutualArray = mutualFollowers(allFollowedIDs, allIDs)
-    console.log(mutualArray)
 
     const allFollowers = []
     const populator = (userObjArray, booleanArray) => {

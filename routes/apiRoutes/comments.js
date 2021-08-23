@@ -44,7 +44,6 @@ router.post(
     requireAuth,
     asyncHandler(async (req, res) => {
       const { content } = req.body;
-      console.log('category')
 
       try{
         const id = req.params.id
@@ -54,11 +53,8 @@ router.post(
         const comments = await Comment.create({ content, userId: userId, storyId:id });
         res.json({comments, category})
       }catch(e){
-        console.log("Error in posting comment");
-        console.log(e);
         res.send(400);
       }
-      console.log("Finished commenting for category");
     })
 );
 
@@ -69,7 +65,6 @@ router.post(
     requireAuth,
     asyncHandler(async (req, res) => {
       const { content } = req.body;
-      console.log('normal')
 
       try{
         const id = req.params.id
@@ -79,8 +74,7 @@ router.post(
         const comments = await Comment.create({ content, userId: userId, storyId:id });
         res.json({comments, category})
       }catch(e){
-        console.log("Error in posting comment");
-        console.log(e);
+        throw e
       }
     })
 );
@@ -92,7 +86,6 @@ router.post(
     requireAuth,
     asyncHandler(async (req, res) => {
       const { content } = req.body;
-      console.log('personal')
 
       try{
         const id = req.params.id
@@ -102,8 +95,7 @@ router.post(
         const comments = await Comment.create({ content, userId: userId, storyId:id });
         res.json({comments, category})
       }catch(e){
-        console.log("Error in posting comment");
-        console.log(e);
+        throw e
       }
     })
 );
@@ -167,16 +159,13 @@ router.delete('/:id',requireAuth, asyncHandler( async (req, res) => {
                 res.send(200);
             }else{
                 res.send(400)
-                console.log("you can not delete this!");
             }
 
         }else{
             res.send(400)
-            console.log("comment not found!");
         }
     }catch(e){
         res.send(400)
-        console.log(e);
     }
 }));
 

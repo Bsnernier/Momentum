@@ -14,9 +14,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 const content = formData.get("content");
                 const categoryEle = document.querySelector("#category");
                 const id = e.target.id
-                console.log(e.target);
-
-                console.log("______", id);
 
                 const category = categoryEle.value;
 
@@ -50,7 +47,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
                 window.location.href = `/stories/mystories`;
             } catch (err) {
-                console.log(err)
                 throw err
             }
         });

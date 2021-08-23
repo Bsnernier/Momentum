@@ -50,7 +50,6 @@ window.addEventListener("DOMContentLoaded", (event)=>{
       const body = { content };
       // try {
         const id = event.target.id
-        console.log("my id: ", id)
 
         const res = await fetch(`/api/comments/category/${id}`, {
           method: "POST",
@@ -59,7 +58,6 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             "Content-Type": "application/json"
           },
         });
-        console.log("after res", res.status)
 
         if (res.status === 401) {
           window.location.href = "/log-in";
@@ -68,12 +66,9 @@ window.addEventListener("DOMContentLoaded", (event)=>{
         // if (!res.ok) {
         //   throw res;
         // }
-        console.log("before category json")
         const { category } = await res.json();
-        console.log("category is", category)
         window.location.href = "/stories";
         window.location.href = `/stories/${category}`;
-        console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 
       // } catch (err) {
         // window.location.href = "/stories";

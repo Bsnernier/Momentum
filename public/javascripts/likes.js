@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", async (event) => {
-    console.log("DOM LOADED")
-
     const likeCounters = document.querySelectorAll(".likes-counter")
     const likeButtons = document.querySelectorAll(".fa-heart")
 

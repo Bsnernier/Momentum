@@ -14,7 +14,7 @@ router.get("/new/:id", requireAuth,asyncHandler(async(req, res)=>{
         const {image, location, content} = currentStory;
         res.render("postPrefilled", {image, location, content, id, title1: "MOMENTUM"})
     }catch(e){
-        console.log(e);
+        throw e
     }
 
 }))
