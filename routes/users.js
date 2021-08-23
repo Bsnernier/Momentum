@@ -25,15 +25,7 @@ router.get('/', asyncHandler( async(req, res, next) => {
   res.send(users[0].username)
 }));
 
-router.get('/signup', csrfProtection, (req, res) => {
-  const newUser = User.build()
-  res.render('signup', {
-    title: 'New User',
-    newUser,
-    title1: "MOMENTUM",
-    csrfToken: req.csrfToken()
-  })
-});
+
 
 const registerValidators = [
   check('username')
@@ -86,7 +78,9 @@ const registerValidators = [
       })
 ]
 
-router.post('/signup', csrfProtection, registerValidators, asyncHandler( async (req, res, next) => {
+
+
+router.post('/signup', registerValidators, csrfProtection, registerValidators, asyncHandler( async (req, res, next) => {
   const {
     username,
     firstName,
@@ -133,14 +127,26 @@ const loginValidators = [
     .withMessage('Please provide a value for Password'),
 ];
 
-router.get('/login', csrfProtection, asyncHandler(async (req, res) => {
+router.get('/login', loginValidators, csrfProtection, asyncHandler(async (req, res) => {
   res.render('login', {
     title: 'Login',
     title1: "MOMENTUM",
+    errors:"",
     csrfToken: req.csrfToken(),
   });
 })
 );
+
+router.get('/signup', loginValidators, registerValidators, csrfProtection, (req, res) => {
+  const newUser = User.build()
+  res.render('signup', {
+    title: 'New User',
+    newUser,
+    title1: "MOMENTUM",
+    errors:"",
+    csrfToken: req.csrfToken()
+  })
+});
 
 router.post('/login', csrfProtection, loginValidators,
 
@@ -200,7 +206,7 @@ router.post('/login', csrfProtection, loginValidators,
 
 
 
-router.post('/logout', (req, res) => {
+router.post('/logout', loginValidators, (req, res) => {
   logoutUser(req, res);
   res.redirect('/users/login');
 });
