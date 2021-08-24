@@ -24,22 +24,33 @@ router.get(
   );
 
   router.get(
+    "/:id/edit",
+    requireAuth,
+    asyncHandler(async (req, res) => {
+        const id = req.params.id
+        const currentComment= await Comment.findByPk(id);
+        const {content} = currentComment;
+        res.render("commentForEditComment", { id, content, title1: "MOMENTUM"})
+    })
+  );
+
+router.get(
     "/category/:id",
     requireAuth,
     asyncHandler(async (req, res) => {
         const id = req.params.id
         res.render("commentForCategory", { id ,title1: "MOMENTUM"})
     })
-  );
+);
 
-  router.get(
+router.get(
     "/personal/:id",
     requireAuth,
     asyncHandler(async (req, res) => {
         const id = req.params.id
         res.render("commentForPersonal", { id, title1: "MOMENTUM" })
     })
-  );
+);
 
 router.get("/commentId/likes", requireAuth, asyncHandler( async(req, res) => {
     const commentId = parseInt(req.params.commentId, 10);

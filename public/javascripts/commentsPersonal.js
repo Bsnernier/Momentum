@@ -37,6 +37,19 @@ window.addEventListener("DOMContentLoaded", (event)=>{
       })
     }
 
+
+    const editButtons = document.querySelectorAll(".fa-pencil-alt")
+
+    if(editButtons){
+      editButtons.forEach(editButton => {
+       editButton.addEventListener("click", async (e)=>{
+        const id = e.target.id;
+        window.location.href = `/comments/${id}/edit`;
+       })
+      })
+    }
+
+
     const form = document.querySelector(".comment-form");
 
     if(form){
@@ -49,6 +62,40 @@ window.addEventListener("DOMContentLoaded", (event)=>{
           const id = event.target.id
           const res = await fetch(`/api/comments/personal/${id}`, {
             method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json"
+            },
+          });
+          console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+          if (res.status === 401) {
+            window.location.href = "/log-in";
+            return;
+          }
+          // if (!res.ok) {
+          //   throw res;
+          // }
+
+          window.location.href = "/stories/mystories";
+
+        // } catch (err) {
+          // window.location.href = "/stories";
+        // }
+      });
+    }
+
+    const formForEditComment = document.querySelector(".commentEdit-form");
+
+    if(formForEditComment){
+      formForEditComment.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const formData = new FormData(formForEditComment);
+        const content = formData.get("content");
+        const body = { content };
+        // try {
+          const id = event.target.id
+          const res = await fetch(`/api/comments/${id}`, {
+            method: "PUT",
             body: JSON.stringify(body),
             headers: {
               "Content-Type": "application/json"
