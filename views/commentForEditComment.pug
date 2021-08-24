@@ -1,0 +1,21 @@
+extends layout.pug
+
+append head
+
+    link(rel="stylesheet" href="/stylesheets/comment.css")
+
+
+block login
+    +buttons()
+
+block content
+    .errors-container
+        form(id=`${id}` class="commentEdit-form")
+            .form-group
+                .input-group
+                    label(for='content') COMMENTS
+                    textarea.comments-textarea#comments.form-control(name="content", value=`${content}` cols="30", rows="12", placeholder='') #{content}
+                .submit-button
+                    button.btn.btn-primary(type='submit') SUBMIT
+
+    script(src="/javascripts/commentsPersonal.js" type="module" defer)

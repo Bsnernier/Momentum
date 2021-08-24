@@ -180,5 +180,22 @@ router.delete('/:id',requireAuth, asyncHandler( async (req, res) => {
     }
 }));
 
+router.put('/:id', requireAuth, asyncHandler( async (req, res) => {
+  const commentId = parseInt(req.params.id, 10); //IDK if this will work or how to fix
+  const {content} = req.body                                          //if it doesn't
+
+  const {userId} = req.session.auth;
+
+  Comment.update({content},
+    {
+      where: {
+        id:commentId,
+        userId
+      }
+    })
+
+    res.send(200);
+}))
+
 
 module.exports = router
