@@ -1,4 +1,6 @@
-# Express Project Skeleton
+# Momentum  
+
+
 
 Use this project skeleton as a starting point for structuring your app. Things to note
 * Sequelize configuration has not yet been added -- you will need to set that up yourself
