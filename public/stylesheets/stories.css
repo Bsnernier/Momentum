@@ -188,5 +188,21 @@
 }
 
 a.story-title{
-    text-decoration: underline;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Helvetica, Arial,sans-serif;
+    color: #32a3d2;
+}
+
+a.story-title:hover{
+    color: #32a3d2;
+}
+.fas.fa-pen{
+    margin-left: 20px;
+    color:#f08080;
+}
+.fas.fa-pencil-alt{
+    margin-left: 20px;
+    color:#f08080;
 }

@@ -139,18 +139,18 @@ router.get("/:category", requireAuth, asyncHandler( async (req, res) => {
 
     for (let i = 0; i < allStories.length; i++) {
         const storyId = allStories[i].id
-        const currentLikes = await Like.findAndCountAll({
-            where: {
-                storyId,
+            const currentLikes = await Like.findAndCountAll({
+                where: {
+                    storyId,
+                }
+            })
+            const userArr = currentLikes.rows.map((like) => like.userId)
+            if (userArr.includes(loggedInUser)) {
+                allStories[i].liked = true
+            } else {
+                allStories[i].liked = false
             }
-        })
-        const userArr = currentLikes.rows.map((like) => like.userId)
-        if (userArr.includes(loggedInUser)) {
-            allStories[i].liked = true
-        } else {
-            allStories[i].liked = false
-        }
-        allStories[i].likes = currentLikes.count
+            allStories[i].likes = currentLikes.count
     }
 
     res.render('storiesForcategory', {

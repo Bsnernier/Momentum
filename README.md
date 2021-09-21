@@ -1,6 +1,19 @@
-# Express Project Skeleton
+# Momentum
 
-Use this project skeleton as a starting point for structuring your app. Things to note
-* Sequelize configuration has not yet been added -- you will need to set that up yourself
-* You may find yourself wanting to use javascript -- js files can be added in `public/javascripts` and should be appended to the Pug templates as needed
-* CSS files can go in `public/stylesheets` and also will need to be added to Pug templates
+
+## About
+
+Momentum, a Medium clone, is a website where users can share travel destinations, recommendations, and interact with other travelers' posts.
+
+## Wiki Pages
+
+### [Feature List](https://github.com/Bsnernier/Momentum/wiki/MVP-Feature-List)
+
+### [User Stories](https://github.com/Bsnernier/Momentum/wiki/User-Stories)
+
+### [Database Schema](https://github.com/Bsnernier/Momentum/wiki/Database-Schema)
+
+### [API Documentation](https://github.com/Bsnernier/Momentum/wiki/API-Routes)
+
+### [Frontend Routes](https://github.com/Bsnernier/Momentum/wiki/Frontend-Routes)
+

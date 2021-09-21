@@ -7,6 +7,7 @@ mixin commentContent(commentContent, userId, storyAuthorId)
             .comment-content #{commentContent.content}
             if commentContent.User.id == userId || storyAuthorId == userId
                 i.fas.fa-backspace(id=`${commentContent.id}`)
+                i.fas.fa-pencil-alt(id=`${commentContent.id}`)
 
 mixin formField(title, forName, type, placeholder)
     span.form-row
@@ -66,7 +67,8 @@ mixin personalStoryDisplay(username, image, content, commentContent, storyId, us
                 .story-picture
                     img#story-picture(src=`/${image}`)
                 .content
-                    a.story-title(href=`/post/new/${storyId}`) STORIES:
+                    a.story-title STORIES:
+                    i.fas.fa-pen(id=`${storyId}`)
                     .story-content #{content}
                     .comments
                         .comment-title COMMENTS:
