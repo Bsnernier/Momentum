@@ -212,15 +212,4 @@ router.post('/logout', loginValidators, (req, res) => {
 });
 
 
-
-
-// router.get('/:id', requireAuth, asyncHandler( async (req, res) => {
-//   //pathway to show us the personal page of the user?
-
-// }))
-
-// router.get('/:id', requireAuth, asyncHandler( async (req, res) => {
-//   //pathway to show us the personal page of the user?
-// }))
-
 module.exports = router;
